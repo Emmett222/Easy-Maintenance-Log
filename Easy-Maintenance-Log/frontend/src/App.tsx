@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './home/Home.tsx';
+import Login from './login/Login.tsx';
 import Register from './register/Register.tsx';
 import './App.css'
 
@@ -8,6 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}/>
+        <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
       </Routes>
     </BrowserRouter>
