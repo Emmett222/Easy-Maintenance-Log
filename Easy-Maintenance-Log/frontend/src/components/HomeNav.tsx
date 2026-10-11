@@ -8,6 +8,7 @@ function HomeNav() {
       <button onClick={() => navigate("/")}>Home</button>
       <button>Example</button>
       <button>Login</button>
+      <button>Logout</button>
       <button onClick={() => navigate("/register")}>Register</button>
     </>
   );

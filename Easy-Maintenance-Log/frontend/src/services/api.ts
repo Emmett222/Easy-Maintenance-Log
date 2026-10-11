@@ -27,4 +27,15 @@ export const registerUser = async (userData: Record<string, string>) => {
     return response.data;
 }
 
+export const loginUser = async (credentials: Record<string, string>) => {
+  const response = await api.post('/token/', credentials);
+  
+  const { access, refresh } = response.data;
+  
+  localStorage.setItem('access_token', access);
+  localStorage.setItem('refresh_token', refresh);
+  
+  return response.data;
+};
+
 export default api;
