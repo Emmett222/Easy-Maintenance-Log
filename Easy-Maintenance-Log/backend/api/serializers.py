@@ -13,6 +13,11 @@ class ServiceSerializer(serializers.ModelSerializer):
         model = Service
         fields = '__all__'
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email')
+
 class UserRegistrationSerializer(serializers.ModelSerializer):
     # Always write only so it cannot be returned in API.
     password = serializers.CharField(write_only=True)

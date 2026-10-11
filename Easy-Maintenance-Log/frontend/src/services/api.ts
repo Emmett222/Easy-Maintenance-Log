@@ -42,8 +42,8 @@ export const logout = async (navigate: any) => {
   try {
     const accessToken = localStorage.getItem('access_token');
     const refreshToken = localStorage.getItem('refresh_token');
-    await axios.post(
-      'http://127.0.0.1:8000/api/logout/', 
+    await api.post(
+      '/logout/', 
         {refreshToken},
         {
           headers: {
@@ -58,6 +58,11 @@ export const logout = async (navigate: any) => {
     localStorage.removeItem('refresh_token');
     navigate("/"); 
   }
+}
+
+export const getUser = async () => {
+  const user = await api.get('/user/me/');
+  return user.data;
 }
 
 export default api;

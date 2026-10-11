@@ -8,7 +8,7 @@ from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from .models import Car, Service
-from .serializers import CarSerializer, ServiceSerializer, UserRegistrationSerializer
+from .serializers import CarSerializer, ServiceSerializer, UserSerializer, UserRegistrationSerializer
 
 class CarViewSet(viewsets.ModelViewSet):
     serializer_class = CarSerializer
@@ -29,6 +29,14 @@ class ServiceViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
             serializer.save(owner=self.request.user)
+
+class UserView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+
+    def get(self, request):
+        serializer = UserSerializer(instance=request.user)
+        return Response(serializer.data)
 
 class RegisterView(generics.CreateAPIView):
      queryset = User.objects.all()
