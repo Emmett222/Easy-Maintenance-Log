@@ -2,10 +2,7 @@ import api from './api';
 
 export interface Car {
     id: number;
-    make: string;
-    model: string;
-    year: number;
-    descriptor: string;
+    name: string;
     milage: number;
     color: string;
 }

@@ -3,7 +3,7 @@ from .models import Car, Service
 
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
-    list_display = ('make', 'model', 'year', 'descriptor', 'milage', 'color')
+    list_display = ('name', 'milage', 'color')
     search_fields = ('make', 'model', 'descriptor')
 
 @admin.register(Service)
