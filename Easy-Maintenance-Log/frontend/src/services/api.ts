@@ -38,4 +38,26 @@ export const loginUser = async (credentials: Record<string, string>) => {
   return response.data;
 };
 
+export const logout = async (navigate: any) => {
+  try {
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+    await axios.post(
+      'http://127.0.0.1:8000/api/logout/', 
+        {refreshToken},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+    );
+  } catch (err) {
+    console.error('Logout failed due to an unknown error.');
+  } finally {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    navigate("/"); 
+  }
+}
+
 export default api;
