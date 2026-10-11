@@ -15,16 +15,26 @@ function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // 1. Create the account in Django
-      await registerUser({ username, email, password });
+      const registerResponse = await registerUser({ username, email, password });
 
-      // 2. Immediately log them in to get the JWT
-      await loginUser({ username, password });
+      const loginResponse = await loginUser({ username, password });
 
-      // 3. Send them to the dashboard
+      if ((registerResponse.status === 429) || (loginResponse.status === 429)) {
+        throw new Error("Rate limit exceeded. Please try again in a minute.");
+      }
+
       navigate("/dashboard");
+      if (registerResponse.ok) {
+        navigate("/dashboard");
+      } else {
+        throw new Error("Failed to register. Username may be taken.");
+      }
     } catch (err) {
-      setError("Failed to create account. Username may be taken.");
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error has occurred.");
+      }
     }
   };
 
