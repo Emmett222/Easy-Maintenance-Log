@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AddCar from './addcar/AddCar.tsx';
 import Dashboard from './dashboard/Dashboard.tsx';
 import Home from './home/Home.tsx';
 import Login from './login/Login.tsx';
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
         <Route element={<ProtectedRoute />}><Route path="/dashboard" element={<Dashboard />}/></Route>
+        <Route element={<ProtectedRoute />}><Route path="/addcar" element={<AddCar />}/></Route>
       </Routes>
     </BrowserRouter>
   );
