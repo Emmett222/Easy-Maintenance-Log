@@ -22,7 +22,7 @@ export const getCars = async (): Promise<Car[]> => {
  * 
  * @returns Promise of the new car data.
  */
-export const createCar = async (carData: Omit<Car, 'id'>): Promise<Car> => {
-    const response = await api.post<Car>('/cars/', carData);
+export const createCar = async (carData: Record<string, any>) => {
+    const response = await api.post('/cars/', carData);
     return response.data
 }
