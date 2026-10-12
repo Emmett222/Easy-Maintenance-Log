@@ -26,3 +26,8 @@ export const createCar = async (carData: Record<string, any>) => {
     const response = await api.post('/cars/', carData);
     return response.data
 }
+
+export const updateMilage = async (carID: number, milage: number) => {
+    const response = await api.post('/cars/' + carID +'/update_milage/', {milage: milage});
+    return response.data
+}

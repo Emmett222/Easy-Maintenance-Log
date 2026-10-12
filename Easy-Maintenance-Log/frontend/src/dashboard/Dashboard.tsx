@@ -3,22 +3,32 @@ import LoggedInNav from "../components/LoggedInNav";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUser } from "../services/api";
-import { getCars } from "../services/cars";
+import { getCars, updateMilage } from "../services/cars";
 import type { Car } from "../services/cars";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("Loading user...");
-  const [cars, setCars] = useState<Car[]>([])
+  const [cars, setCars] = useState<Car[]>([]);
+  const [newMilage, setNewMilage] = useState<Record<number, number>>({});
   useEffect(() => {
     getUser().then((result) => {
       setUsername(result.username);
     });
-    getCars().then((result) => {
-      setCars(result);
-    });;
+    fillCars();
   }, []); // Empty array so it runs once on first render.
 
+  function fillCars() {
+    getCars().then((result) => {
+      setCars(result);
+    });
+  }
+
+  function milageUpdate(carID: number) {
+    updateMilage(carID, newMilage[carID]).then(() => {
+      fillCars();
+    });
+  }
   return (
     <>
       <LoggedInNav />
@@ -30,7 +40,22 @@ function Dashboard() {
           <h2>Your cars:</h2>
           <ul>
             {cars.map((car) => (
-              <li key={car.id}>{car.name} {car.milage}</li>
+              <section key={car.id}>
+                <li>
+                  {car.id} {car.name} {car.milage}
+                </li>
+                <input
+                  type="number"
+                  id="milage"
+                  name="milage"
+                  min="1"
+                  step="1"
+                  value={newMilage[car.id] || ''}
+                  onChange={(e) => setNewMilage(prev => ({ ...prev, [car.id]: parseInt(e.target.value, 10) }))}
+                />
+                <button onClick={() => milageUpdate(car.id)}>Update milage</button>
+                <button>Maintenance</button>
+              </section>
             ))}
           </ul>
           <button onClick={() => navigate("/addcar")}>Add a car</button>

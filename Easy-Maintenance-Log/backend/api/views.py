@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from rest_framework import generics, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import TokenError
@@ -14,11 +15,20 @@ class CarViewSet(viewsets.ModelViewSet):
     serializer_class = CarSerializer
     permission_classes = [IsAuthenticated]
 
+
     def get_queryset(self):
         return Car.objects.filter(owner=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    @action(detail=True, methods=['post'])
+    def update_milage(self, request, pk=None):
+        car = self.get_object()
+        serializer = self.get_serializer(car, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=200)
 
 class ServiceViewSet(viewsets.ModelViewSet):
     serializer_class = ServiceSerializer
