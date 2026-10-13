@@ -12,12 +12,12 @@ function LoggedInNav() {
     });
   }, []); // Empty array so it runs once on first render.
   return (
-    <>
-      <button onClick={() => navigate("/")}>Home</button>
-      <button onClick={() => navigate("/dashboard")}>Dashboard</button>
-      <button onClick={() => logout(navigate)}>Logout</button>
-      <button onClick={() => navigate("/user")}>{username}</button>
-    </>
+    <section id="navall">
+      <button id="navbutton" onClick={() => navigate("/")}>Home</button>
+      <button id="navbutton" onClick={() => navigate("/dashboard")}>Dashboard</button>
+      <button id="navbutton" onClick={() => logout(navigate)}>Logout</button>
+      <button id="navbutton" onClick={() => navigate("/user")}>{username}</button>
+    </section>
   );
 }
 

@@ -1,0 +1,79 @@
+html, body {
+    background: linear-gradient(151deg,rgb(66, 66, 66, 1) 0%, rgba(138, 138, 138, 1) 50%, rgba(66, 66, 66, 1) 100%);    
+    font-family: 'Barlow Condensed', sans-serif;
+    height: 100vh;
+    color: white;
+}
+
+#all {
+    background-color: black !important;
+    min-height: 90vh;
+    box-shadow: inset 0 0 10px rgba(241, 237, 237, 0.815); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#middle {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+#cars, #upcoming {
+    border-color: rgb(70, 211, 199);
+    box-shadow: inset 0 0 30px rgba(241, 237, 237, 0.918); 
+    border-width: 10px;
+    border-style: double;
+    border-radius: 200px;
+
+    padding: 4vw;
+
+    margin: 5vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#carslist {
+    display: flex;
+
+    list-style-type: none;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+#carcard {
+    border-color: rgb(70, 211, 199);
+    box-shadow: inset 0 0 5px rgba(241, 237, 237, 0.918); 
+    border-width: 5px;
+    border-style: double;
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 1vw;
+
+    margin: 1vw;
+}
+
+#carcard > button, #cars > button, input {
+    border-color: rgb(70, 211, 199);
+    box-shadow: inset 0 0 5px rgba(241, 237, 237, 0.918); 
+    border-width: 5px;
+    border-style: double;
+    border-radius: 10px;
+
+    background-color: black;
+
+    color: white;
+}
+
+#banner {
+    background-color: black;
+}
