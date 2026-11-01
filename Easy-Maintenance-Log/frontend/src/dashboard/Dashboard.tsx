@@ -33,43 +33,54 @@ function Dashboard() {
     <section>
       <LoggedInNav />
       <section id="all">
-        <section id="banner">
-          <h1><em>Hello {username}</em></h1>
-        </section>
+        
         <section id="middle">
+          <section id="middlemeter">
+            <h2>YOUR CARS</h2>
+          
           <section id="cars">
-            <h2>Your cars:</h2>
-            <ul id="carslist">
-              {cars.map((car) => (
-                <section key={car.id} id="carcard">
-                  <li>
-                    {car.name} {car.milage}
-                  </li>
-                  <input
-                    type="number"
-                    id="milage"
-                    name="milage"
-                    min="1"
-                    step="1"
-                    value={newMilage[car.id] || ""}
-                    onChange={(e) =>
-                      setNewMilage((prev) => ({
-                        ...prev,
-                        [car.id]: parseInt(e.target.value, 10),
-                      }))
-                    }
-                  />
-                  <button onClick={() => milageUpdate(car.id)}>
-                    Update milage
-                  </button>
-                  <button>Maintenance</button>
-                </section>
-              ))}
-            </ul>
-            <button onClick={() => navigate("/addcar")}>Add a car</button>
+            <section id="dashes">
+              
+              <ul id="carslist">
+                {cars.map((car) => (
+                  <section key={car.id} id="carcard">
+                    <p>
+                      {car.name} | {car.milage}
+                    </p>
+                    <input
+                      type="number"
+                      id="milage"
+                      name="milage"
+                      min="1"
+                      step="1"
+                      placeholder="Type new milage here"
+                      value={newMilage[car.id] || ""}
+                      onChange={(e) =>
+                        setNewMilage((prev) => ({
+                          ...prev,
+                          [car.id]: parseInt(e.target.value, 10),
+                        }))
+                      }
+                    />
+                    <button onClick={() => milageUpdate(car.id)}>
+                      Update milage
+                    </button>
+                    <button>View Maintenance</button>
+                  </section>
+                ))}
+              </ul>
+              <button id="addbtn" onClick={() => navigate("/addcar")}>Add a car</button>
+            </section>
           </section>
+          </section>
+          <section id="middlemeter">
+
+          <h2>UPCOMING MAINTENANCE</h2>
           <section id="upcoming">
-            <h2>Upcoming maintenance:</h2>
+            <section id="dashes">
+              
+            </section>
+          </section>
           </section>
         </section>
       </section>
