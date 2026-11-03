@@ -1,13 +1,13 @@
 html {
     box-shadow: inset 0 0 20px rgba(241, 237, 237, 0.815); 
     color: white;
-    background-color: black;
+    background: linear-gradient(151deg,rgba(0, 0, 0, 1) 0%, rgba(99, 99, 99, 1) 50%, rgba(0, 0, 0, 1) 100%);
     height: 100vh;
     font-family: "Tahoma";
 }
 
 #all {
-    background-color: black !important;
+    background-color: rgba(0, 0, 0, 0) !important;
     min-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,10 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+h2 {
+    text-shadow: 2px 2px 20px rgb(70, 211, 199);
 }
 
 #cars, #upcoming {
@@ -75,6 +79,14 @@ html {
 
     margin: 0px;
     padding: 0px;
+
+    border-top: 5px groove rgb(180, 180, 180);
+    border-bottom: 5px groove rgb(180, 180, 180);
+    margin-bottom: 5px;
+    border-radius: 5px;
+    width: 90%;
+
+    background-color: rgba(180, 180, 180, 0.1);
 }
 
 #carcard {
