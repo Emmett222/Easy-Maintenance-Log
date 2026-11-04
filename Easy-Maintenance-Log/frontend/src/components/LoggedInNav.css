@@ -1,11 +1,26 @@
 #navall {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 
     font-family: 'Barlow Condensed', sans-serif;
     margin-bottom: 0.5vh;
+    margin-top: -0.7vh;
+}
+
+#buttonscontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    width: 40vw;
+
+    box-shadow: 0 0 40px rgba(241, 237, 237, 0.918); 
+    border-left: 5px groove rgb(180, 180, 180);
+    border-right: 5px groove rgb(180, 180, 180);
+    border-bottom: 5px groove rgb(180, 180, 180);
 }
 
 #navbutton {
