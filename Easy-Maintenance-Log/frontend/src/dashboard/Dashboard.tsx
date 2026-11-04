@@ -71,8 +71,8 @@ function Dashboard() {
                       >
                         Update milage
                       </button>
-                      <button style={{ borderColor: car.color }}>
-                        View Maintenance
+                      <button style={{ borderColor: car.color }} onClick={() => navigate("/service/?car_id=" + car.id)}>
+                        View Services
                       </button>
                     </section>
                   ))}

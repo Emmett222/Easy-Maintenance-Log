@@ -9,6 +9,7 @@ class Car(models.Model):
 
 class Service(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='service')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)

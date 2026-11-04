@@ -21,7 +21,7 @@ export interface Service {
  * @param carID The ID for the car in String form.
  * @returns Promise of the array of all the cars.
  */
-export const getAllServiceForCar = async (carID: string): Promise<Service[]> => {
+export const getAllServiceForCar = async (carID: number): Promise<Service[]> => {
     const response = await api.get<Service[]>('/services/' + carID + '/');
     return response.data;
 }
@@ -33,7 +33,7 @@ export const getAllServiceForCar = async (carID: string): Promise<Service[]> => 
  * @param serviceData The service details in a record with string and any.
  * @returns Promise of the new car data.
  */
-export const createCar = async (carID: string, serviceData: Record<string, any>) => {
+export const createService = async (carID: number, serviceData: Record<string, any>) => {
     const response = await api.post('/services/' + carID + '/', serviceData);
     return response.data
 }

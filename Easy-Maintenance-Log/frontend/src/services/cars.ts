@@ -18,6 +18,17 @@ export const getCars = async (): Promise<Car[]> => {
 }
 
 /**
+ * Asynchronous function that gets one car by ID.
+ * 
+ * @param carID The ID of the car wanted.
+ * @returns Promise of the car wanted.
+ */
+export const getCarByID = async (carID: number): Promise<Car> => {
+    const response = await api.get<Car>('/cars/' + carID);
+    return response.data;
+}
+
+/**
  * Asynchronous function that creates a new car.
  * 
  * @returns Promise of the new car data.

@@ -1,71 +1,197 @@
+import "./Service.css";
 import LoggedInNav from "../components/LoggedInNav";
 import { useEffect, useState } from "react";
+import { getCarByID } from "../services/cars";
+import { createService, getAllServiceForCar } from "../services/services";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import type { Car } from "../services/cars";
+import { getUser } from "../services/api";
 
 // import { getCar } from "../services/api";
 
 function Service() {
-  const [car] = useState("Loading user...");
+  const [car, setCar] = useState<Car>();
+  const [userID, setUserID] = useState("");
   const [error, setError] = useState("");
-//   useEffect(() => {
-//     getCar().then((result) => {
-//       setUsername(result.username);
-//       setUserID(result.id);
-//     });
-//   }, []); // Empty array so it runs once on first render.
-  
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     try {
-//       const createResponse = await createCar({
-//         name: name,
-//         milage: parseInt(milage, 10),
-//         color: color,
-//         owner: userID,
-//       });
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
+  const [cost, setCost] = useState(0.0);
+  const [newMilage, setMilage] = useState(0);
+  const [showTimeInput, setShowTimeInput] = useState(false);
+  const [showMilageInput, setShowMilageInput] = useState(false);
 
-//       navigate("/dashboard");
-//     } catch (err) {
-//       if (err instanceof Error) {
-//         setError(err.message);
-//       } else {
-//         setError("An unexpected error occured.");
-//       }
-//     }
-//   };
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    const carID = parseInt(searchParams.get("car_id") ?? "-1", 10);
+    if (carID == -1) {
+      navigate("/");
+    } else {
+      getCarByID(carID).then((result) => {
+        setCar(result);
+      });
+    }
+    getUser().then((result) => {
+      setUserID(result.id);
+    });
+  }, []); // Empty array so it runs once on first render.
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const createResponse = await createService(
+        car?.id ?? -1, // Impossible to hit. It'll navigate to home before this can trigger.
+        {
+          car: car?.id ?? -1,
+          title: title,
+          description: description,
+          milage: newMilage,
+          date: date,
+          cost: cost,
+          owner: userID,
+        },
+      );
+
+      window.location.reload();
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occured.");
+      }
+    }
+  };
   return (
     <section>
       <LoggedInNav />
       <section id="all">
-        <h2>Add service to </h2>
-        <section id="form">
-          <h2>What was the service?</h2>
-          <p>
-            Can be anything done to the car.
-          </p>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Enter the service done to the car."
-            // onChange={(e) => setName(e.target.value)}
-            required
-          ></input>
-          <h2>Current Milage:</h2>
-          <p>This will be used for milage based maintenance reminders.</p>
-          <input
-            type="number"
-            id="milage"
-            name="milage"
-            min="0"
-            step="1"
-            // onChange={(e) => setMilage(e.target.value)}
-            required
-          ></input>
-          <h2>Finish:</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-          <button type="submit">Add maintenance!</button>
+        <section id="left">
+          <h2>Service Record for {car?.name}</h2>
+          <section id="recordlines">
+            <section id="record"></section>
+          </section>
+        </section>
+        <section id="right">
+          <h2>Add service for {car?.name}</h2>
+          <section id="formlines">
+            <section id="formdashes">
+              <section id="form" onSubmit={handleSubmit}>
+                <h3>Service name:</h3>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  placeholder="Enter the service done to the car."
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                ></input>
+                <h3>
+                  Describe the service <em>(Optional)</em>:
+                </h3>
+                <input
+                  type="text"
+                  id="description"
+                  name="description"
+                  placeholder="Describe the service."
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                ></input>
+                <h3>Date of service:</h3>
+                <input
+                  type="text"
+                  id="description"
+                  name="description"
+                  placeholder="Date format: MM-DD-YYYY"
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                ></input>
+                <h3>Cost:</h3>
+                <input
+                  type="number"
+                  id="cost"
+                  name="cost"
+                  placeholder="Enter the cost of the service."
+                  min="0"
+                  step="1"
+                  onChange={(e) => setCost(parseFloat(e.target.value))}
+                  required
+                ></input>
+                <h3>Current Milage:</h3>
+                <input
+                  type="number"
+                  id="milage"
+                  name="milage"
+                  min="0"
+                  step="1"
+                  onChange={(e) => setMilage(parseInt(e.target.value))}
+                  required
+                ></input>
+                <h3>Repeated with time, or with milage?</h3>
+                <section id="checkboxes">
+                  <p>Time:</p>
+                  <input
+                    type="checkbox"
+                    id="isTime"
+                    name="isTime"
+                    onChange={(e) => setShowTimeInput(e.target.checked)}
+                  ></input>
+                  <p>Milage:</p>
+                  <input
+                    type="checkbox"
+                    id="isMilage"
+                    name="isMilage"
+                    onChange={(e) => setShowMilageInput(e.target.checked)}
+                  ></input>
+                </section>
+                {showTimeInput && (
+                  <section>
+                    <h3>Time till repeat:</h3>
+                    <p>
+                      This will be used for time based maintenance reminders.
+                    </p>
+                    <input
+                      type="number"
+                      id="milage"
+                      name="milage"
+                      min="0"
+                      step="1"
+                      onChange={(e) => setMilage(parseInt(e.target.value))}
+                      required
+                    ></input>
+                  </section>
+                )}
+                {showMilageInput && (
+                  <section>
+                    <h3>Miles till repeat:</h3>
+                    <p>
+                      This will be used for milage based maintenance reminders.
+                    </p>
+                    <input
+                      type="number"
+                      id="milage"
+                      name="milage"
+                      min="0"
+                      step="1"
+                      onChange={(e) => setMilage(parseInt(e.target.value))}
+                      required
+                    ></input>
+                  </section>
+                )}
+
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <section id="addcontainer">
+                  <button type="submit" id="add">
+                    Add maintenance!
+                  </button>
+                </section>
+              </section>
+            </section>
+          </section>
         </section>
       </section>
     </section>
   );
 }
+
+export default Service;

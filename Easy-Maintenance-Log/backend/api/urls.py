@@ -4,7 +4,7 @@ from .views import CarViewSet, ServiceViewSet, UserView, RegisterView, LogoutVie
 
 router = DefaultRouter()
 router.register(r'cars', CarViewSet, basename='car')
-router.register(r'services', ServiceViewSet, basename='service')
+router.register(r'service', ServiceViewSet, basename='service')
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -34,9 +34,9 @@ class ServiceViewSet(viewsets.ModelViewSet):
     serializer_class = ServiceSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        car_id = self.request.GET.get('car_id')
-        return Service.objects.filter(owner=self.request.user)
+    def get_queryset(self, request):
+        car_id = request.query_params.get('car_id')
+        return Service.objects.filter(owner=self.request.user, car_id=car_id)
 
     def perform_create(self, serializer):
             serializer.save(owner=self.request.user)
