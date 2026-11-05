@@ -67,7 +67,7 @@ h3 {
     width: 40vh;
 
     overflow-y: scroll;
-    overflow-x: disabled;
+    overflow-x: hidden;
 
     animation: fade-out linear both;
     animation-timeline: view();

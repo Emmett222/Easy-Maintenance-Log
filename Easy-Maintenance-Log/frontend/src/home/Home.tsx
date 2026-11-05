@@ -3,20 +3,26 @@ import HomeNav from "../components/HomeNav";
 
 function Home() {
   return (
-    <>
-    <HomeNav />
-      <section id="all">
-        <section id="banner">
-          <h1>Welcome to Easy Maintenance Log</h1>
+    <section>
+      <HomeNav />
+      <section id="homeAll">
+        <section id="titleBorder">
+          <h1>Easy Maintenance Log</h1>
+        </section>
+        <section id="about">
           <h2>What is Easy Maintenance Log?</h2>
           <p>
             This website is a place to store data about your car's maintenance.
             Store details about your servicing and get emails when it's time to
             do said service again. Time the emails with milage or time.
           </p>
+          <p>
+            Data is secure and private. No data will be sent to any other
+            parties. Website is completely open source, see the code here: <a href="https://github.com/Emmett222/Easy-Maintenance-Log">https://github.com/Emmett222/Easy-Maintenance-Log</a>
+          </p>
         </section>
       </section>
-    </>
+    </section>
   );
 }
 

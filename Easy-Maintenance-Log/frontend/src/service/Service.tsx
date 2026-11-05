@@ -20,6 +20,8 @@ function Service() {
   const [newMilage, setMilage] = useState(0);
   const [showTimeInput, setShowTimeInput] = useState(false);
   const [showMilageInput, setShowMilageInput] = useState(false);
+  const [nextMilage, setNextMilage] = useState(0);
+  const [nextTime, setNextTime] = useState(0);
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -47,9 +49,11 @@ function Service() {
           title: title,
           description: description,
           milage: newMilage,
-          date: date,
+          date: toISODate(date),
           cost: cost,
           owner: userID,
+          next_milage: nextMilage,
+          next_time: nextTime,
         },
       );
 
@@ -62,6 +66,13 @@ function Service() {
       }
     }
   };
+
+  // Needed for the API payload.
+  function toISODate(dateStr: string): string {
+    const [month, day, year] = dateStr.split("-");
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  }
+
   return (
     <section>
       <LoggedInNav />
@@ -122,6 +133,7 @@ function Service() {
                   type="number"
                   id="milage"
                   name="milage"
+                  placeholder="Enter the current milage of the car."
                   min="0"
                   step="1"
                   onChange={(e) => setMilage(parseInt(e.target.value))}
@@ -152,11 +164,12 @@ function Service() {
                     </p>
                     <input
                       type="number"
-                      id="milage"
-                      name="milage"
+                      id="nextmilage"
+                      name="nextmilage"
                       min="0"
                       step="1"
-                      onChange={(e) => setMilage(parseInt(e.target.value))}
+                      placeholder="Enter how many months until service repeats. (ex: 3)"
+                      onChange={(e) => setNextMilage(parseInt(e.target.value))}
                       required
                     ></input>
                   </section>
@@ -169,11 +182,12 @@ function Service() {
                     </p>
                     <input
                       type="number"
-                      id="milage"
-                      name="milage"
+                      id="nexttime"
+                      name="nexttime"
                       min="0"
                       step="1"
-                      onChange={(e) => setMilage(parseInt(e.target.value))}
+                      placeholder="Enter how many miles until service repeats."
+                      onChange={(e) => setNextTime(parseInt(e.target.value))}
                       required
                     ></input>
                   </section>
