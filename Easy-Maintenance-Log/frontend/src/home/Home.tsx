@@ -7,7 +7,7 @@ function Home() {
       <HomeNav />
       <section id="homeAll">
         <section id="titleBorder">
-          <h1>Easy Maintenance Log</h1>
+          <h1 id="title">Easy Maintenance Log</h1>
         </section>
         <section id="about">
           <h2>What is Easy Maintenance Log?</h2>
