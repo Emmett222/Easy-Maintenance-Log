@@ -3,6 +3,7 @@ import HomeNav from "../components/HomeNav";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../services/api";
+import MeterBorder from "../components/styling/MeterBorder";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -15,11 +16,15 @@ function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const registerResponse = await registerUser({ username, email, password });
+      const registerResponse = await registerUser({
+        username,
+        email,
+        password,
+      });
 
       const loginResponse = await loginUser({ username, password });
 
-      if ((registerResponse.status === 429) || (loginResponse.status === 429)) {
+      if (registerResponse.status === 429 || loginResponse.status === 429) {
         throw new Error("Rate limit exceeded. Please try again in a minute.");
       }
 
@@ -41,53 +46,53 @@ function Register() {
   return (
     <>
       <HomeNav />
-      <form onSubmit={handleSubmit}>
-        <section id="banner">
-          <h1>Register an account</h1>
-        </section>
-        <section id="inputs">
-          <p>Email:</p>
-          <input
-            type="text"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <p>Username:</p>
-          <input
-            type="username"
-            id="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <p>Password:</p>
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <p>Confirm password:</p>
-          <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </section>
-        <section id="buttons">
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          <button type="submit">Sign Up</button>
-        </section>
-      </form>
+      <section id="registerAll">
+        <h1 id="registerTitle">Register an account</h1>
+        <MeterBorder radius={300}>
+          <form id="registerForm" onSubmit={handleSubmit}>
+            <p>Email:</p>
+            <input
+              type="text"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <p>Username:</p>
+            <input
+              type="username"
+              id="username"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <p>Password:</p>
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <p>Confirm password:</p>
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <section id="buttons">
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              <button type="submit">Sign Up</button>
+            </section>
+          </form>
+        </MeterBorder>
+      </section>
     </>
   );
 }

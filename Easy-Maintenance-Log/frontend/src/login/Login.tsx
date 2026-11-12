@@ -3,6 +3,7 @@ import HomeNav from "../components/HomeNav";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api";
+import MeterBorder from "../components/styling/MeterBorder";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -32,37 +33,37 @@ function Register() {
   return (
     <>
       <HomeNav />
-      <form id="loginForm" onSubmit={handleSubmit}>
-        <section>
-          <h1 id="welcome">Welcome back!</h1>
+      <section id="loginAll">
+        <h1 id="welcome">Welcome back!</h1>
+        <section id="meterWrapper">
+          <MeterBorder radius={300}>
+            <form id="loginForm" onSubmit={handleSubmit}>
+              <p>Username:</p>
+              <input
+                type="username"
+                id="username"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <p>Password:</p>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <section id="buttons">
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <button type="submit">Sign In</button>
+              </section>
+            </form>
+          </MeterBorder>
         </section>
-        <section id="inputs">
-          <section id="inputDashes">
-            <p>Username:</p>
-            <input
-              type="username"
-              id="username"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <p>Password:</p>
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <section id="buttons">
-              {error && <p style={{ color: "red" }}>{error}</p>}
-              <button type="submit">Sign In</button>
-            </section>
-          </section>
-        </section>
-      </form>
+      </section>
     </>
   );
 }

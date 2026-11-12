@@ -6,6 +6,7 @@ import { createService, getAllServiceForCar } from "../services/services";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { Car } from "../services/cars";
 import { getUser } from "../services/api";
+import MeterBorder from "../components/styling/MeterBorder";
 
 // import { getCar } from "../services/api";
 
@@ -79,129 +80,125 @@ function Service() {
       <section id="all">
         <section id="left">
           <h2>Service Record for {car?.name}</h2>
-          <section id="recordlines">
+          <MeterBorder radius={300}>
             <section id="record"></section>
-          </section>
+          </MeterBorder>
         </section>
         <section id="right">
           <h2>Add service for {car?.name}</h2>
-          <section id="formlines">
-            <section id="formdashes">
-              <section id="form" onSubmit={handleSubmit}>
-                <h3>Service name:</h3>
+          <MeterBorder radius={300}>
+            <section id="form" onSubmit={handleSubmit}>
+              <h3>Service name:</h3>
+              <input
+                type="text"
+                id="titleinput"
+                name="titleinput"
+                placeholder="Enter the service done to the car."
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              ></input>
+              <h3>
+                Describe the service <em>(Optional)</em>:
+              </h3>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="Describe the service."
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              ></input>
+              <h3>Date of service:</h3>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="Date format: MM-DD-YYYY"
+                onChange={(e) => setDate(e.target.value)}
+                required
+              ></input>
+              <h3>Cost:</h3>
+              <input
+                type="number"
+                id="cost"
+                name="cost"
+                placeholder="Enter the cost of the service."
+                min="0"
+                step="1"
+                onChange={(e) => setCost(parseFloat(e.target.value))}
+                required
+              ></input>
+              <h3>Current Milage:</h3>
+              <input
+                type="number"
+                id="milage"
+                name="milage"
+                placeholder="Enter the current milage of the car."
+                min="0"
+                step="1"
+                onChange={(e) => setMilage(parseInt(e.target.value))}
+                required
+              ></input>
+              <h3>Repeated with time, or with milage?</h3>
+              <section id="checkboxes">
+                <p>Time:</p>
                 <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Enter the service done to the car."
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
+                  type="checkbox"
+                  id="isTime"
+                  name="isTime"
+                  onChange={(e) => setShowTimeInput(e.target.checked)}
                 ></input>
-                <h3>
-                  Describe the service <em>(Optional)</em>:
-                </h3>
+                <p>Milage:</p>
                 <input
-                  type="text"
-                  id="description"
-                  name="description"
-                  placeholder="Describe the service."
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
+                  type="checkbox"
+                  id="isMilage"
+                  name="isMilage"
+                  onChange={(e) => setShowMilageInput(e.target.checked)}
                 ></input>
-                <h3>Date of service:</h3>
-                <input
-                  type="text"
-                  id="description"
-                  name="description"
-                  placeholder="Date format: MM-DD-YYYY"
-                  onChange={(e) => setDate(e.target.value)}
-                  required
-                ></input>
-                <h3>Cost:</h3>
-                <input
-                  type="number"
-                  id="cost"
-                  name="cost"
-                  placeholder="Enter the cost of the service."
-                  min="0"
-                  step="1"
-                  onChange={(e) => setCost(parseFloat(e.target.value))}
-                  required
-                ></input>
-                <h3>Current Milage:</h3>
-                <input
-                  type="number"
-                  id="milage"
-                  name="milage"
-                  placeholder="Enter the current milage of the car."
-                  min="0"
-                  step="1"
-                  onChange={(e) => setMilage(parseInt(e.target.value))}
-                  required
-                ></input>
-                <h3>Repeated with time, or with milage?</h3>
-                <section id="checkboxes">
-                  <p>Time:</p>
+              </section>
+              {showTimeInput && (
+                <section>
+                  <h3>Time till repeat:</h3>
+                  <p>This will be used for time based maintenance reminders.</p>
                   <input
-                    type="checkbox"
-                    id="isTime"
-                    name="isTime"
-                    onChange={(e) => setShowTimeInput(e.target.checked)}
-                  ></input>
-                  <p>Milage:</p>
-                  <input
-                    type="checkbox"
-                    id="isMilage"
-                    name="isMilage"
-                    onChange={(e) => setShowMilageInput(e.target.checked)}
+                    type="number"
+                    id="nextmilage"
+                    name="nextmilage"
+                    min="0"
+                    step="1"
+                    placeholder="Enter how many months until service repeats. (ex: 3)"
+                    onChange={(e) => setNextMilage(parseInt(e.target.value))}
+                    required
                   ></input>
                 </section>
-                {showTimeInput && (
-                  <section>
-                    <h3>Time till repeat:</h3>
-                    <p>
-                      This will be used for time based maintenance reminders.
-                    </p>
-                    <input
-                      type="number"
-                      id="nextmilage"
-                      name="nextmilage"
-                      min="0"
-                      step="1"
-                      placeholder="Enter how many months until service repeats. (ex: 3)"
-                      onChange={(e) => setNextMilage(parseInt(e.target.value))}
-                      required
-                    ></input>
-                  </section>
-                )}
-                {showMilageInput && (
-                  <section>
-                    <h3>Miles till repeat:</h3>
-                    <p>
-                      This will be used for milage based maintenance reminders.
-                    </p>
-                    <input
-                      type="number"
-                      id="nexttime"
-                      name="nexttime"
-                      min="0"
-                      step="1"
-                      placeholder="Enter how many miles until service repeats."
-                      onChange={(e) => setNextTime(parseInt(e.target.value))}
-                      required
-                    ></input>
-                  </section>
-                )}
+              )}
+              {showMilageInput && (
+                <section>
+                  <h3>Miles till repeat:</h3>
+                  <p>
+                    This will be used for milage based maintenance reminders.
+                  </p>
+                  <input
+                    type="number"
+                    id="nexttime"
+                    name="nexttime"
+                    min="0"
+                    step="1"
+                    placeholder="Enter how many miles until service repeats."
+                    onChange={(e) => setNextTime(parseInt(e.target.value))}
+                    required
+                  ></input>
+                </section>
+              )}
 
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                <section id="addcontainer">
-                  <button type="submit" id="add">
-                    Add maintenance!
-                  </button>
-                </section>
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              <section id="addcontainer">
+                <button type="submit" id="add">
+                  Add maintenance!
+                </button>
               </section>
             </section>
-          </section>
+          </MeterBorder>
         </section>
       </section>
     </section>

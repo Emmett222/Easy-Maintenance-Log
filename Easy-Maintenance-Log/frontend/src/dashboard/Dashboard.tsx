@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getUser } from "../services/api";
 import { getCars, updateMilage } from "../services/cars";
 import type { Car } from "../services/cars";
+import MeterBorder from "../components/styling/MeterBorder";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -33,62 +34,62 @@ function Dashboard() {
     <section>
       <LoggedInNav />
       <section id="all">
-        <section id="middle">
-          <section id="middlemeter">
-            <h2>YOUR CARS</h2>
-
-            <section id="cars">
-              <section id="dashes">
-                <ul id="carslist">
-                  {cars.map((car) => (
-                    <section
-                      key={car.id}
+        <section id="columnmeter">
+          <h2>YOUR CARS</h2>
+          <MeterBorder radius={300}>
+            <section id="meterinsides">
+              <ul id="carslist">
+                {cars.map((car) => (
+                  <section
+                    key={car.id}
+                    style={{ borderColor: car.color }}
+                    id="carcard"
+                  >
+                    <p>
+                      {car.name} | {car.milage}
+                    </p>
+                    <input
                       style={{ borderColor: car.color }}
-                      id="carcard"
+                      type="number"
+                      id="milage"
+                      name="milage"
+                      min="1"
+                      step="1"
+                      placeholder="Type new milage here"
+                      value={newMilage[car.id] || ""}
+                      onChange={(e) =>
+                        setNewMilage((prev) => ({
+                          ...prev,
+                          [car.id]: parseInt(e.target.value, 10),
+                        }))
+                      }
+                    />
+                    <button
+                      onClick={() => milageUpdate(car.id)}
+                      style={{ borderColor: car.color }}
                     >
-                      <p>
-                        {car.name} | {car.milage}
-                      </p>
-                      <input
-                        style={{ borderColor: car.color }}
-                        type="number"
-                        id="milage"
-                        name="milage"
-                        min="1"
-                        step="1"
-                        placeholder="Type new milage here"
-                        value={newMilage[car.id] || ""}
-                        onChange={(e) =>
-                          setNewMilage((prev) => ({
-                            ...prev,
-                            [car.id]: parseInt(e.target.value, 10),
-                          }))
-                        }
-                      />
-                      <button
-                        onClick={() => milageUpdate(car.id)}
-                        style={{ borderColor: car.color }}
-                      >
-                        Update milage
-                      </button>
-                      <button style={{ borderColor: car.color }} onClick={() => navigate("/service/?car_id=" + car.id)}>
-                        View Services
-                      </button>
-                    </section>
-                  ))}
-                </ul>
-                <button id="addbtn" onClick={() => navigate("/addcar")}>
-                  Add a car
-                </button>
-              </section>
+                      Update milage
+                    </button>
+                    <button
+                      style={{ borderColor: car.color }}
+                      onClick={() => navigate("/service/?car_id=" + car.id)}
+                    >
+                      View Services
+                    </button>
+                  </section>
+                ))}
+              </ul>
+              <button id="addbtn" onClick={() => navigate("/addcar")}>
+                Add a car
+              </button>
             </section>
-          </section>
-          <section id="middlemeter">
-            <h2>UPCOMING MAINTENANCE</h2>
-            <section id="upcoming">
-              <section id="dashes"></section>
-            </section>
-          </section>
+          </MeterBorder>
+        </section>
+        <section id="columnmeter">
+          <h2>UPCOMING MAINTENANCE</h2>
+          <MeterBorder radius={300}>
+            <section id="upcomingList"></section>
+          </MeterBorder>
         </section>
       </section>
     </section>
