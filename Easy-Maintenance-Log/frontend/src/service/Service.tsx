@@ -9,6 +9,7 @@ import { getUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
 import BrightInput from "../components/styling/BrightInput";
+import BrightButton from "../components/styling/BrightButton";
 
 // import { getCar } from "../services/api";
 
@@ -95,14 +96,18 @@ function Service() {
           </BrightHeader>
           <MeterBorder radius={300} color={car?.color}>
             <section id="form" onSubmit={handleSubmit}>
-              <BrightHeader headerNumber={3} color={car?.color}>Service name:</BrightHeader>
+              <BrightHeader headerNumber={3} color={car?.color}>
+                Service name:
+              </BrightHeader>
               <BrightInput
                 type="text"
                 id="titleinput"
                 name="titleinput"
                 placeholder="Enter the service done to the car."
                 value={title}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setTitle(e.target.value)
+                }
                 color={car?.color}
                 required={true}
               />
@@ -115,22 +120,30 @@ function Service() {
                 name="description"
                 placeholder="Describe the service."
                 value={description}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDescription(e.target.value)
+                }
                 color={car?.color}
                 required={false}
               />
-              <BrightHeader headerNumber={3} color={car?.color}>Date of service:</BrightHeader>
+              <BrightHeader headerNumber={3} color={car?.color}>
+                Date of service:
+              </BrightHeader>
               <BrightInput
                 type="text"
                 id="description"
                 name="description"
                 placeholder="Date format: MM-DD-YYYY"
                 value={date}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDate(e.target.value)
+                }
                 color={car?.color}
                 required={true}
               />
-              <BrightHeader headerNumber={3} color={car?.color}>Cost:</BrightHeader>
+              <BrightHeader headerNumber={3} color={car?.color}>
+                Cost:
+              </BrightHeader>
               <BrightInput
                 type="number"
                 id="cost"
@@ -139,11 +152,15 @@ function Service() {
                 min={0}
                 step={1}
                 value={cost}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCost(parseFloat(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setCost(parseFloat(e.target.value))
+                }
                 color={car?.color}
                 required={true}
               />
-              <BrightHeader headerNumber={3} color={car?.color}>Current Milage:</BrightHeader>
+              <BrightHeader headerNumber={3} color={car?.color}>
+                Current Milage:
+              </BrightHeader>
               <BrightInput
                 type="number"
                 id="milage"
@@ -152,11 +169,15 @@ function Service() {
                 min={0}
                 step={1}
                 value={newMilage}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMilage(parseInt(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setMilage(parseInt(e.target.value))
+                }
                 color={car?.color}
                 required={true}
               />
-              <BrightHeader headerNumber={3} color={car?.color}>Repeated with time, or with milage?</BrightHeader>
+              <BrightHeader headerNumber={3} color={car?.color}>
+                Repeated with time, or with milage?
+              </BrightHeader>
               <section id="checkboxes">
                 <p>Time:</p>
                 <input
@@ -175,7 +196,9 @@ function Service() {
               </section>
               {showTimeInput && (
                 <section>
-                  <BrightHeader headerNumber={3} color={car?.color}>Time till repeat:</BrightHeader>
+                  <BrightHeader headerNumber={3} color={car?.color}>
+                    Time till repeat:
+                  </BrightHeader>
                   <p>This will be used for time based maintenance reminders.</p>
                   <BrightInput
                     type="number"
@@ -185,7 +208,9 @@ function Service() {
                     step={1}
                     placeholder="Enter how many months until service repeats. (ex: 3)"
                     value={nextMilage}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNextMilage(parseInt(e.target.value))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setNextMilage(parseInt(e.target.value))
+                    }
                     color={car?.color}
                     required={true}
                   />
@@ -193,7 +218,9 @@ function Service() {
               )}
               {showMilageInput && (
                 <section>
-                  <BrightHeader headerNumber={3} color={car?.color}>Miles till repeat:</BrightHeader>
+                  <BrightHeader headerNumber={3} color={car?.color}>
+                    Miles till repeat:
+                  </BrightHeader>
                   <p>
                     This will be used for milage based maintenance reminders.
                   </p>
@@ -205,7 +232,9 @@ function Service() {
                     step={1}
                     placeholder="Enter how many miles until service repeats."
                     value={nextTime}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNextTime(parseInt(e.target.value))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setNextTime(parseInt(e.target.value))
+                    }
                     color={car?.color}
                     required={true}
                   />
@@ -214,9 +243,15 @@ function Service() {
 
               {error && <p style={{ color: "red" }}>{error}</p>}
               <section id="addcontainer">
-                <button type="submit" id="add">
-                  Add maintenance!
-                </button>
+                <BrightButton
+                  type="submit"
+                  borderRadius={"30px"}
+                  color={car?.color}
+                  width={"80%"}
+                  height={"4vh"}
+                >
+                  Submit maintenance
+                </BrightButton>
               </section>
             </section>
           </MeterBorder>

@@ -8,6 +8,7 @@ import type { Car } from "../services/cars";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
 import BrightInput from "../components/styling/BrightInput";
+import BrightButton from "../components/styling/BrightButton";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -59,34 +60,45 @@ function Dashboard() {
                       step={1}
                       placeholder="Type new milage here"
                       value={newMilage[car.id] || ""}
-                      onChange={(e: { target: { value: string; }; }) =>
+                      onChange={(e: { target: { value: string } }) =>
                         setNewMilage((prev) => ({
                           ...prev,
                           [car.id]: parseInt(e.target.value, 10),
                         }))
                       }
                       color={car.color}
-                      width="inherit"
+                      width="92%"
                       required={false}
                     />
-                    <button
+                    <BrightButton
                       onClick={() => milageUpdate(car.id)}
-                      style={{ borderColor: car.color }}
+                      borderRadius={"10px"}
+                      width={"100%"}
+                      height={""}
+                      color={car.color}
                     >
                       Update milage
-                    </button>
-                    <button
-                      style={{ borderColor: car.color }}
+                    </BrightButton>
+                    <BrightButton
                       onClick={() => navigate("/service/?car_id=" + car.id)}
+                      borderRadius={"10px"}
+                      width={"100%"}
+                      height={""}
+                      color={car.color}
                     >
                       View Services
-                    </button>
+                    </BrightButton>
                   </section>
                 ))}
               </ul>
-              <button id="addbtn" onClick={() => navigate("/addcar")}>
+              <BrightButton
+                onClick={() => navigate("/addcar")}
+                borderRadius={"30px"}
+                width={"20vw"}
+                height={"5vh"}
+              >
                 Add a car
-              </button>
+              </BrightButton>
             </section>
           </MeterBorder>
         </section>
