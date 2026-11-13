@@ -77,7 +77,7 @@ function Service() {
   return (
     <section>
       <LoggedInNav />
-      <section id="all">
+      <section id="all" className="pageTransition">
         <section id="left">
           <h2>Service Record for {car?.name}</h2>
           <MeterBorder radius={300}>

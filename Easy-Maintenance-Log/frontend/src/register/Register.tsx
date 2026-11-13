@@ -46,7 +46,7 @@ function Register() {
   return (
     <>
       <HomeNav />
-      <section id="registerAll">
+      <section id="registerAll"  className="pageTransition">
         <h1 id="registerTitle">Register an account</h1>
         <MeterBorder radius={300}>
           <form id="registerForm" onSubmit={handleSubmit}>

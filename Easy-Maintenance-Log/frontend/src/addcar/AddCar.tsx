@@ -44,7 +44,7 @@ function AddCar() {
   return (
     <>
       <LoggedInNav />
-      <form id="all" onSubmit={handleSubmit}>
+      <form id="all" onSubmit={handleSubmit} className="pageTransition">
         <section id="banner">
           <h1>Add a car</h1>
         </section>

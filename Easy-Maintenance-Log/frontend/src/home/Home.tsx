@@ -5,7 +5,7 @@ function Home() {
   return (
     <section>
       <HomeNav />
-      <section id="homeAll">
+      <section id="homeAll" className="pageTransition">
         <section id="titleBorder">
           <h1 id="title">Easy Maintenance Log</h1>
         </section>

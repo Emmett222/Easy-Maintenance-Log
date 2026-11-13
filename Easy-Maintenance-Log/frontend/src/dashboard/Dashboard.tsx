@@ -33,7 +33,7 @@ function Dashboard() {
   return (
     <section>
       <LoggedInNav />
-      <section id="all">
+      <section id="all" className="pageTransition">
         <section id="columnmeter">
           <h2>YOUR CARS</h2>
           <MeterBorder radius={300}>

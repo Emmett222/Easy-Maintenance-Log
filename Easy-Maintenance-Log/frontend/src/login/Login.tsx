@@ -33,7 +33,7 @@ function Register() {
   return (
     <>
       <HomeNav />
-      <section id="loginAll">
+      <section id="loginAll" className="pageTransition">
         <h1 id="welcome">Welcome back!</h1>
         <section id="meterWrapper">
           <MeterBorder radius={300}>
