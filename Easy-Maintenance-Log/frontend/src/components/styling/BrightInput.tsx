@@ -1,6 +1,6 @@
 // This is needed for it to be properly rendered by React.
 interface BrightInputProps {
-  type: string;
+  type: "text" | "number" | "color";
   id: string;
   name: string;
   min?: number; // Optional.
