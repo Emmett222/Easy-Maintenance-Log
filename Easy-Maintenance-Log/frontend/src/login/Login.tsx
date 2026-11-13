@@ -32,6 +32,7 @@ function Register() {
 
   return (
     <>
+      <title>Login - Easy Maintenance Log</title>
       <HomeNav />
       <section id="loginAll" className="pageTransition">
         <h1 id="welcome">Welcome back!</h1>

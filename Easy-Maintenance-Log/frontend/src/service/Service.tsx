@@ -78,6 +78,7 @@ function Service() {
 
   return (
     <section>
+      <title>Service Record - Easy Maintenance Log</title>
       <LoggedInNav />
       <section id="all" className="pageTransition">
         <section id="left">

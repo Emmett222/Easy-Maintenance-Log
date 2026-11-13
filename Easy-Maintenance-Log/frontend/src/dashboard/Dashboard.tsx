@@ -34,6 +34,7 @@ function Dashboard() {
   }
   return (
     <section>
+      <title>Dashboard - Easy Maintenance Log</title>
       <LoggedInNav />
       <section id="all" className="pageTransition">
         <section id="columnmeter">

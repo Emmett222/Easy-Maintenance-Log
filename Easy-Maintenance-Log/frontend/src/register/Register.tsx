@@ -45,8 +45,9 @@ function Register() {
 
   return (
     <>
+      <title>Register - Easy Maintenance Log</title>
       <HomeNav />
-      <section id="registerAll"  className="pageTransition">
+      <section id="registerAll" className="pageTransition">
         <h1 id="registerTitle">Register an account</h1>
         <MeterBorder radius={300}>
           <form id="registerForm" onSubmit={handleSubmit}>

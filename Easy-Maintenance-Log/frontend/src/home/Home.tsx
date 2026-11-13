@@ -4,6 +4,7 @@ import HomeNav from "../components/HomeNav";
 function Home() {
   return (
     <section>
+      <title>Easy Maintenance Log</title>
       <HomeNav />
       <section id="homeAll" className="pageTransition">
         <section id="titleBorder">
