@@ -6,6 +6,7 @@ import { getUser } from "../services/api";
 import { getCars, updateMilage } from "../services/cars";
 import type { Car } from "../services/cars";
 import MeterBorder from "../components/styling/MeterBorder";
+import BrightHeader from "../components/styling/BrightHeader";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function Dashboard() {
       <LoggedInNav />
       <section id="all" className="pageTransition">
         <section id="columnmeter">
-          <h2>YOUR CARS</h2>
+          <BrightHeader headerNumber={2}>YOUR CARS</BrightHeader>
           <MeterBorder radius={300}>
             <section id="meterinsides">
               <ul id="carslist">
@@ -86,7 +87,7 @@ function Dashboard() {
           </MeterBorder>
         </section>
         <section id="columnmeter">
-          <h2>UPCOMING MAINTENANCE</h2>
+          <BrightHeader headerNumber={2}>UPCOMING MAINTENANCE</BrightHeader>
           <MeterBorder radius={300}>
             <section id="upcomingList"></section>
           </MeterBorder>

@@ -4,10 +4,6 @@
     justify-content: space-around;
 }
 
-h3 {
-    text-shadow: 2px 2px 20px rgb(70, 211, 199);
-}
-
 #left {
     display: flex;
     flex-direction: column;

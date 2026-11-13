@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import type { Car } from "../services/cars";
 import { getUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
+import BrightHeader from "../components/styling/BrightHeader";
 
 // import { getCar } from "../services/api";
 
@@ -79,16 +80,20 @@ function Service() {
       <LoggedInNav />
       <section id="all" className="pageTransition">
         <section id="left">
-          <h2>Service Record for {car?.name}</h2>
-          <MeterBorder radius={300}>
+          <BrightHeader headerNumber={2} color={car?.color}>
+            Service Record for {car?.name}
+          </BrightHeader>
+          <MeterBorder radius={300} color={car?.color}>
             <section id="record"></section>
           </MeterBorder>
         </section>
         <section id="right">
-          <h2>Add service for {car?.name}</h2>
-          <MeterBorder radius={300}>
+          <BrightHeader headerNumber={2} color={car?.color}>
+            Add service for {car?.name}
+          </BrightHeader>
+          <MeterBorder radius={300} color={car?.color}>
             <section id="form" onSubmit={handleSubmit}>
-              <h3>Service name:</h3>
+              <BrightHeader headerNumber={3} color={car?.color}>Service name:</BrightHeader>
               <input
                 type="text"
                 id="titleinput"
@@ -97,18 +102,17 @@ function Service() {
                 onChange={(e) => setTitle(e.target.value)}
                 required
               ></input>
-              <h3>
+              <BrightHeader headerNumber={3} color={car?.color}>
                 Describe the service <em>(Optional)</em>:
-              </h3>
+              </BrightHeader>
               <input
                 type="text"
                 id="description"
                 name="description"
                 placeholder="Describe the service."
                 onChange={(e) => setDescription(e.target.value)}
-                required
               ></input>
-              <h3>Date of service:</h3>
+              <BrightHeader headerNumber={3} color={car?.color}>Date of service:</BrightHeader>
               <input
                 type="text"
                 id="description"
@@ -117,7 +121,7 @@ function Service() {
                 onChange={(e) => setDate(e.target.value)}
                 required
               ></input>
-              <h3>Cost:</h3>
+              <BrightHeader headerNumber={3} color={car?.color}>Cost:</BrightHeader>
               <input
                 type="number"
                 id="cost"
@@ -128,7 +132,7 @@ function Service() {
                 onChange={(e) => setCost(parseFloat(e.target.value))}
                 required
               ></input>
-              <h3>Current Milage:</h3>
+              <BrightHeader headerNumber={3} color={car?.color}>Current Milage:</BrightHeader>
               <input
                 type="number"
                 id="milage"
@@ -139,7 +143,7 @@ function Service() {
                 onChange={(e) => setMilage(parseInt(e.target.value))}
                 required
               ></input>
-              <h3>Repeated with time, or with milage?</h3>
+              <BrightHeader headerNumber={3} color={car?.color}>Repeated with time, or with milage?</BrightHeader>
               <section id="checkboxes">
                 <p>Time:</p>
                 <input
@@ -158,7 +162,7 @@ function Service() {
               </section>
               {showTimeInput && (
                 <section>
-                  <h3>Time till repeat:</h3>
+                  <BrightHeader headerNumber={3} color={car?.color}>Time till repeat:</BrightHeader>
                   <p>This will be used for time based maintenance reminders.</p>
                   <input
                     type="number"
@@ -174,7 +178,7 @@ function Service() {
               )}
               {showMilageInput && (
                 <section>
-                  <h3>Miles till repeat:</h3>
+                  <BrightHeader headerNumber={3} color={car?.color}>Miles till repeat:</BrightHeader>
                   <p>
                     This will be used for milage based maintenance reminders.
                   </p>

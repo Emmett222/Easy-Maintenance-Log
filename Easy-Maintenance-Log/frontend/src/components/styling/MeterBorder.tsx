@@ -4,10 +4,11 @@ import type { ReactNode } from "react";
 interface MeterBorderProps {
   children: ReactNode;
   radius: number;
+  color?: string; // Optional.
 }
 
 // ReactNode is any value that can be rendered by React.
-function MeterBorder({ children, radius = 0 }: MeterBorderProps) {
+function MeterBorder({ children, radius = 0, color = "rgb(70, 211, 199)" }: MeterBorderProps) {
   return (
     // Keeping styling inline because it is small.
     <section
@@ -15,7 +16,7 @@ function MeterBorder({ children, radius = 0 }: MeterBorderProps) {
       style={{
         borderRadius: radius + "px",
         borderStyle: "inset",
-        borderColor: "rgb(70, 211, 199)",
+        borderColor: color,
         borderWidth: "10px",
         boxShadow: "inset 0 0 40px rgba(241, 237, 237, 0.918)",
       }}
