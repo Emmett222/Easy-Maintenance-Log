@@ -1,12 +1,12 @@
 // This is needed for it to be properly rendered by React.
 interface BrightInputProps {
-  type: "text" | "number" | "color";
+  type: "text" | "number" | "color" | "password";
   id: string;
-  name: string;
+  name?: string; // Optional.
   min?: number; // Optional.
   step?: number; // Optional.
   placeholder?: string; // Optional.
-  value?: any; // Optional.
+  value: any;
   onChange: any;
   required: boolean;
 
@@ -22,7 +22,7 @@ function BrightInput({
   min,
   step,
   placeholder = "",
-  value = "",
+  value,
   onChange,
   required,
   color = "rgb(70, 211, 199)",
@@ -78,6 +78,20 @@ function BrightInput({
           type={type}
           id={id}
           name={name}
+          onChange={onChange}
+          required={required}
+          style={style}
+        >
+        </input>
+      );
+    case "password":
+      return (
+        <input
+          type={type}
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          value={value}
           onChange={onChange}
           required={required}
           style={style}

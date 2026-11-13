@@ -1,9 +1,11 @@
 import "./Login.css";
 import HomeNav from "../components/HomeNav";
-import { useState } from "react";
+import { useState, type SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
+import BrightInput from "../components/styling/BrightInput";
+import BrightButton from "../components/styling/BrightButton";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -40,26 +42,39 @@ function Register() {
           <MeterBorder radius={300}>
             <form id="loginForm" onSubmit={handleSubmit}>
               <p>Username:</p>
-              <input
-                type="username"
-                id="username"
-                placeholder="Username"
+              <BrightInput
+                type={"text"}
+                id={"username"}
+                placeholder={"Username"}
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setUsername(e.target.value)
+                }
+                required={true}
+                width="12vw"
               />
               <p>Password:</p>
-              <input
-                type="password"
-                id="password"
-                placeholder="Password"
+              <BrightInput
+                type={"password"}
+                id={"password"}
+                placeholder={"Password"}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setPassword(e.target.value)
+                }
+                required={true}
+                width="12vw"
               />
               <section id="buttons">
                 {error && <p style={{ color: "red" }}>{error}</p>}
-                <button type="submit">Sign In</button>
+                <BrightButton
+                  type="submit"
+                  borderRadius={"20px"}
+                  width={"7vw"}
+                  height={"5vh"}
+                >
+                  Sign In
+                </BrightButton>
               </section>
             </form>
           </MeterBorder>
