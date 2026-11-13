@@ -8,6 +8,7 @@ import type { Car } from "../services/cars";
 import { getUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
+import BrightInput from "../components/styling/BrightInput";
 
 // import { getCar } from "../services/api";
 
@@ -94,55 +95,66 @@ function Service() {
           <MeterBorder radius={300} color={car?.color}>
             <section id="form" onSubmit={handleSubmit}>
               <BrightHeader headerNumber={3} color={car?.color}>Service name:</BrightHeader>
-              <input
+              <BrightInput
                 type="text"
                 id="titleinput"
                 name="titleinput"
                 placeholder="Enter the service done to the car."
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              ></input>
+                value={title}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+                color={car?.color}
+                required={true}
+              />
               <BrightHeader headerNumber={3} color={car?.color}>
                 Describe the service <em>(Optional)</em>:
               </BrightHeader>
-              <input
+              <BrightInput
                 type="text"
                 id="description"
                 name="description"
                 placeholder="Describe the service."
-                onChange={(e) => setDescription(e.target.value)}
-              ></input>
+                value={description}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
+                color={car?.color}
+                required={false}
+              />
               <BrightHeader headerNumber={3} color={car?.color}>Date of service:</BrightHeader>
-              <input
+              <BrightInput
                 type="text"
                 id="description"
                 name="description"
                 placeholder="Date format: MM-DD-YYYY"
-                onChange={(e) => setDate(e.target.value)}
-                required
-              ></input>
+                value={date}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
+                color={car?.color}
+                required={true}
+              />
               <BrightHeader headerNumber={3} color={car?.color}>Cost:</BrightHeader>
-              <input
+              <BrightInput
                 type="number"
                 id="cost"
                 name="cost"
                 placeholder="Enter the cost of the service."
-                min="0"
-                step="1"
-                onChange={(e) => setCost(parseFloat(e.target.value))}
-                required
-              ></input>
+                min={0}
+                step={1}
+                value={cost}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCost(parseFloat(e.target.value))}
+                color={car?.color}
+                required={true}
+              />
               <BrightHeader headerNumber={3} color={car?.color}>Current Milage:</BrightHeader>
-              <input
+              <BrightInput
                 type="number"
                 id="milage"
                 name="milage"
                 placeholder="Enter the current milage of the car."
-                min="0"
-                step="1"
-                onChange={(e) => setMilage(parseInt(e.target.value))}
-                required
-              ></input>
+                min={0}
+                step={1}
+                value={newMilage}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMilage(parseInt(e.target.value))}
+                color={car?.color}
+                required={true}
+              />
               <BrightHeader headerNumber={3} color={car?.color}>Repeated with time, or with milage?</BrightHeader>
               <section id="checkboxes">
                 <p>Time:</p>
@@ -164,16 +176,18 @@ function Service() {
                 <section>
                   <BrightHeader headerNumber={3} color={car?.color}>Time till repeat:</BrightHeader>
                   <p>This will be used for time based maintenance reminders.</p>
-                  <input
+                  <BrightInput
                     type="number"
                     id="nextmilage"
                     name="nextmilage"
-                    min="0"
-                    step="1"
+                    min={0}
+                    step={1}
                     placeholder="Enter how many months until service repeats. (ex: 3)"
-                    onChange={(e) => setNextMilage(parseInt(e.target.value))}
-                    required
-                  ></input>
+                    value={nextMilage}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNextMilage(parseInt(e.target.value))}
+                    color={car?.color}
+                    required={true}
+                  />
                 </section>
               )}
               {showMilageInput && (
@@ -182,16 +196,18 @@ function Service() {
                   <p>
                     This will be used for milage based maintenance reminders.
                   </p>
-                  <input
+                  <BrightInput
                     type="number"
                     id="nexttime"
                     name="nexttime"
-                    min="0"
-                    step="1"
+                    min={0}
+                    step={1}
                     placeholder="Enter how many miles until service repeats."
-                    onChange={(e) => setNextTime(parseInt(e.target.value))}
-                    required
-                  ></input>
+                    value={nextTime}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNextTime(parseInt(e.target.value))}
+                    color={car?.color}
+                    required={true}
+                  />
                 </section>
               )}
 

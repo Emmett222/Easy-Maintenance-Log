@@ -7,6 +7,7 @@ import { getCars, updateMilage } from "../services/cars";
 import type { Car } from "../services/cars";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
+import BrightInput from "../components/styling/BrightInput";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -49,21 +50,23 @@ function Dashboard() {
                     <p>
                       {car.name} | {car.milage}
                     </p>
-                    <input
-                      style={{ borderColor: car.color }}
+                    <BrightInput
                       type="number"
                       id="milage"
                       name="milage"
-                      min="1"
-                      step="1"
+                      min={1}
+                      step={1}
                       placeholder="Type new milage here"
                       value={newMilage[car.id] || ""}
-                      onChange={(e) =>
+                      onChange={(e: { target: { value: string; }; }) =>
                         setNewMilage((prev) => ({
                           ...prev,
                           [car.id]: parseInt(e.target.value, 10),
                         }))
                       }
+                      color={car.color}
+                      width="inherit"
+                      required={false}
                     />
                     <button
                       onClick={() => milageUpdate(car.id)}
