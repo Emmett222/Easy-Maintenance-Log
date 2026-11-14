@@ -1,14 +1,18 @@
 import "./AddCar.css";
 import LoggedInNav from "../components/LoggedInNav";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type SetStateAction } from "react";
 import { getUser } from "../services/api";
 import { createCar } from "../services/cars";
+import BrightHeader from "../components/styling/BrightHeader";
+import MeterBorder from "../components/styling/MeterBorder";
+import BrightInput from "../components/styling/BrightInput";
+import BrightButton from "../components/styling/BrightButton";
 
 function AddCar() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("Loading user...");
-  const [userID, setUserID] = useState("")
+  const [userID, setUserID] = useState("");
   const [name, setName] = useState("");
   const [milage, setMilage] = useState("");
   const [color, setColor] = useState("");
@@ -25,10 +29,10 @@ function AddCar() {
     e.preventDefault();
     try {
       const createResponse = await createCar({
-        "name": name,
-        "milage": parseInt(milage, 10),
-        "color": color,
-        "owner": userID
+        name: name,
+        milage: parseInt(milage, 10),
+        color: color,
+        owner: userID,
       });
 
       navigate("/dashboard");
@@ -43,50 +47,70 @@ function AddCar() {
 
   return (
     <>
+      <title>Add Car - Easy Maintenance Log</title>
       <LoggedInNav />
-      <form id="all" onSubmit={handleSubmit} className="pageTransition">
-        <section id="banner">
-          <h1>Add a car</h1>
-        </section>
-        <section id="form">
-          <h2>Car name:</h2>
-          <p>
-            This can be anything you would like to use to identify your car.
-            Could be make, model, nickname.
-          </p>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Enter a name for your car"
-            onChange={(e) => setName(e.target.value)}
-            required
-          ></input>
-          <h2>Current Milage:</h2>
-          <p>This will be used for milage based maintenance reminders.</p>
-          <input
-            type="number"
-            id="milage"
-            name="milage"
-            min="0"
-            step="1"
-            onChange={(e) => setMilage(e.target.value)}
-            required
-          ></input>
-          <h2>Color:</h2>
-          <p>This will be used for the background of your car's page.</p>
-          <input
-            type="color"
-            id="color"
-            name="color"
-            onChange={(e) => setColor(e.target.value)}
-            required
-          ></input>
-          <h2>Finish:</h2>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          <button type="submit">Add car!</button>
-        </section>
-      </form>
+      <section id="addCarAll" className="pageTransition">
+        <BrightHeader headerNumber={1}>Add a car</BrightHeader>
+        <form id="addCarForm" onSubmit={handleSubmit}>
+          <MeterBorder radius={300} id="formLines">
+            <section id="formContainer">
+              <BrightHeader headerNumber={2}>Car Name:</BrightHeader>
+              <p>
+                This can be anything you would like to use to identify your car.
+                Could be make, model, nickname.
+              </p>
+              <BrightInput
+                type={"text"}
+                id={"name"}
+                value={undefined}
+                placeholder="Enter car name"
+                width="16vw"
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setName(e.target.value)
+                }
+                required={true}
+              ></BrightInput>
+              <BrightHeader headerNumber={2}>Current Milage:</BrightHeader>
+              <p>This will be used for milage based maintenance reminders.</p>
+              <BrightInput
+                type={"number"}
+                id={"milage"}
+                min={0}
+                step={1}
+                value={undefined}
+                placeholder="Enter milage"
+                width="16vw"
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setMilage(e.target.value)
+                }
+                required={true}
+              ></BrightInput>
+              <BrightHeader headerNumber={2}>Color:</BrightHeader>
+              <p>This will be used for the background of your car's page.</p>
+              <BrightInput
+                type={"color"}
+                id={"color"}
+                value={undefined}
+                width="16vw"
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setColor(e.target.value)
+                }
+                required={true}
+              ></BrightInput>
+              <BrightHeader headerNumber={2}>Finish:</BrightHeader>
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              <BrightButton
+                type="submit"
+                borderRadius={"20px"}
+                width={"7vw"}
+                height={"5vh"}
+              >
+                Add car
+              </BrightButton>
+            </section>
+          </MeterBorder>
+        </form>
+      </section>
     </>
   );
 }
