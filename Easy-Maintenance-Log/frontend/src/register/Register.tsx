@@ -1,9 +1,11 @@
 import "./Register.css";
 import HomeNav from "../components/HomeNav";
-import { useState } from "react";
+import { useState, type SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser, loginUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
+import BrightInput from "../components/styling/BrightInput";
+import BrightButton from "../components/styling/BrightButton";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -52,44 +54,61 @@ function Register() {
         <MeterBorder radius={300}>
           <form id="registerForm" onSubmit={handleSubmit}>
             <p>Email:</p>
-            <input
-              type="text"
-              id="email"
-              placeholder="Email"
+            <BrightInput
+              type={"text"}
+              id={"email"}
+              placeholder="Enter Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                setEmail(e.target.value)
+              }
+              required={true}
+              width="15vw"
             />
             <p>Username:</p>
-            <input
-              type="username"
-              id="username"
-              placeholder="Username"
+            <BrightInput
+              type={"text"}
+              id={"username"}
+              placeholder="Enter Username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
+              onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                setUsername(e.target.value)
+              }
+              required={true}
+              width="15vw"
             />
             <p>Password:</p>
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
+            <BrightInput
+              type={"password"}
+              id={"password"}
+              placeholder="Enter Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+              onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                setPassword(e.target.value)
+              }
+              required={true}
+              width="15vw"
             />
             <p>Confirm password:</p>
-            <input
-              type="password"
-              id="confirmPassword"
+            <BrightInput
+              type={"password"}
+              id={"confirmPasswor"}
               placeholder="Confirm Password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
+              onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                setConfirmPassword(e.target.value)
+              }
+              required={true}
+              width="15vw"
             />
             <section id="buttons">
               {error && <p style={{ color: "red" }}>{error}</p>}
-              <button type="submit">Sign Up</button>
+              <BrightButton
+                type="submit"
+                borderRadius={"20px"}
+                width={"7vw"}
+                height={"5vh"}
+              >Sign Up</BrightButton>
             </section>
           </form>
         </MeterBorder>

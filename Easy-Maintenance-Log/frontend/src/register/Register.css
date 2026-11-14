@@ -21,6 +21,6 @@
     width: 25vw;
 }
 
-#registerForm > input {
-    width: 20vw;
+#buttons {
+    margin-top: 4vh;
 }
