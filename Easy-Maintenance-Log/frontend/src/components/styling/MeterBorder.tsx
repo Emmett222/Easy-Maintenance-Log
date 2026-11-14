@@ -3,16 +3,21 @@ import type { ReactNode } from "react";
 // This is needed for it to be properly rendered by React.
 interface MeterBorderProps {
   children: ReactNode;
+  id?: string;
   radius: number;
   color?: string; // Optional.
 }
 
 // ReactNode is any value that can be rendered by React.
-function MeterBorder({ children, radius = 0, color = "rgb(70, 211, 199)" }: MeterBorderProps) {
+function MeterBorder({
+  children,
+  id,
+  radius = 0,
+  color = "rgb(70, 211, 199)",
+}: MeterBorderProps) {
   return (
     // Keeping styling inline because it is small.
     <section
-      id="solidLines"
       style={{
         borderRadius: radius + "px",
         borderStyle: "inset",
@@ -22,7 +27,7 @@ function MeterBorder({ children, radius = 0, color = "rgb(70, 211, 199)" }: Mete
       }}
     >
       <section
-        id="dashedLines"
+        id={id}
         style={{
           borderRadius: radius + "px",
           borderStyle: "dashed",
