@@ -2,6 +2,7 @@ import "./LoggedInNav.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout, getUser } from "../services/api";
+import darken from "../services/colorUtil";
 
 function LoggedInNav() {
   const navigate = useNavigate();
@@ -11,19 +12,41 @@ function LoggedInNav() {
       setUsername(result.username);
     });
   }, []); // Empty array so it runs once on first render.
+
+  const style = {
+    borderColor: "rgb(70, 211, 199)", // Redundant, but here to make react not complain.
+    "--clicked-in-color": darken("rgb(70, 211, 199)", 50),
+  };
+
   return (
     <section id="navall">
       <section id="buttonscontainer">
-        <button id="navbutton" onClick={() => navigate("/")}>
+        <button
+          style={style}
+          className="clickDeepen navbutton"
+          onClick={() => navigate("/")}
+        >
           Home
         </button>
-        <button id="navbutton" onClick={() => navigate("/dashboard")}>
+        <button
+          style={style}
+          className="clickDeepen navbutton"
+          onClick={() => navigate("/dashboard")}
+        >
           Dashboard
         </button>
-        <button id="navbutton" onClick={() => logout(navigate)}>
+        <button
+          style={style}
+          className="clickDeepen navbutton"
+          onClick={() => logout(navigate)}
+        >
           Logout
         </button>
-        <button id="navbutton" onClick={() => navigate("/user")}>
+        <button
+          style={style}
+          className="clickDeepen navbutton"
+          onClick={() => navigate("/user")}
+        >
           {username}
         </button>
       </section>

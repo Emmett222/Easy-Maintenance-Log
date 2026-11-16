@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import darken from "../../services/colorUtil";
 
 // This is needed for it to be properly rendered by React.
 interface BrightHeaderProps {
@@ -33,10 +34,15 @@ function BrightHeader({
 
     width: width,
     height: height,
+
+    "--double-box-shadow": "10px",
+    "--clicked-in-color": darken(color, 50),
+    transition: "box-shadow 0.3s ease"
   };
 
+  console.log(darken(color, 50));
   return (
-    <button style={style} onClick={onClick} type={type}>
+    <button style={style} onClick={onClick} type={type} className="hoverGlow clickDeepen">
       {children}
     </button>
   );

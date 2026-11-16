@@ -39,6 +39,8 @@ function BrightInput({
     color: "rgb(255,255,255)",
 
     width: width,
+
+    "--double-box-shadow": "10px",
   };
 
   switch (type) {
@@ -53,6 +55,7 @@ function BrightInput({
           onChange={onChange}
           required={required}
           style={style}
+          className="hoverGlow"
         >
         </input>
       );
@@ -69,6 +72,7 @@ function BrightInput({
           onChange={onChange}
           required={required}
           style={style}
+          className="hoverGlow"
         >
         </input>
       );
@@ -81,6 +85,7 @@ function BrightInput({
           onChange={onChange}
           required={required}
           style={style}
+          className="hoverGlow"
         >
         </input>
       );
@@ -95,6 +100,7 @@ function BrightInput({
           onChange={onChange}
           required={required}
           style={style}
+          className="hoverGlow"
         >
         </input>
       );
