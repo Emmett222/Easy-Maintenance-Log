@@ -5,6 +5,7 @@ import { getCarByID } from "../services/cars";
 import { createService, getAllServiceForCar } from "../services/services";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { Car } from "../services/cars";
+import type { Service } from "../services/services";
 import { getUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
@@ -14,9 +15,11 @@ import BrightButton from "../components/styling/BrightButton";
 // import { getCar } from "../services/api";
 
 function Service() {
+  const [services, setServices] = useState<Service[]>();
   const [car, setCar] = useState<Car>();
   const [userID, setUserID] = useState("");
   const [error, setError] = useState("");
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -38,6 +41,11 @@ function Service() {
         setCar(result);
       });
     }
+
+    getAllServiceForCar(carID).then((result) => {
+      setServices(result);
+    });
+
     getUser().then((result) => {
       setUserID(result.id);
     });
@@ -47,7 +55,6 @@ function Service() {
     e.preventDefault();
     try {
       const createResponse = await createService(
-        car?.id ?? -1, // Impossible to hit. It'll navigate to home before this can trigger.
         {
           car: car?.id ?? -1,
           title: title,
@@ -87,7 +94,13 @@ function Service() {
             Service Record for {car?.name}
           </BrightHeader>
           <MeterBorder radius={300} color={car?.color}>
-            <section id="record"></section>
+            <section id="record">
+              {services?.map((service) => (
+                <section>
+                  <h2>{service.title} on {service.date} at {service.milage.toString(10)} miles</h2>
+                </section>
+              ))}
+            </section>
           </MeterBorder>
         </section>
         <section id="right">
@@ -95,7 +108,7 @@ function Service() {
             Add service for {car?.name}
           </BrightHeader>
           <MeterBorder radius={300} color={car?.color}>
-            <section id="form" onSubmit={handleSubmit}>
+            <form id="form" onSubmit={handleSubmit}>
               <BrightHeader headerNumber={3} color={car?.color}>
                 Service name:
               </BrightHeader>
@@ -212,7 +225,7 @@ function Service() {
                       setNextMilage(parseInt(e.target.value))
                     }
                     color={car?.color}
-                    required={true}
+                    required={false}
                   />
                 </section>
               )}
@@ -236,7 +249,7 @@ function Service() {
                       setNextTime(parseInt(e.target.value))
                     }
                     color={car?.color}
-                    required={true}
+                    required={false}
                   />
                 </section>
               )}
@@ -253,7 +266,7 @@ function Service() {
                   Submit maintenance
                 </BrightButton>
               </section>
-            </section>
+            </form>
           </MeterBorder>
         </section>
       </section>
