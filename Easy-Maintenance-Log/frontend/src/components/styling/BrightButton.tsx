@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import darken from "../../services/colorUtil";
 
 // This is needed for it to be properly rendered by React.
-interface BrightHeaderProps {
+interface BrightButtonProps {
   children: ReactNode;
   onClick?: any; // Optional.
   type?: "button" | "submit" | "reset"; // Optional.
@@ -13,7 +13,7 @@ interface BrightHeaderProps {
 }
 
 // ReactNode is any value that can be rendered by React.
-function BrightHeader({
+function BrightButton({
   children,
   onClick,
   type = "button",
@@ -21,7 +21,7 @@ function BrightHeader({
   borderRadius,
   width,
   height,
-}: BrightHeaderProps) {
+}: BrightButtonProps) {
   const style = {
     borderColor: color,
     borderWidth: "5px",
@@ -48,4 +48,4 @@ function BrightHeader({
   );
 }
 
-export default BrightHeader;
+export default BrightButton;
