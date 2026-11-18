@@ -11,6 +11,7 @@ import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
 import BrightInput from "../components/styling/BrightInput";
 import BrightButton from "../components/styling/BrightButton";
+import formatDateString from "../util/stringUtil";
 
 // import { getCar } from "../services/api";
 
@@ -54,19 +55,17 @@ function Service() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const createResponse = await createService(
-        {
-          car: car?.id ?? -1,
-          title: title,
-          description: description,
-          milage: newMilage,
-          date: toISODate(date),
-          cost: cost,
-          owner: userID,
-          next_milage: nextMilage,
-          next_time: nextTime,
-        },
-      );
+      const createResponse = await createService({
+        car: car?.id ?? -1,
+        title: title,
+        description: description,
+        milage: newMilage,
+        date: toISODate(date),
+        cost: cost,
+        owner: userID,
+        next_milage: nextMilage,
+        next_time: nextTime,
+      });
 
       window.location.reload();
     } catch (err) {
@@ -84,6 +83,22 @@ function Service() {
     return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
   }
 
+  function isTime(timeBool: boolean, date: Date, next: number): string {
+    if (timeBool) {
+      return formatDateString(date, next);
+    } else {
+      return ""; // For empty cell.
+    }
+  }
+
+  function isMilage(mileBool: boolean, milage: number, next: number): string {
+    if (mileBool) {
+      return (milage + next).toString();
+    } else {
+      return ""; // For empty cell.
+    }
+  }
+
   return (
     <section>
       <title>Service Record - Easy Maintenance Log</title>
@@ -93,13 +108,53 @@ function Service() {
           <BrightHeader headerNumber={2} color={car?.color}>
             Service Record for {car?.name}
           </BrightHeader>
-          <MeterBorder radius={300} color={car?.color}>
+          <MeterBorder id="recordBorder" radius={300} color={car?.color}>
             <section id="record">
-              {services?.map((service) => (
-                <section>
-                  <h2>{service.title} on {service.date} at {service.milage.toString(10)} miles</h2>
-                </section>
-              ))}
+              <table id="recordTable">
+                <colgroup>
+                  <col style={{ width: "13%" }} />
+                  <col style={{ width: "13%" }} />
+                  <col style={{ width: "10%" }} />
+                  <col style={{ width: "10%" }} />
+                  <col style={{ width: "12%" }} />
+                  <col style={{ width: "13%" }} />
+                  <col style={{ width: "10%" }} />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Milage</th>
+                    <th>Cost</th>
+                    <th>Next Time</th>
+                    <th>Next Milage</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                {services?.map((service) => (
+                  <tr>
+                    <td id="tableDataTitle">{service.title}</td>
+                    <td>{formatDateString(service.date)}</td>
+                    <td>{service.milage.toString(10)}</td>
+                    <td>{service.cost.toFixed(2).toString()}</td>
+                    <td>
+                      {isTime(
+                        service.time_dependant,
+                        service.date,
+                        service.next_time,
+                      )}
+                    </td>
+                    <td>
+                      {isMilage(
+                        service.milage_dependant,
+                        service.milage,
+                        service.next_milage,
+                      )}
+                    </td>
+                    <td>X</td>
+                  </tr>
+                ))}
+              </table>
             </section>
           </MeterBorder>
         </section>
@@ -107,7 +162,7 @@ function Service() {
           <BrightHeader headerNumber={2} color={car?.color}>
             Add service for {car?.name}
           </BrightHeader>
-          <MeterBorder radius={300} color={car?.color}>
+          <MeterBorder id="formBorder" radius={300} color={car?.color}>
             <form id="form" onSubmit={handleSubmit}>
               <BrightHeader headerNumber={3} color={car?.color}>
                 Service name:
@@ -190,6 +245,9 @@ function Service() {
               />
               <BrightHeader headerNumber={3} color={car?.color}>
                 Repeated with time, or with milage?
+              </BrightHeader>
+              <BrightHeader headerNumber={3} color={car?.color}>
+                Select neither if this does not need to be repeated.
               </BrightHeader>
               <section id="checkboxes">
                 <p>Time:</p>

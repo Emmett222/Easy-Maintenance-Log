@@ -2,7 +2,7 @@ import "./LoggedInNav.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout, getUser } from "../services/api";
-import darken from "../services/colorUtil";
+import darken from "../util/colorUtil";
 
 function LoggedInNav() {
   const navigate = useNavigate();

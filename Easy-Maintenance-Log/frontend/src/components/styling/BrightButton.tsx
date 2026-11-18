@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import darken from "../../services/colorUtil";
+import darken from "../../util/colorUtil";
 
 // This is needed for it to be properly rendered by React.
 interface BrightButtonProps {

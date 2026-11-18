@@ -1,4 +1,4 @@
-import darken from "../services/colorUtil";
+import darken from "../util/colorUtil";
 import "./HomeNav.css";
 import { useNavigate } from "react-router-dom";
 

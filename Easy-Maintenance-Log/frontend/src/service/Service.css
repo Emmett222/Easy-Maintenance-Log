@@ -8,22 +8,47 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#recordBorder {
+    height: 55vh;
     width: 50vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
 }
 
 #record {
-    height: 55vh;
-    width: 40vw;
+    width: 95%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+
+    padding-top: 1vh;
+    margin-top: 1vh;
+    border-top: 5px groove rgb(180, 180, 180);
+    border-bottom: 5px groove rgb(180, 180, 180);
+    background-color: rgba(180, 180, 180, 0.1);
+
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-#recordlines {
-    border-color: rgb(70, 211, 199);
-    box-shadow: inset 0 0 40px rgba(241, 237, 237, 0.918); 
-    border-width: 10px;
-    border-style: inset;
-    border-radius: 300px;
-    margin-left: 3vw;
-    margin-right: 3vw;
+#recordTable {
+    border-collapse: collapse;
+    width: 96%;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 3px double rgba(180, 180, 180, 0.5);
+    padding: 8px;
+    text-align: left;
+    overflow-wrap: break-word
 }
 
 #right {
@@ -33,49 +58,27 @@
     justify-content: center;
 }
 
-#formlines {
-    border-color: rgb(70, 211, 199);
-    box-shadow: inset 0 0 40px rgba(241, 237, 237, 0.918); 
-    border-width: 10px;
-    border-style: inset;
-    border-radius: 275px;
-    margin-left: 3vw;
-}
-
-#formdashes {
-    border-color: rgb(180, 180, 180);
-    border-width: 10px;
-    border-style: dashed;
-    border-radius: 275px;
+#formBorder {
+    height: 55vh;
+    width: 40vh;
 }
 
 #form {
     border-top: 5px groove rgb(180, 180, 180);
     border-bottom: 5px groove rgb(180, 180, 180);
     background-color: rgba(180, 180, 180, 0.1);
-
-    height: 55vh;
-    width: 40vh;
+    height: 95%;
+    width: 90%;
 
     padding-left: 1.8vw;
-    margin: 1vh;
+    margin-top: 0.5vh;
 
     overflow-y: scroll;
     overflow-x: hidden;
-
-    animation: fade-out linear both;
-    animation-timeline: view();
-    animation-range: entry 0% exit 100%;
 }
 
 #form > input {
-    width: 17vw !important; 
-}
-
-@keyframes fade-out {
-  0% { opacity: 0; }
-  20%, 80% { opacity: 1; }
-  100% { opacity: 0; }
+    width: 85% !important; 
 }
 
 #checkboxes {
