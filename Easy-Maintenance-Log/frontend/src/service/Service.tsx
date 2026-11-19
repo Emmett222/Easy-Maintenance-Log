@@ -242,7 +242,7 @@ function Service() {
                 name="cost"
                 placeholder="Enter the cost of the service."
                 min={0}
-                step={1}
+                step={0.01}
                 value={cost}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setCost(parseFloat(e.target.value))

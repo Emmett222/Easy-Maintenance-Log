@@ -17,7 +17,7 @@ class Service(models.Model):
     date = models.DateField(blank=False)
     cost = models.FloatField(blank=True)
 
-    next_mileage = models.IntegerField(blank=True)
-    next_time = models.IntegerField(blank=True)
+    next_mileage = models.IntegerField(blank=True, null=True)
+    next_time = models.IntegerField(blank=True, null=True)
     mileage_dependant = models.BooleanField(default=False) 
     time_dependant = models.BooleanField(default=False) 
