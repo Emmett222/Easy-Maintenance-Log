@@ -34,5 +34,15 @@ export const getAllServiceForCar = async (carID: number): Promise<Service[]> => 
  */
 export const createService = async (serviceData: Record<string, any>) => {
     const response = await api.post('/services/', serviceData);
-    return response.data
+    return response.data;
+}
+
+/**
+ * Asynchronous function that deletes a service for a car.
+ * 
+ * @param ID The ID of the service.
+ */
+export const deleteServiceByID = async (serviceID: number) => {
+    const response = await api.delete('/services/' + serviceID + '/');
+    return response.data;
 }

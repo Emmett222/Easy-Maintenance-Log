@@ -35,8 +35,11 @@ class ServiceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        queryset = Service.objects.filter(owner=self.request.user)
         car_id = self.request.GET.get('car_id')
-        return Service.objects.filter(owner=self.request.user, car=car_id)
+        if car_id is not None:
+            queryset = queryset.filter(car_id=car_id)
+        return queryset
 
     def perform_create(self, serializer):
             serializer.save(owner=self.request.user)

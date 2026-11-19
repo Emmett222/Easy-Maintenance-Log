@@ -5,7 +5,7 @@ import { getCarByID } from "../services/cars";
 import { createService, getAllServiceForCar } from "../services/services";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { Car } from "../services/cars";
-import type { Service } from "../services/services";
+import { deleteServiceByID, type Service } from "../services/services";
 import { getUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
@@ -131,36 +131,51 @@ function Service() {
                     <th style={{ border: "none", padding: "0" }}></th>
                   </tr>
                 </thead>
-                {services?.map((service) => (
-                  <tr>
-                    <td id="tableDataTitle">{service.title}</td>
-                    <td>{formatDateString(service.date)}</td>
-                    <td>{service.mileage.toString(10)}</td>
-                    <td>{service.cost.toFixed(2).toString()}</td>
-                    <td>
-                      {isTime(
-                        service.time_dependant,
-                        service.date,
-                        service.next_time,
-                      )}
-                    </td>
-                    <td>
-                      {isMileage(
-                        service.mileage_dependant,
-                        service.mileage,
-                        service.next_mileage,
-                      )}
-                    </td>
-                    <td style={{ border: "none", padding: "0", paddingLeft: "10px" }}>
-                      <BrightButton
-                        borderRadius={"20px"}
-                        width={"70%"}
-                        height={"100%"}
-                        color={car?.color}
-                      >X</BrightButton>
-                    </td>
-                  </tr>
-                ))}
+                <tbody>
+                  {services?.map((service) => (
+                    <tr>
+                      <td id="tableDataTitle">{service.title}</td>
+                      <td>{formatDateString(service.date)}</td>
+                      <td>{service.mileage.toString(10)}</td>
+                      <td>{service.cost.toFixed(2).toString()}</td>
+                      <td>
+                        {isTime(
+                          service.time_dependant,
+                          service.date,
+                          service.next_time,
+                        )}
+                      </td>
+                      <td>
+                        {isMileage(
+                          service.mileage_dependant,
+                          service.mileage,
+                          service.next_mileage,
+                        )}
+                      </td>
+                      <td
+                        style={{
+                          border: "none",
+                          padding: "0",
+                          paddingLeft: "10px",
+                        }}
+                      >
+                        <BrightButton
+                          borderRadius={"20px"}
+                          width={"70%"}
+                          height={"100%"}
+                          color={car?.color}
+                          onClick={() => {
+                            deleteServiceByID(service.id).then(() =>
+                              window.location.reload(),
+                            );
+                          }}
+                        >
+                          X
+                        </BrightButton>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </section>
           </MeterBorder>
