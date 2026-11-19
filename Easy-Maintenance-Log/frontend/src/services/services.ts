@@ -5,13 +5,13 @@ export interface Service {
     id: number;
     car: Car;
     title: string;
-    milage: number;
+    mileage: number;
     date: Date;
     cost: number;
 
-    next_milage: number;
+    next_mileage: number;
     next_time: number;
-    milage_dependant: boolean;
+    mileage_dependant: boolean;
     time_dependant: boolean;
 }
 

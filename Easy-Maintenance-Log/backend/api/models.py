@@ -3,7 +3,7 @@ from django.db import models
 
 class Car(models.Model):
     name = models.CharField(max_length=100)
-    milage = models.IntegerField()
+    mileage = models.IntegerField()
     color = models.CharField(max_length=7, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
@@ -13,11 +13,11 @@ class Service(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    milage = models.IntegerField(blank=True)
+    mileage = models.IntegerField(blank=True)
     date = models.DateField(auto_now_add=True, blank=True)
     cost = models.FloatField(blank=True)
 
-    next_milage = models.IntegerField(blank=True)
+    next_mileage = models.IntegerField(blank=True)
     next_time = models.IntegerField(blank=True)
-    milage_dependant = models.BooleanField(default=False) 
+    mileage_dependant = models.BooleanField(default=False) 
     time_dependant = models.BooleanField(default=False) 

@@ -25,10 +25,10 @@ function Service() {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [cost, setCost] = useState(0.0);
-  const [newMilage, setMilage] = useState(0);
+  const [newMileage, setMileage] = useState(0);
   const [showTimeInput, setShowTimeInput] = useState(false);
-  const [showMilageInput, setShowMilageInput] = useState(false);
-  const [nextMilage, setNextMilage] = useState(0);
+  const [showMileageInput, setShowMileageInput] = useState(false);
+  const [nextMileage, setNextMileage] = useState(0);
   const [nextTime, setNextTime] = useState(0);
 
   const navigate = useNavigate();
@@ -59,11 +59,11 @@ function Service() {
         car: car?.id ?? -1,
         title: title,
         description: description,
-        milage: newMilage,
+        mileage: newMileage,
         date: toISODate(date),
         cost: cost,
         owner: userID,
-        next_milage: nextMilage,
+        next_mileage: nextMileage,
         next_time: nextTime,
       });
 
@@ -91,9 +91,9 @@ function Service() {
     }
   }
 
-  function isMilage(mileBool: boolean, milage: number, next: number): string {
+  function isMileage(mileBool: boolean, mileage: number, next: number): string {
     if (mileBool) {
-      return (milage + next).toString();
+      return (mileage + next).toString();
     } else {
       return ""; // For empty cell.
     }
@@ -118,24 +118,24 @@ function Service() {
                   <col style={{ width: "10%" }} />
                   <col style={{ width: "12%" }} />
                   <col style={{ width: "13%" }} />
-                  <col style={{ width: "10%" }} />
+                  <col style={{ width: "5%" }} />
                 </colgroup>
                 <thead>
                   <tr>
                     <th>Title</th>
                     <th>Date</th>
-                    <th>Milage</th>
+                    <th>Mileage</th>
                     <th>Cost</th>
                     <th>Next Time</th>
-                    <th>Next Milage</th>
-                    <th>Remove</th>
+                    <th>Next Mileage</th>
+                    <th style={{ border: "none", padding: "0" }}></th>
                   </tr>
                 </thead>
                 {services?.map((service) => (
                   <tr>
                     <td id="tableDataTitle">{service.title}</td>
                     <td>{formatDateString(service.date)}</td>
-                    <td>{service.milage.toString(10)}</td>
+                    <td>{service.mileage.toString(10)}</td>
                     <td>{service.cost.toFixed(2).toString()}</td>
                     <td>
                       {isTime(
@@ -145,13 +145,20 @@ function Service() {
                       )}
                     </td>
                     <td>
-                      {isMilage(
-                        service.milage_dependant,
-                        service.milage,
-                        service.next_milage,
+                      {isMileage(
+                        service.mileage_dependant,
+                        service.mileage,
+                        service.next_mileage,
                       )}
                     </td>
-                    <td>X</td>
+                    <td style={{ border: "none", padding: "0", paddingLeft: "10px" }}>
+                      <BrightButton
+                        borderRadius={"20px"}
+                        width={"70%"}
+                        height={"100%"}
+                        color={car?.color}
+                      >X</BrightButton>
+                    </td>
                   </tr>
                 ))}
               </table>
@@ -227,24 +234,24 @@ function Service() {
                 required={true}
               />
               <BrightHeader headerNumber={3} color={car?.color}>
-                Current Milage:
+                Current Mileage:
               </BrightHeader>
               <BrightInput
                 type="number"
-                id="milage"
-                name="milage"
-                placeholder="Enter the current milage of the car."
+                id="mileage"
+                name="mileage"
+                placeholder="Enter the current mileage of the car."
                 min={0}
                 step={1}
-                value={newMilage}
+                value={newMileage}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setMilage(parseInt(e.target.value))
+                  setMileage(parseInt(e.target.value))
                 }
                 color={car?.color}
                 required={true}
               />
               <BrightHeader headerNumber={3} color={car?.color}>
-                Repeated with time, or with milage?
+                Repeated with time, or with mileage?
               </BrightHeader>
               <BrightHeader headerNumber={3} color={car?.color}>
                 Select neither if this does not need to be repeated.
@@ -257,12 +264,12 @@ function Service() {
                   name="isTime"
                   onChange={(e) => setShowTimeInput(e.target.checked)}
                 ></input>
-                <p>Milage:</p>
+                <p>Mileage:</p>
                 <input
                   type="checkbox"
-                  id="isMilage"
-                  name="isMilage"
-                  onChange={(e) => setShowMilageInput(e.target.checked)}
+                  id="isMileage"
+                  name="isMileage"
+                  onChange={(e) => setShowMileageInput(e.target.checked)}
                 ></input>
               </section>
               {showTimeInput && (
@@ -273,27 +280,27 @@ function Service() {
                   <p>This will be used for time based maintenance reminders.</p>
                   <BrightInput
                     type="number"
-                    id="nextmilage"
-                    name="nextmilage"
+                    id="nextmileage"
+                    name="nextmileage"
                     min={0}
                     step={1}
                     placeholder="Enter how many months until service repeats. (ex: 3)"
-                    value={nextMilage}
+                    value={nextMileage}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setNextMilage(parseInt(e.target.value))
+                      setNextMileage(parseInt(e.target.value))
                     }
                     color={car?.color}
                     required={false}
                   />
                 </section>
               )}
-              {showMilageInput && (
+              {showMileageInput && (
                 <section>
                   <BrightHeader headerNumber={3} color={car?.color}>
                     Miles till repeat:
                   </BrightHeader>
                   <p>
-                    This will be used for milage based maintenance reminders.
+                    This will be used for mileage based maintenance reminders.
                   </p>
                   <BrightInput
                     type="number"

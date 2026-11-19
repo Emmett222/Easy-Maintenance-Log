@@ -3,7 +3,7 @@ import api from './api';
 export interface Car {
     id: number;
     name: string;
-    milage: number;
+    mileage: number;
     color: string;
 }
 
@@ -38,7 +38,7 @@ export const createCar = async (carData: Record<string, any>) => {
     return response.data
 }
 
-export const updateMilage = async (carID: number, milage: number) => {
-    const response = await api.post('/cars/' + carID +'/update_milage/', {milage: milage});
+export const updateMileage = async (carID: number, mileage: number) => {
+    const response = await api.post('/cars/' + carID +'/update_mileage/', {mileage: mileage});
     return response.data
 }

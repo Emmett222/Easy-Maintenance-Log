@@ -23,7 +23,7 @@ class CarViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     @action(detail=True, methods=['post'])
-    def update_milage(self, request, pk=None):
+    def update_mileage(self, request, pk=None):
         car = self.get_object()
         serializer = self.get_serializer(car, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)

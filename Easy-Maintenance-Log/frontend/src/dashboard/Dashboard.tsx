@@ -3,7 +3,7 @@ import LoggedInNav from "../components/LoggedInNav";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUser } from "../services/api";
-import { getCars, updateMilage } from "../services/cars";
+import { getCars, updateMileage } from "../services/cars";
 import type { Car } from "../services/cars";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
@@ -14,7 +14,7 @@ function Dashboard() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("Loading user...");
   const [cars, setCars] = useState<Car[]>([]);
-  const [newMilage, setNewMilage] = useState<Record<number, number>>({});
+  const [newMileage, setNewMileage] = useState<Record<number, number>>({});
   useEffect(() => {
     getUser().then((result) => {
       setUsername(result.username);
@@ -28,8 +28,8 @@ function Dashboard() {
     });
   }
 
-  function milageUpdate(carID: number) {
-    updateMilage(carID, newMilage[carID]).then(() => {
+  function mileageUpdate(carID: number) {
+    updateMileage(carID, newMileage[carID]).then(() => {
       fillCars();
     });
   }
@@ -50,18 +50,18 @@ function Dashboard() {
                     id="carcard"
                   >
                     <p>
-                      {car.name} | {car.milage}
+                      {car.name} | {car.mileage}
                     </p>
                     <BrightInput
                       type="number"
-                      id="milage"
-                      name="milage"
+                      id="mileage"
+                      name="mileage"
                       min={1}
                       step={1}
-                      placeholder="Type new milage here"
-                      value={newMilage[car.id] || ""}
+                      placeholder="Type new mileage here"
+                      value={newMileage[car.id] || ""}
                       onChange={(e: { target: { value: string } }) =>
-                        setNewMilage((prev) => ({
+                        setNewMileage((prev) => ({
                           ...prev,
                           [car.id]: parseInt(e.target.value, 10),
                         }))
@@ -71,13 +71,13 @@ function Dashboard() {
                       required={false}
                     />
                     <BrightButton
-                      onClick={() => milageUpdate(car.id)}
+                      onClick={() => mileageUpdate(car.id)}
                       borderRadius={"10px"}
                       width={"100%"}
                       height={""}
                       color={car.color}
                     >
-                      Update milage
+                      Update mileage
                     </BrightButton>
                     <BrightButton
                       onClick={() => navigate("/service/?car_id=" + car.id)}

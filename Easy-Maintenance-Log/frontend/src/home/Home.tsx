@@ -15,7 +15,7 @@ function Home() {
           <p>
             This website is a place to store data about your car's maintenance.
             Store details about your servicing and get emails when it's time to
-            do said service again. Time the emails with milage or time.
+            do said service again. Time the emails with mileage or time.
           </p>
           <p>
             Data is secure and private. No data will be sent to any other

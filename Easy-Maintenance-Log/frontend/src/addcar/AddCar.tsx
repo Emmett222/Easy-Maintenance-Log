@@ -14,7 +14,7 @@ function AddCar() {
   const [username, setUsername] = useState("Loading user...");
   const [userID, setUserID] = useState("");
   const [name, setName] = useState("");
-  const [milage, setMilage] = useState("");
+  const [mileage, setMileage] = useState("");
   const [color, setColor] = useState("");
   const [error, setError] = useState("");
 
@@ -30,7 +30,7 @@ function AddCar() {
     try {
       const createResponse = await createCar({
         name: name,
-        milage: parseInt(milage, 10),
+        mileage: parseInt(mileage, 10),
         color: color,
         owner: userID,
       });
@@ -70,18 +70,18 @@ function AddCar() {
                 }
                 required={true}
               ></BrightInput>
-              <BrightHeader headerNumber={2}>Current Milage:</BrightHeader>
-              <p>This will be used for milage based maintenance reminders.</p>
+              <BrightHeader headerNumber={2}>Current Mileage:</BrightHeader>
+              <p>This will be used for mileage based maintenance reminders.</p>
               <BrightInput
                 type={"number"}
-                id={"milage"}
+                id={"mileage"}
                 min={0}
                 step={1}
                 value={undefined}
-                placeholder="Enter milage"
+                placeholder="Enter mileage"
                 width="16vw"
                 onChange={(e: { target: { value: SetStateAction<string> } }) =>
-                  setMilage(e.target.value)
+                  setMileage(e.target.value)
                 }
                 required={true}
               ></BrightInput>
