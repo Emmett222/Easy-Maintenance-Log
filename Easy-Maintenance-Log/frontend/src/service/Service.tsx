@@ -16,7 +16,7 @@ import formatDateString from "../util/stringUtil";
 // import { getCar } from "../services/api";
 
 function Service() {
-  const [services, setServices] = useState<Service[]>();
+  const [services, setServices] = useState<Service[]>([]);
   const [car, setCar] = useState<Car>();
   const [userID, setUserID] = useState("");
   const [error, setError] = useState("");
@@ -69,7 +69,17 @@ function Service() {
         time_dependant: showTimeInput,
       });
 
-      window.location.reload();
+      setServices((prev) => [createResponse, ...prev]);
+
+      setTitle("");
+      setDescription("");
+      setDate("");
+      setCost(0);
+      setMileage(0);
+      setNextMileage(0);
+      setNextTime(0);
+      setShowTimeInput(false);
+      setShowMileageInput(false);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -294,7 +304,9 @@ function Service() {
                   <BrightHeader headerNumber={3} color={car?.color}>
                     Time till repeat:
                   </BrightHeader>
-                  <p id="timeP">This will be used for time based maintenance reminders.</p>
+                  <p id="timeP">
+                    This will be used for time based maintenance reminders.
+                  </p>
                   <BrightInput
                     type="number"
                     id="nexttime"
