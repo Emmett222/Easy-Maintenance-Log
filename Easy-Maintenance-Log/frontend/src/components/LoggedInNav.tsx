@@ -6,7 +6,7 @@ import darken from "../util/colorUtil";
 
 function LoggedInNav() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("Loading user...");
+  const [username, setUsername] = useState("Loading user");
   useEffect(() => {
     getUser().then((result) => {
       setUsername(result.username);
