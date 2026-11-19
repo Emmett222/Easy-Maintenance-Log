@@ -40,7 +40,6 @@ function BrightButton({
     transition: "box-shadow 0.3s ease"
   };
 
-  console.log(darken(color, 50));
   return (
     <button style={style} onClick={onClick} type={type} className="hoverGlow clickDeepen">
       {children}
