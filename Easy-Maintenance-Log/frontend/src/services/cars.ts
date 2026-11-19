@@ -29,6 +29,15 @@ export const getCarByID = async (carID: number): Promise<Car> => {
 }
 
 /**
+ * Asynchronous function that deletes one car by ID.
+ * 
+ * @param carID The ID of the car wanted.
+ */
+export const deleteCarByID = async (carID: number) => {
+    await api.delete<Car>('/cars/' + carID);
+}
+
+/**
  * Asynchronous function that creates a new car.
  * 
  * @returns Promise of the new car data.

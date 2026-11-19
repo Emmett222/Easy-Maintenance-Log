@@ -14,7 +14,7 @@ class Service(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     mileage = models.IntegerField(blank=True)
-    date = models.DateField(auto_now_add=True, blank=True)
+    date = models.DateField(blank=False)
     cost = models.FloatField(blank=True)
 
     next_mileage = models.IntegerField(blank=True)

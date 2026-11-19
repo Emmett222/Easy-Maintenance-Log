@@ -23,7 +23,7 @@ function Service() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [formDate, setDate] = useState("");
   const [cost, setCost] = useState(0.0);
   const [newMileage, setMileage] = useState(0);
   const [showTimeInput, setShowTimeInput] = useState(false);
@@ -60,11 +60,13 @@ function Service() {
         title: title,
         description: description,
         mileage: newMileage,
-        date: toISODate(date),
+        date: toISODate(formDate),
         cost: cost,
         owner: userID,
         next_mileage: nextMileage,
         next_time: nextTime,
+        mileage_dependant: showMileageInput,
+        time_dependant: showTimeInput,
       });
 
       window.location.reload();
@@ -221,10 +223,10 @@ function Service() {
               </BrightHeader>
               <BrightInput
                 type="text"
-                id="description"
-                name="description"
+                id="date"
+                name="date"
                 placeholder="Date format: MM-DD-YYYY"
-                value={date}
+                value={formDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setDate(e.target.value)
                 }
@@ -292,17 +294,17 @@ function Service() {
                   <BrightHeader headerNumber={3} color={car?.color}>
                     Time till repeat:
                   </BrightHeader>
-                  <p>This will be used for time based maintenance reminders.</p>
+                  <p id="timeP">This will be used for time based maintenance reminders.</p>
                   <BrightInput
                     type="number"
-                    id="nextmileage"
-                    name="nextmileage"
+                    id="nexttime"
+                    name="nexttime"
                     min={0}
                     step={1}
                     placeholder="Enter how many months until service repeats. (ex: 3)"
-                    value={nextMileage}
+                    value={nextTime}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setNextMileage(parseInt(e.target.value))
+                      setNextTime(parseInt(e.target.value))
                     }
                     color={car?.color}
                     required={false}
@@ -314,19 +316,19 @@ function Service() {
                   <BrightHeader headerNumber={3} color={car?.color}>
                     Miles till repeat:
                   </BrightHeader>
-                  <p>
+                  <p id="mileP">
                     This will be used for mileage based maintenance reminders.
                   </p>
                   <BrightInput
                     type="number"
-                    id="nexttime"
-                    name="nexttime"
+                    id="nextmileage"
+                    name="nextmileage"
                     min={0}
                     step={1}
                     placeholder="Enter how many miles until service repeats."
-                    value={nextTime}
+                    value={nextMileage}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setNextTime(parseInt(e.target.value))
+                      setNextMileage(parseInt(e.target.value))
                     }
                     color={car?.color}
                     required={false}

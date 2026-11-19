@@ -77,6 +77,10 @@ th, td {
     overflow-x: hidden;
 }
 
+#timeP, #mileP {
+    text-align: left;
+}
+
 #form > input {
     width: 85% !important; 
 }
