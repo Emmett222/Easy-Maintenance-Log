@@ -89,6 +89,21 @@ function Service() {
     }
   };
 
+  const handleDelete = async (serviceID: number) => {
+    try {
+      await deleteServiceByID(serviceID);
+      setServices((prevServices) =>
+        prevServices.filter((service) => service.id !== serviceID),
+      );
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Failed to delete service.");
+      }
+    }
+  };
+
   // Needed for the API payload.
   function toISODate(dateStr: string): string {
     const [month, day, year] = dateStr.split("-");
@@ -177,9 +192,7 @@ function Service() {
                           height={"100%"}
                           color={car?.color}
                           onClick={() => {
-                            deleteServiceByID(service.id).then(() =>
-                              window.location.reload(),
-                            );
+                            handleDelete(service.id);
                           }}
                         >
                           X
