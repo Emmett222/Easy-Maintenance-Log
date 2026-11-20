@@ -1,11 +1,21 @@
 import "./Home.css";
 import HomeNav from "../components/HomeNav";
+import LoggedInNav from "../components/LoggedInNav";
 
 function Home() {
+  function navGetter() {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      return <LoggedInNav />
+    } else {
+      return <HomeNav />
+    }
+  }
+
   return (
     <section>
       <title>Easy Maintenance Log</title>
-      <HomeNav />
+      {navGetter()}
       <section id="homeAll" className="pageTransition">
         <section id="titleBorder">
           <h1 id="title">Easy Maintenance Log</h1>
