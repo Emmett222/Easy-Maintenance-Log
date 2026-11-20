@@ -6,7 +6,7 @@ interface BrightInputProps {
   min?: number; // Optional.
   step?: number; // Optional.
   placeholder?: string; // Optional.
-  value: any;
+  value?: any; // Optional.
   onChange: any;
   required: boolean;
 
@@ -37,8 +37,6 @@ function BrightInput({
     backgroundColor: "rgb(0,0,0,0.5)",
     boxShadow: "inset 0 0 4px rgba(241, 237, 237, 0.918)",
     color: "rgb(255,255,255)",
-
-    width: width,
 
     "--double-box-shadow": "10px",
   };

@@ -34,6 +34,11 @@ function MeterBorder({
           borderColor: "rgb(180, 180, 180)",
           borderWidth: "10px",
           padding: "4vw",
+
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         {children}

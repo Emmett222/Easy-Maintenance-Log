@@ -1,7 +1,7 @@
 import "./LoggedInNav.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout, getUser } from "../services/api";
+import { getUser } from "../services/api";
 import darken from "../util/colorUtil";
 
 function LoggedInNav() {
@@ -34,13 +34,6 @@ function LoggedInNav() {
           onClick={() => navigate("/dashboard")}
         >
           Dashboard
-        </button>
-        <button
-          style={style}
-          className="clickDeepen navbutton"
-          onClick={() => logout(navigate)}
-        >
-          Logout
         </button>
         <button
           style={style}

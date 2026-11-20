@@ -6,7 +6,8 @@ import Login from './login/Login.tsx';
 import { ProtectedRoute } from './components/ProtectedRoute.tsx';
 import Register from './register/Register.tsx';
 import './App.css'
-import Service from './service/Service.tsx';
+import Service from './service/Service.tsx'; // Works despite error.
+import User from './user/User.tsx'; // This is correct but is showing an error.
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route element={<ProtectedRoute />}><Route path="/dashboard" element={<Dashboard />}/></Route>
         <Route element={<ProtectedRoute />}><Route path="/addcar" element={<AddCar />}/></Route>
         <Route element={<ProtectedRoute />}><Route path="/service" element={<Service />}/></Route> 
+        <Route element={<ProtectedRoute />}><Route path="/user" element={<User />}/></Route> 
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,40 @@
+#userAll {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#userLeft, #userRight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#userBorderGeneral {
+    width: 35vw;
+    height: 65vh;
+}
+
+#userBorderCars {
+    width: 35vw;
+    height: 65vh;
+}
+
+#individualCarSettings {
+    padding-left: 1vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+#smallForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#nameChange, #colorChange {
+    width: 90%;
+    margin-bottom: 5px;
+}

@@ -22,8 +22,24 @@ class CarViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['patch'])
     def update_mileage(self, request, pk=None):
+        car = self.get_object()
+        serializer = self.get_serializer(car, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=200)
+
+    @action(detail=True, methods=['patch'])
+    def update_name(self, request, pk=None):
+        car = self.get_object()
+        serializer = self.get_serializer(car, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=200)
+
+    @action(detail=True, methods=['patch'])
+    def update_color(self, request, pk=None):
         car = self.get_object()
         serializer = self.get_serializer(car, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
