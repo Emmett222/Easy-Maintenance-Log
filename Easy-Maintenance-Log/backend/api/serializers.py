@@ -9,6 +9,9 @@ class CarSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ServiceSerializer(serializers.ModelSerializer):
+    car_name = serializers.ReadOnlyField(source='car.name')
+    car_current_mileage = serializers.ReadOnlyField(source='car.mileage')
+
     class Meta:
         model = Service
         fields = '__all__'

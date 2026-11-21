@@ -4,6 +4,8 @@ import type { Car } from './cars';
 export interface Service {
     id: number;
     car: Car;
+    car_name: string;
+    car_current_mileage: number;
     title: string;
     mileage: number;
     date: Date;

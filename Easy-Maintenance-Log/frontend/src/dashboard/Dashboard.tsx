@@ -10,12 +10,18 @@ import BrightHeader from "../components/styling/BrightHeader";
 import BrightInput from "../components/styling/BrightInput";
 import BrightButton from "../components/styling/BrightButton";
 import MeterScreen from "../components/styling/MeterScreen";
+import { getAllServiceForCar, type Service } from "../services/services";
+import formatDateString from "../util/stringUtil";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("Loading user...");
   const [cars, setCars] = useState<Car[]>([]);
   const [newMileage, setNewMileage] = useState<Record<number, number>>({});
+
+  const [allMileageServices, setAllMileageServices] = useState<Service[]>([]);
+  const [allTimeServices, setAllTimeServices] = useState<Service[]>([]);
+
   useEffect(() => {
     getUser().then((result) => {
       setUsername(result.username);
@@ -26,7 +32,52 @@ function Dashboard() {
   function fillCars() {
     getCars().then((result) => {
       setCars(result);
+      fillService(result);
     });
+  }
+
+  async function fillService(cars: Car[]) {
+    let returnAllMileage: Service[] = [];
+    let returnAllTime: Service[] = [];
+    const today: Date = new Date();
+
+    await Promise.all(
+      cars.map(async (car) => {
+        const currServices = await getAllServiceForCar(car.id);
+
+        returnAllMileage.push(
+          ...currServices.filter(
+            (curr) =>
+              curr.mileage_dependant &&
+              curr.mileage + curr.next_mileage > car.mileage,
+          ),
+        );
+
+        returnAllTime.push(
+          ...currServices.filter(
+            (curr) =>
+              curr.time_dependant &&
+              new Date(formatDateString(curr.date, curr.next_time)) >= today,
+          ),
+        );
+      }),
+    );
+
+    setAllMileageServices(
+      returnAllMileage.sort(
+        (a, b) =>
+          a.mileage +
+          a.next_mileage -
+          a.car_current_mileage -
+          (b.mileage + b.next_mileage - b.car_current_mileage),
+      ),
+    );
+    setAllTimeServices(
+      returnAllTime.sort(
+        (a, b) =>
+          new Date(a.next_time).getTime() - new Date(b.next_time).getTime(),
+      ),
+    );
   }
 
   function mileageUpdate(carID: number) {
@@ -42,7 +93,7 @@ function Dashboard() {
         <section id="columnmeter">
           <BrightHeader headerNumber={2}>YOUR CARS</BrightHeader>
           <MeterBorder id="carBorder" radius={300}>
-            <MeterScreen >
+            <MeterScreen>
               <ul id="carslist">
                 {cars.map((car) => (
                   <section
@@ -106,7 +157,24 @@ function Dashboard() {
         <section id="columnmeter">
           <BrightHeader headerNumber={2}>UPCOMING MAINTENANCE</BrightHeader>
           <MeterBorder id="upcomingBorder" radius={300}>
-            <MeterScreen>e</MeterScreen>
+            <MeterScreen id="upcomingScreen">
+              <ul id="upcomingListMileage">
+                {allMileageServices.map((service) => (
+                  <p>
+                    {service.car_name} | {service.title} |{" "}
+                    {service.next_mileage + service.mileage}
+                  </p>
+                ))}
+              </ul>
+              <ul id="upcomingListTime">
+                {allTimeServices.map((service) => (
+                  <p>
+                    {service.car_name} | {service.title} |{" "}
+                    {formatDateString(service.date, service.next_time)}
+                  </p>
+                ))}
+              </ul>
+            </MeterScreen>
           </MeterBorder>
         </section>
       </section>

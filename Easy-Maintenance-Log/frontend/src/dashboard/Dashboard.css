@@ -41,27 +41,19 @@
     height: 60vh;
 }
 
-#upcomingList {
+#upcomingScreen {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#upcomingListMileage, #upcomingListTime {
     overflow-y: scroll;
-    justify-content: center;
-
     list-style-type: none;
+}
 
-    margin: 0px;
-    padding: 0px;
-
-    border-top: 5px groove rgb(180, 180, 180);
-    border-bottom: 5px groove rgb(180, 180, 180);
-    margin-bottom: 5px;
-    border-radius: 5px;
-    
-    height: 50vh;
-    width: 30vw;
-    margin: 10px;
-
-    background-color: rgba(180, 180, 180, 0.1);
+#upcomingListMileage > p, #upcomingListTime > p {
+    text-align: left;
 }
 
 #carcard {
