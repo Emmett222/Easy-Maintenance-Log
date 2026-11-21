@@ -9,6 +9,7 @@ import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
 import BrightInput from "../components/styling/BrightInput";
 import BrightButton from "../components/styling/BrightButton";
+import MeterScreen from "../components/styling/MeterScreen";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -40,8 +41,8 @@ function Dashboard() {
       <section id="all" className="pageTransition">
         <section id="columnmeter">
           <BrightHeader headerNumber={2}>YOUR CARS</BrightHeader>
-          <MeterBorder radius={300}>
-            <section id="meterinsides">
+          <MeterBorder id="carBorder" radius={300}>
+            <MeterScreen >
               <ul id="carslist">
                 {cars.map((car) => (
                   <section
@@ -91,21 +92,21 @@ function Dashboard() {
                   </section>
                 ))}
               </ul>
-              <BrightButton
-                onClick={() => navigate("/addcar")}
-                borderRadius={"30px"}
-                width={"20vw"}
-                height={"5vh"}
-              >
-                Add a car
-              </BrightButton>
-            </section>
+            </MeterScreen>
+            <BrightButton
+              onClick={() => navigate("/addcar")}
+              borderRadius={"30px"}
+              width={"20vw"}
+              height={"5vh"}
+            >
+              Add a car
+            </BrightButton>
           </MeterBorder>
         </section>
         <section id="columnmeter">
           <BrightHeader headerNumber={2}>UPCOMING MAINTENANCE</BrightHeader>
-          <MeterBorder radius={300}>
-            <section id="upcomingList"></section>
+          <MeterBorder id="upcomingBorder" radius={300}>
+            <MeterScreen>e</MeterScreen>
           </MeterBorder>
         </section>
       </section>

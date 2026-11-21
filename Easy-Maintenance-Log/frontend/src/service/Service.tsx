@@ -12,6 +12,7 @@ import BrightHeader from "../components/styling/BrightHeader";
 import BrightInput from "../components/styling/BrightInput";
 import BrightButton from "../components/styling/BrightButton";
 import formatDateString from "../util/stringUtil";
+import MeterScreen from "../components/styling/MeterScreen";
 
 // import { getCar } from "../services/api";
 
@@ -136,7 +137,7 @@ function Service() {
             Service Record for {car?.name}
           </BrightHeader>
           <MeterBorder id="recordBorder" radius={300} color={car?.color}>
-            <section id="record">
+            <MeterScreen id="record">
               <table id="recordTable">
                 <colgroup>
                   <col style={{ width: "13%" }} />
@@ -202,7 +203,7 @@ function Service() {
                   ))}
                 </tbody>
               </table>
-            </section>
+            </MeterScreen>
           </MeterBorder>
         </section>
         <section id="right">
@@ -210,170 +211,172 @@ function Service() {
             Add service for {car?.name}
           </BrightHeader>
           <MeterBorder id="formBorder" radius={300} color={car?.color}>
-            <form id="form" onSubmit={handleSubmit}>
-              <BrightHeader headerNumber={3} color={car?.color}>
-                Service name:
-              </BrightHeader>
-              <BrightInput
-                type="text"
-                id="titleinput"
-                name="titleinput"
-                placeholder="Enter the service done to the car."
-                value={title}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setTitle(e.target.value)
-                }
-                color={car?.color}
-                required={true}
-              />
-              <BrightHeader headerNumber={3} color={car?.color}>
-                Describe the service <em>(Optional)</em>:
-              </BrightHeader>
-              <BrightInput
-                type="text"
-                id="description"
-                name="description"
-                placeholder="Describe the service."
-                value={description}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setDescription(e.target.value)
-                }
-                color={car?.color}
-                required={false}
-              />
-              <BrightHeader headerNumber={3} color={car?.color}>
-                Date of service:
-              </BrightHeader>
-              <BrightInput
-                type="text"
-                id="date"
-                name="date"
-                placeholder="Date format: MM-DD-YYYY"
-                value={formDate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setDate(e.target.value)
-                }
-                color={car?.color}
-                required={true}
-              />
-              <BrightHeader headerNumber={3} color={car?.color}>
-                Cost:
-              </BrightHeader>
-              <BrightInput
-                type="number"
-                id="cost"
-                name="cost"
-                placeholder="Enter the cost of the service."
-                min={0}
-                step={0.01}
-                value={cost}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setCost(parseFloat(e.target.value))
-                }
-                color={car?.color}
-                required={true}
-              />
-              <BrightHeader headerNumber={3} color={car?.color}>
-                Current Mileage:
-              </BrightHeader>
-              <BrightInput
-                type="number"
-                id="mileage"
-                name="mileage"
-                placeholder="Enter the current mileage of the car."
-                min={0}
-                step={1}
-                value={newMileage}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setMileage(parseInt(e.target.value))
-                }
-                color={car?.color}
-                required={true}
-              />
-              <BrightHeader headerNumber={3} color={car?.color}>
-                Repeated with time, or with mileage?
-              </BrightHeader>
-              <BrightHeader headerNumber={3} color={car?.color}>
-                Select neither if this does not need to be repeated.
-              </BrightHeader>
-              <section id="checkboxes">
-                <p>Time:</p>
-                <input
-                  type="checkbox"
-                  id="isTime"
-                  name="isTime"
-                  onChange={(e) => setShowTimeInput(e.target.checked)}
-                ></input>
-                <p>Mileage:</p>
-                <input
-                  type="checkbox"
-                  id="isMileage"
-                  name="isMileage"
-                  onChange={(e) => setShowMileageInput(e.target.checked)}
-                ></input>
-              </section>
-              {showTimeInput && (
-                <section>
-                  <BrightHeader headerNumber={3} color={car?.color}>
-                    Time till repeat:
-                  </BrightHeader>
-                  <p id="timeP">
-                    This will be used for time based maintenance reminders.
-                  </p>
-                  <BrightInput
-                    type="number"
-                    id="nexttime"
-                    name="nexttime"
-                    min={0}
-                    step={1}
-                    placeholder="Enter how many months until service repeats. (ex: 3)"
-                    value={nextTime}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setNextTime(parseInt(e.target.value))
-                    }
-                    color={car?.color}
-                    required={false}
-                  />
-                </section>
-              )}
-              {showMileageInput && (
-                <section>
-                  <BrightHeader headerNumber={3} color={car?.color}>
-                    Miles till repeat:
-                  </BrightHeader>
-                  <p id="mileP">
-                    This will be used for mileage based maintenance reminders.
-                  </p>
-                  <BrightInput
-                    type="number"
-                    id="nextmileage"
-                    name="nextmileage"
-                    min={0}
-                    step={1}
-                    placeholder="Enter how many miles until service repeats."
-                    value={nextMileage}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setNextMileage(parseInt(e.target.value))
-                    }
-                    color={car?.color}
-                    required={false}
-                  />
-                </section>
-              )}
-
-              {error && <p style={{ color: "red" }}>{error}</p>}
-              <section id="addcontainer">
-                <BrightButton
-                  type="submit"
-                  borderRadius={"30px"}
+            <MeterScreen>
+              <form id="form" onSubmit={handleSubmit}>
+                <BrightHeader headerNumber={3} color={car?.color}>
+                  Service name:
+                </BrightHeader>
+                <BrightInput
+                  type="text"
+                  id="titleinput"
+                  name="titleinput"
+                  placeholder="Enter the service done to the car."
+                  value={title}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setTitle(e.target.value)
+                  }
                   color={car?.color}
-                  width={"80%"}
-                  height={"4vh"}
-                >
-                  Submit maintenance
-                </BrightButton>
-              </section>
-            </form>
+                  required={true}
+                />
+                <BrightHeader headerNumber={3} color={car?.color}>
+                  Describe the service <em>(Optional)</em>:
+                </BrightHeader>
+                <BrightInput
+                  type="text"
+                  id="description"
+                  name="description"
+                  placeholder="Describe the service."
+                  value={description}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setDescription(e.target.value)
+                  }
+                  color={car?.color}
+                  required={false}
+                />
+                <BrightHeader headerNumber={3} color={car?.color}>
+                  Date of service:
+                </BrightHeader>
+                <BrightInput
+                  type="text"
+                  id="date"
+                  name="date"
+                  placeholder="Date format: MM-DD-YYYY"
+                  value={formDate}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setDate(e.target.value)
+                  }
+                  color={car?.color}
+                  required={true}
+                />
+                <BrightHeader headerNumber={3} color={car?.color}>
+                  Cost:
+                </BrightHeader>
+                <BrightInput
+                  type="number"
+                  id="cost"
+                  name="cost"
+                  placeholder="Enter the cost of the service."
+                  min={0}
+                  step={0.01}
+                  value={cost}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setCost(parseFloat(e.target.value))
+                  }
+                  color={car?.color}
+                  required={true}
+                />
+                <BrightHeader headerNumber={3} color={car?.color}>
+                  Current Mileage:
+                </BrightHeader>
+                <BrightInput
+                  type="number"
+                  id="mileage"
+                  name="mileage"
+                  placeholder="Enter the current mileage of the car."
+                  min={0}
+                  step={1}
+                  value={newMileage}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setMileage(parseInt(e.target.value))
+                  }
+                  color={car?.color}
+                  required={true}
+                />
+                <BrightHeader headerNumber={3} color={car?.color}>
+                  Repeated with time, or with mileage?
+                </BrightHeader>
+                <BrightHeader headerNumber={3} color={car?.color}>
+                  Select neither if this does not need to be repeated.
+                </BrightHeader>
+                <section id="checkboxes">
+                  <p>Time:</p>
+                  <input
+                    type="checkbox"
+                    id="isTime"
+                    name="isTime"
+                    onChange={(e) => setShowTimeInput(e.target.checked)}
+                  ></input>
+                  <p>Mileage:</p>
+                  <input
+                    type="checkbox"
+                    id="isMileage"
+                    name="isMileage"
+                    onChange={(e) => setShowMileageInput(e.target.checked)}
+                  ></input>
+                </section>
+                {showTimeInput && (
+                  <section>
+                    <BrightHeader headerNumber={3} color={car?.color}>
+                      Time till repeat:
+                    </BrightHeader>
+                    <p id="timeP">
+                      This will be used for time based maintenance reminders.
+                    </p>
+                    <BrightInput
+                      type="number"
+                      id="nexttime"
+                      name="nexttime"
+                      min={0}
+                      step={1}
+                      placeholder="Enter how many months until service repeats. (ex: 3)"
+                      value={nextTime}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNextTime(parseInt(e.target.value))
+                      }
+                      color={car?.color}
+                      required={false}
+                    />
+                  </section>
+                )}
+                {showMileageInput && (
+                  <section>
+                    <BrightHeader headerNumber={3} color={car?.color}>
+                      Miles till repeat:
+                    </BrightHeader>
+                    <p id="mileP">
+                      This will be used for mileage based maintenance reminders.
+                    </p>
+                    <BrightInput
+                      type="number"
+                      id="nextmileage"
+                      name="nextmileage"
+                      min={0}
+                      step={1}
+                      placeholder="Enter how many miles until service repeats."
+                      value={nextMileage}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNextMileage(parseInt(e.target.value))
+                      }
+                      color={car?.color}
+                      required={false}
+                    />
+                  </section>
+                )}
+
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <section id="addcontainer">
+                  <BrightButton
+                    type="submit"
+                    borderRadius={"30px"}
+                    color={car?.color}
+                    width={"80%"}
+                    height={"4vh"}
+                  >
+                    Submit maintenance
+                  </BrightButton>
+                </section>
+              </form>
+            </MeterScreen>
           </MeterBorder>
         </section>
       </section>
