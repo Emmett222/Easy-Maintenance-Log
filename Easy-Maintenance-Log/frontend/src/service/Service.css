@@ -32,7 +32,7 @@
     border-bottom: 5px groove rgb(180, 180, 180);
     background-color: rgba(180, 180, 180, 0.1);
 
-    overflow-y: scroll;
+    
     overflow-x: hidden;
 }
 
@@ -46,7 +46,9 @@ td {
     border: 3px double rgba(180, 180, 180, 0.5);
     padding: 8px;
     text-align: left;
-    overflow-wrap: break-word
+    overflow-wrap: break-word;
+    height: 3vh;
+    overflow-y: scroll;
 }
 
 th {
