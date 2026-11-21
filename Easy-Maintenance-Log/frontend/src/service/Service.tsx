@@ -1,7 +1,7 @@
 import "./Service.css";
 import LoggedInNav from "../components/LoggedInNav";
 import { useEffect, useState } from "react";
-import { getCarByID } from "../services/cars";
+import { getCarByID, updateMileage } from "../services/cars";
 import { createService, getAllServiceForCar } from "../services/services";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { Car } from "../services/cars";
@@ -89,6 +89,11 @@ function Service() {
       setNextTime(0);
       setShowTimeInput(false);
       setShowMileageInput(false);
+
+      const updatedCar = await getCarByID(car?.id ?? -1);
+      if (updatedCar.mileage < newMileage) {
+        updateMileage(car?.id ?? -1, newMileage);
+      }
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
