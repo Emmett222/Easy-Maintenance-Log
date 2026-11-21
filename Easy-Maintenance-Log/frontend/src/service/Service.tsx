@@ -13,6 +13,7 @@ import BrightInput from "../components/styling/BrightInput";
 import BrightButton from "../components/styling/BrightButton";
 import formatDateString from "../util/stringUtil";
 import MeterScreen from "../components/styling/MeterScreen";
+import THArrow from "../components/styling/THArrow";
 
 // import { getCar } from "../services/api";
 
@@ -31,6 +32,13 @@ function Service() {
   const [showMileageInput, setShowMileageInput] = useState(false);
   const [nextMileage, setNextMileage] = useState(0);
   const [nextTime, setNextTime] = useState(0);
+
+  const [alphabeticalAscending, setAlphabeticalAscending] = useState(false);
+  const [dateAscending, setDateAscending] = useState(false);
+  const [mileageAscending, setMileageAscending] = useState(false);
+  const [costAscending, setCostAscending] = useState(false);
+  const [nextMileageAscending, setNextMileageAscending] = useState(false);
+  const [nextTimeAscending, setNextTimeAscending] = useState(false);
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -127,6 +135,100 @@ function Service() {
     }
   }
 
+  function sortAlphabetically() {
+    if (alphabeticalAscending) {
+      setServices((prevServices) =>
+        [...prevServices].sort((a, b) => a.title.localeCompare(b.title)),
+      );
+      setAlphabeticalAscending(false);
+    } else {
+      setServices((prevServices) =>
+        [...prevServices].sort((a, b) => b.title.localeCompare(a.title)),
+      );
+      setAlphabeticalAscending(true);
+    }
+  }
+
+  function sortDate() {
+    if (dateAscending) {
+      setServices((prevServices) =>
+        [...prevServices].sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+        ),
+      );
+      setDateAscending(false);
+    } else {
+      setServices((prevServices) =>
+        [...prevServices].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        ),
+      );
+      setDateAscending(true);
+    }
+  }
+
+  function sortMileage() {
+    if (mileageAscending) {
+      setServices((prevServices) =>
+        [...prevServices].sort((a, b) => a.mileage - b.mileage),
+      );
+      setMileageAscending(false);
+    } else {
+      setServices((prevServices) =>
+        [...prevServices].sort((a, b) => b.mileage - a.mileage),
+      );
+      setMileageAscending(true);
+    }
+  }
+
+  function sortCost() {
+    if (costAscending) {
+      setServices((prevServices) =>
+        [...prevServices].sort((a, b) => a.cost - b.cost),
+      );
+      setCostAscending(false);
+    } else {
+      setServices((prevServices) =>
+        [...prevServices].sort((a, b) => b.cost - a.cost),
+      );
+      setCostAscending(true);
+    }
+  }
+
+  function sortNextTime() {
+    if (nextTimeAscending) {
+      setServices((prevServices) =>
+        [...prevServices].sort(
+          (a, b) =>
+            new Date(a.next_time).getTime() - new Date(b.next_time).getTime(),
+        ),
+      );
+      setNextTimeAscending(false);
+    } else {
+      setServices((prevServices) =>
+        [...prevServices].sort(
+          (a, b) =>
+            new Date(b.next_time).getTime() - new Date(a.next_time).getTime(),
+        ),
+      );
+      setNextTimeAscending(true);
+    }
+  }
+
+  function sortNextMileage() {
+    if (nextMileageAscending) {
+      setServices((prevServices) =>
+        [...prevServices].sort((a, b) => a.next_mileage - b.next_mileage),
+      );
+      setNextMileageAscending(false);
+    } else {
+      setServices((prevServices) =>
+        [...prevServices].sort((a, b) => b.next_mileage - a.next_mileage),
+      );
+      setNextMileageAscending(true);
+    }
+  }
+
   return (
     <section>
       <title>Service Record - Easy Maintenance Log</title>
@@ -150,18 +252,66 @@ function Service() {
                 </colgroup>
                 <thead>
                   <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Mileage</th>
-                    <th>Cost</th>
-                    <th>Next Time</th>
-                    <th>Next Mileage</th>
+                    <th>
+                      <section onClick={sortAlphabetically}>
+                        <THArrow>
+                          <BrightHeader color={car?.color} headerNumber={4}>
+                            Title
+                          </BrightHeader>
+                        </THArrow>
+                      </section>
+                    </th>
+                    <th>
+                      <section onClick={sortDate}>
+                        <THArrow>
+                          <BrightHeader color={car?.color} headerNumber={4}>
+                            Date
+                          </BrightHeader>
+                        </THArrow>
+                      </section>
+                    </th>
+                    <th>
+                      <section onClick={sortMileage}>
+                        <THArrow>
+                          <BrightHeader color={car?.color} headerNumber={4}>
+                            Mileage
+                          </BrightHeader>
+                        </THArrow>
+                      </section>
+                    </th>
+                    <th>
+                      <section onClick={sortCost}>
+                        <THArrow>
+                          <BrightHeader color={car?.color} headerNumber={4}>
+                            Cost
+                          </BrightHeader>
+                        </THArrow>
+                      </section>
+                    </th>
+                    <th>
+                      <section onClick={sortNextTime}>
+                        <THArrow>
+                          <BrightHeader color={car?.color} headerNumber={4}>
+                            Next Time
+                          </BrightHeader>
+                        </THArrow>
+                      </section>
+                    </th>
+                    <th>
+                      <section onClick={sortNextMileage}>
+                        <THArrow>
+                          <BrightHeader color={car?.color} headerNumber={4}>
+                            Next Mileage
+                          </BrightHeader>
+                        </THArrow>
+                      </section>
+                    </th>
                     <th style={{ border: "none", padding: "0" }}></th>
                   </tr>
                 </thead>
                 <tbody>
                   {services?.map((service) => (
-                    <tr>
+                    <tr key={service.id}>
                       <td id="tableDataTitle">{service.title}</td>
                       <td>{formatDateString(service.date)}</td>
                       <td>{service.mileage.toString(10)}</td>
