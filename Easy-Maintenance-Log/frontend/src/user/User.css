@@ -16,6 +16,17 @@
     height: 65vh;
 }
 
+#userHorizontal {
+    display: grid;
+    padding-left: 1vw;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+#usernameChange, #emailChange {
+    height: 40%;
+}
+
 #userBorderCars {
     width: 35vw;
     height: 65vh;
@@ -25,6 +36,7 @@
     padding-left: 1vw;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    align-items: center;
 }
 
 #smallForm {

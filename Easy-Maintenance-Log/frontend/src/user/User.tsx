@@ -3,10 +3,16 @@ import { useNavigate } from "react-router-dom";
 import LoggedInNav from "../components/LoggedInNav";
 import BrightHeader from "../components/styling/BrightHeader";
 import { useEffect, useState } from "react";
-import { getUser } from "../services/api";
+import { getUser, logout } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
 import MeterScreen from "../components/styling/MeterScreen";
-import { deleteCarByID, getCars, updateColor, updateName, type Car } from "../services/cars";
+import {
+  deleteCarByID,
+  getCars,
+  updateColor,
+  updateName,
+  type Car,
+} from "../services/cars";
 import BrightInput from "../components/styling/BrightInput";
 import BrightButton from "../components/styling/BrightButton";
 
@@ -48,6 +54,11 @@ function user() {
     });
   }
 
+  function handleLogOut() {
+    // Needed so it doesn't fire on page load.
+    logout(navigate);
+  }
+
   return (
     <section>
       <title>User Settings - Easy Maintenance Log</title>
@@ -56,7 +67,20 @@ function user() {
         <section id="userLeft">
           <BrightHeader headerNumber={2}>User Settings</BrightHeader>
           <MeterBorder id="userBorderGeneral" radius={320}>
-            <MeterScreen><></></MeterScreen>
+            <MeterScreen>
+              <section id="userHorizontal">
+                <BrightHeader headerNumber={3}>Log Out</BrightHeader>
+                <BrightButton
+                  onClick={handleLogOut}
+                  borderRadius={"10px"}
+                  width={""}
+                  height={""}
+                >
+                  Logout
+                </BrightButton>
+              </section>
+              <hr />
+            </MeterScreen>
           </MeterBorder>
         </section>
         <section id="userRight">
@@ -82,7 +106,13 @@ function user() {
                         color={car.color}
                         required={false}
                       />
-                      <BrightButton onClick={() => nameUpdate(car.id)} color={car.color} borderRadius={"10px"} width={""} height={""}>
+                      <BrightButton
+                        onClick={() => nameUpdate(car.id)}
+                        color={car.color}
+                        borderRadius={"10px"}
+                        width={""}
+                        height={""}
+                      >
                         Submit
                       </BrightButton>
                     </section>
@@ -100,7 +130,13 @@ function user() {
                         color={car.color}
                         required={false}
                       />
-                      <BrightButton onClick={() => colorUpdate(car.id)} color={car.color} borderRadius={"10px"} width={""} height={""}>
+                      <BrightButton
+                        onClick={() => colorUpdate(car.id)}
+                        color={car.color}
+                        borderRadius={"10px"}
+                        width={""}
+                        height={""}
+                      >
                         Submit
                       </BrightButton>
                     </section>
