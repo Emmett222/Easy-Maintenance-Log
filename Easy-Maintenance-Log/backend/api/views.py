@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.views import APIView
+from rest_framework.views import APIView, PermissionDenied
 from .models import Car, Service
 from .serializers import CarSerializer, ServiceSerializer, UserSerializer, UserRegistrationSerializer
 
@@ -51,14 +51,17 @@ class ServiceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        queryset = Service.objects.filter(owner=self.request.user)
+        queryset = Service.objects.select_related('car').filter(owner=self.request.user)
         car_id = self.request.GET.get('car_id')
         if car_id is not None:
             queryset = queryset.filter(car_id=car_id)
         return queryset
 
     def perform_create(self, serializer):
-            serializer.save(owner=self.request.user)
+            if serializer.validated_data['car'].owner != self.request.user: 
+                raise PermissionDenied(...)
+            else:
+                serializer.save(owner=self.request.user)
 
 class UserView(APIView):
     permission_classes = [IsAuthenticated]
