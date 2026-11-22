@@ -16,6 +16,9 @@ export interface Service {
     next_time: number;
     mileage_dependant: boolean;
     time_dependant: boolean;
+
+    is_maintenance: boolean;
+    is_repair: boolean;
 }
 
 /**

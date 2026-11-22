@@ -32,6 +32,8 @@ function Service() {
   const [showMileageInput, setShowMileageInput] = useState(false);
   const [nextMileage, setNextMileage] = useState(0);
   const [nextTime, setNextTime] = useState(0);
+  const [isMaintenance, setIsMaintenance] = useState(false);
+  const [isRepair, setIsRepair] = useState(false);
 
   const [alphabeticalAscending, setAlphabeticalAscending] = useState(false);
   const [dateAscending, setDateAscending] = useState(false);
@@ -39,6 +41,10 @@ function Service() {
   const [costAscending, setCostAscending] = useState(false);
   const [nextMileageAscending, setNextMileageAscending] = useState(false);
   const [nextTimeAscending, setNextTimeAscending] = useState(false);
+
+  const [totalMaintenanceCost, setTotalMaintenanceCost] = useState(0);
+  const [totalRepairCost, setTotalRepairCost] = useState(0);
+  const [totalRepairCount, setTotalRepairCount] = useState(0);
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -54,6 +60,7 @@ function Service() {
 
     getAllServiceForCar(carID).then((result) => {
       setServices(result);
+      totalsCount(result);
     });
 
     getUser().then((result) => {
@@ -76,6 +83,8 @@ function Service() {
         next_time: nextTime,
         mileage_dependant: showMileageInput,
         time_dependant: showTimeInput,
+        is_maintenance: isMaintenance,
+        is_repair: isRepair,
       });
 
       setServices((prev) => [createResponse, ...prev]);
@@ -234,6 +243,24 @@ function Service() {
     }
   }
 
+  function totalsCount(toCount: Service[]) {
+    let mTotal = 0;
+    let rTotal = 0;
+    let rCount = 0;
+    toCount.forEach((service) => {
+      if (service.is_maintenance) {
+        mTotal += service.cost;
+      }
+      if (service.is_repair) {
+        rTotal += service.cost;
+        rCount++;
+      }
+    });
+    setTotalMaintenanceCost(mTotal);
+    setTotalRepairCost(rTotal);
+    setTotalRepairCount(rCount);
+  }
+
   return (
     <section>
       <title>Service Record - Easy Maintenance Log</title>
@@ -319,8 +346,8 @@ function Service() {
                     <tr key={service.id}>
                       <td id="tableDataTitle">{service.title}</td>
                       <td>{formatDateString(service.date)}</td>
-                      <td>{service.mileage.toString(10)}</td>
-                      <td>{service.cost.toFixed(2).toString()}</td>
+                      <td>{service.mileage}</td>
+                      <td>${service.cost.toFixed(2)}</td>
                       <td>
                         {isTime(
                           service.time_dependant,
@@ -359,6 +386,7 @@ function Service() {
                 </tbody>
               </table>
             </MeterScreen>
+            Total spent on maintenance: ${totalMaintenanceCost.toFixed(2)} | Total spent on repairs: ${totalRepairCost.toFixed(2)} | Total times repaired: {totalRepairCount}
           </MeterBorder>
         </section>
         <section id="right">
@@ -450,7 +478,7 @@ function Service() {
                 <BrightHeader headerNumber={3} color={car?.color}>
                   Repeated with time, or with mileage?
                 </BrightHeader>
-                <BrightHeader headerNumber={3} color={car?.color}>
+                <BrightHeader headerNumber={4} color={car?.color}>
                   Select neither if this does not need to be repeated.
                 </BrightHeader>
                 <section id="checkboxes">
@@ -517,7 +545,28 @@ function Service() {
                     />
                   </section>
                 )}
-
+                <BrightHeader headerNumber={3} color={car?.color}>
+                  Is this maintenance, or is it a repair?
+                </BrightHeader>
+                <BrightHeader headerNumber={4} color={car?.color}>
+                  Select neither if it is neither.
+                </BrightHeader>
+                <section id="checkboxes">
+                  <p>Maintenance:</p>
+                  <input
+                    type="checkbox"
+                    id="isMaintenance"
+                    name="isMaintenance"
+                    onChange={(e) => setIsMaintenance(e.target.checked)}
+                  ></input>
+                  <p>Repair:</p>
+                  <input
+                    type="checkbox"
+                    id="isRepair"
+                    name="isRepair"
+                    onChange={(e) => setIsRepair(e.target.checked)}
+                  ></input>
+                </section>
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <section id="addcontainer">
                   <BrightButton

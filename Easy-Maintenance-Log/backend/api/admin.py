@@ -8,6 +8,6 @@ class CarAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('car', 'title', 'mileage', 'date', 'next_mileage', 'next_time', 'mileage_dependant', 'time_dependant')
+    list_display = ('car', 'title', 'mileage', 'date', 'next_mileage', 'next_time', 'mileage_dependant', 'time_dependant', 'is_maintenance', 'is_repair')
     search_fields = ('title', 'description')
     list_filter = ('mileage_dependant', 'time_dependant')

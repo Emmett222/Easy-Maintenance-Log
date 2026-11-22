@@ -21,3 +21,6 @@ class Service(models.Model):
     next_time = models.IntegerField(blank=True, null=True)
     mileage_dependant = models.BooleanField(default=False) 
     time_dependant = models.BooleanField(default=False) 
+
+    is_maintenance = models.BooleanField(default=False)
+    is_repair = models.BooleanField(default=False) 
