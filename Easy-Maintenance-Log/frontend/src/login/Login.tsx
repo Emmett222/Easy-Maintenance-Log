@@ -51,7 +51,7 @@ function Register() {
                   setUsername(e.target.value)
                 }
                 required={true}
-                width="12vw"
+                width="min(85%, 340px)"
               />
               <p>Password:</p>
               <BrightInput
@@ -70,8 +70,8 @@ function Register() {
                 <BrightButton
                   type="submit"
                   borderRadius={"20px"}
-                  width={"7vw"}
-                  height={"5vh"}
+                  width={"clamp(140px, 45%, 200px)"}
+                  height={"max(42px, 5vh)"}
                 >
                   Sign In
                 </BrightButton>

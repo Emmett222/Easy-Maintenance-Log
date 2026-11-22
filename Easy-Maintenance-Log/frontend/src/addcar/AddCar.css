@@ -1,12 +1,16 @@
 #addCarAll {
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 2vh 2vw 4vh 2vw;
+    box-sizing: border-box;
 }
 
 #addCarForm {
-    width: 40vw;
+    width: clamp(320px, 42vw, 900px);
+    max-width: 92vw;
 }
 
 #formLines {
@@ -21,4 +25,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    text-align: center;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+#formContainer p {
+    max-width: 90%;
+    margin-top: 0;
 }

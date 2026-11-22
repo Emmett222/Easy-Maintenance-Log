@@ -88,8 +88,8 @@ function Dashboard() {
   return (
     <section>
       <title>Dashboard - Easy Maintenance Log</title>
-      <LoggedInNav showPrint={false}/>
-      <section id="all" className="pageTransition">
+      <LoggedInNav showPrint={false} />
+      <section id="dashboardAll" className="pageTransition">
         <section id="columnmeter">
           <BrightHeader headerNumber={2}>YOUR CARS</BrightHeader>
           <MeterBorder id="carBorder" radius={300}>
@@ -125,7 +125,7 @@ function Dashboard() {
                     <BrightButton
                       onClick={() => mileageUpdate(car.id)}
                       borderRadius={"10px"}
-                      width={"100%"}
+                      width={"min(80%, 200px)"}
                       height={""}
                       color={car.color}
                     >
@@ -134,7 +134,7 @@ function Dashboard() {
                     <BrightButton
                       onClick={() => navigate("/service/?car_id=" + car.id)}
                       borderRadius={"10px"}
-                      width={"100%"}
+                      width={"min(80%, 200px)"}
                       height={""}
                       color={car.color}
                     >
@@ -147,7 +147,7 @@ function Dashboard() {
             <BrightButton
               onClick={() => navigate("/addcar")}
               borderRadius={"30px"}
-              width={"20vw"}
+              width={"min(60vw, 240px)"}
               height={"5vh"}
             >
               Add a car

@@ -1,52 +1,103 @@
 #userAll {
+    min-height: 90vh;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    gap: 2vw;
+    padding: 4vh 2vw;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
-#userLeft, #userRight {
+#userLeft,
+#userRight {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 #userBorderGeneral {
-    width: 35vw;
-    height: 65vh;
-}
-
-#userHorizontal {
-    display: grid;
-    padding-left: 1vw;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-}
-
-#usernameChange, #emailChange {
-    height: 40%;
+    width: max(320px, 34vw);
+    height: 60vh;
+    box-sizing: border-box;
 }
 
 #userBorderCars {
-    width: 35vw;
-    height: 65vh;
+    width: max(360px, 46vw);
+    height: 60vh;
+    box-sizing: border-box;
+}
+
+#userHorizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    gap: 1rem;
+    box-sizing: border-box;
 }
 
 #individualCarSettings {
-    padding-left: 1vw;
+    padding: 0.75rem 1rem;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: minmax(90px, 1fr) repeat(3, minmax(0, 1fr));
     align-items: center;
+    gap: 0.75rem;
+    box-sizing: border-box;
 }
 
 #smallForm {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
+    text-align: center;
 }
 
-#nameChange, #colorChange {
-    width: 90%;
-    margin-bottom: 5px;
+#smallForm p {
+    margin: 0 0 0.4rem 0;
+}
+
+#nameChange,
+#colorChange {
+    width: min(90%, 160px) !important;
+    margin-bottom: 6px;
+}
+
+/* Stack meters and reflow car settings grid on mobile or tall/narrow windows */
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+    #userAll {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 3vh;
+        padding-top: 2vh;
+    }
+
+    #userLeft,
+    #userRight {
+        width: 100%;
+    }
+
+    #userBorderGeneral,
+    #userBorderCars {
+        width: 92vw;
+        height: auto;
+        max-height: 65vh;
+    }
+
+    #individualCarSettings {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    /* Span the car header across the top of the 2-column mobile card */
+    #individualCarSettings > :first-child {
+        grid-column: 1 / -1;
+        text-align: center;
+    }
 }

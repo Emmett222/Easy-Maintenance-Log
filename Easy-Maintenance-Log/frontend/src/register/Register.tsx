@@ -51,67 +51,71 @@ function Register() {
       <HomeNav />
       <section id="registerAll" className="pageTransition">
         <h1 id="registerTitle">Register an account</h1>
-        <MeterBorder radius={300}>
-          <form id="registerForm" onSubmit={handleSubmit}>
-            <p>Email:</p>
-            <BrightInput
-              type={"text"}
-              id={"email"}
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e: { target: { value: SetStateAction<string> } }) =>
-                setEmail(e.target.value)
-              }
-              required={true}
-              width="15vw"
-            />
-            <p>Username:</p>
-            <BrightInput
-              type={"text"}
-              id={"username"}
-              placeholder="Enter Username"
-              value={username}
-              onChange={(e: { target: { value: SetStateAction<string> } }) =>
-                setUsername(e.target.value)
-              }
-              required={true}
-              width="15vw"
-            />
-            <p>Password:</p>
-            <BrightInput
-              type={"password"}
-              id={"password"}
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e: { target: { value: SetStateAction<string> } }) =>
-                setPassword(e.target.value)
-              }
-              required={true}
-              width="15vw"
-            />
-            <p>Confirm password:</p>
-            <BrightInput
-              type={"password"}
-              id={"confirmPasswor"}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e: { target: { value: SetStateAction<string> } }) =>
-                setConfirmPassword(e.target.value)
-              }
-              required={true}
-              width="15vw"
-            />
-            <section id="buttons">
-              {error && <p style={{ color: "red" }}>{error}</p>}
-              <BrightButton
-                type="submit"
-                borderRadius={"20px"}
-                width={"7vw"}
-                height={"5vh"}
-              >Sign Up</BrightButton>
-            </section>
-          </form>
-        </MeterBorder>
+        <section id="meterWrapper">
+          <MeterBorder radius={300}>
+            <form id="registerForm" onSubmit={handleSubmit}>
+              <p>Email:</p>
+              <BrightInput
+                type={"text"}
+                id={"email"}
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setEmail(e.target.value)
+                }
+                required={true}
+                width="min(85%, 340px)"
+              />
+              <p>Username:</p>
+              <BrightInput
+                type={"text"}
+                id={"username"}
+                placeholder="Enter Username"
+                value={username}
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setUsername(e.target.value)
+                }
+                required={true}
+                width="min(85%, 340px)"
+              />
+              <p>Password:</p>
+              <BrightInput
+                type={"password"}
+                id={"password"}
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setPassword(e.target.value)
+                }
+                required={true}
+                width="min(85%, 340px)"
+              />
+              <p>Confirm password:</p>
+              <BrightInput
+                type={"password"}
+                id={"confirmPasswor"}
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setConfirmPassword(e.target.value)
+                }
+                required={true}
+                width="min(85%, 340px)"
+              />
+              <section id="buttons">
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <BrightButton
+                  type="submit"
+                  borderRadius={"20px"}
+                  width={"7vw"}
+                  height={"5vh"}
+                >
+                  Sign Up
+                </BrightButton>
+              </section>
+            </form>
+          </MeterBorder>
+        </section>
       </section>
     </>
   );

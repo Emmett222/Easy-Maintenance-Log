@@ -88,7 +88,7 @@ function user() {
           <MeterBorder id="userBorderCars" radius={320}>
             <MeterScreen>
               {cars.map((car) => (
-                <section id="allCarsSettings">
+                <section id="allCarsSettings" key={car.id}>
                   <section id="individualCarSettings">
                     <BrightHeader color={car.color} headerNumber={4}>
                       {car.name}
@@ -147,7 +147,7 @@ function user() {
                         borderRadius={"20px"}
                         onClick={() => deleteCar(car.id)}
                         width={""}
-                        height={"50%"}
+                        height={""}
                       >
                         Delete
                       </BrightButton>

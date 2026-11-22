@@ -1,7 +1,13 @@
-#all {
+#serviceAll {
+    min-height: 90vh;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-evenly;
+    gap: 2vw;
+    padding: 2vh 2vw 4vh 2vw;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #left {
@@ -11,8 +17,9 @@
 }
 
 #recordBorder {
-    height: 55vh;
-    width: 50vw;
+    height: 60vh;
+    width: max(420px, 50vw);
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
@@ -32,13 +39,19 @@
     border-bottom: 5px groove rgb(180, 180, 180);
     background-color: rgba(180, 180, 180, 0.1);
 
-    
-    overflow-x: hidden;
+    overflow-x: auto;
+}
+
+#totalsText {
+    text-align: center;
+    margin: 0.75rem 0 0 0;
+    padding: 0 0.5rem;
 }
 
 #recordTable {
     border-collapse: collapse;
     width: 96%;
+    min-width: 560px;
     table-layout: fixed;
 }
 
@@ -48,14 +61,14 @@ td {
     text-align: left;
     overflow-wrap: break-word;
     height: 3vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 th {
     border: 3px double rgba(180, 180, 180, 0.5);
     padding: 0;
     text-align: left;
-    overflow-wrap: break-word
+    overflow-wrap: break-word;
 }
 
 #right {
@@ -65,19 +78,42 @@ th {
     justify-content: center;
 }
 
+#modalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#modalHeaderRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Hide mobile-only modal buttons on desktop */
+#mobileAddButtonWrapper,
+#mobileCloseModal {
+    display: none;
+}
+
 #formBorder {
-    height: 55vh;
-    width: 40vh;
+    height: 60vh;
+    width: clamp(300px, 28vw, 520px);
+    box-sizing: border-box;
 }
 
 #form {
     height: 95%;
     width: 90%;
 
-    padding-left: 1.8vw;
+    padding-left: 1.5rem;
+    padding-right: 0.75rem;
     margin-top: 0.5vh;
+    box-sizing: border-box;
 
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -85,13 +121,16 @@ th {
     text-align: left;
 }
 
-#form > input {
-    width: 85% !important; 
+#form input[type="text"],
+#form input[type="number"] {
+    width: 88% !important;
 }
 
 #checkboxes {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 #addcontainer {
@@ -100,20 +139,88 @@ th {
     justify-content: center;
     margin-top: 4vh;
     margin-bottom: 4vh;
-    margin-left: -1.8vw;
+}
+
+/* Mobile-only modal layout */
+@media (max-width: 850px) {
+    #serviceAll {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 2vh;
+    }
+
+    #left {
+        width: 100%;
+    }
+
+    #recordBorder {
+        width: 94vw;
+        height: 64vh;
+    }
+
+    #mobileAddButtonWrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 2vh;
+    }
+
+    #right {
+        display: none;
+    }
+
+    #right.mobileModalOpen {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.82);
+        backdrop-filter: blur(4px);
+        justify-content: center;
+        align-items: center;
+        padding: 2vh 2vw;
+    }
+
+    #modalContent {
+        width: 94vw;
+        max-height: 92vh;
+    }
+
+    #modalHeaderRow {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 2vw;
+        box-sizing: border-box;
+    }
+
+    #mobileCloseModal {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        color: white;
+        border: 3px double rgb(180, 180, 180);
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        font-family: inherit;
+        font-size: 1rem;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    #formBorder {
+        width: 92vw;
+        height: 75vh;
+    }
 }
 
 @page {
-  size: auto;
-  margin: 1.5cm;
+    size: auto;
+    margin: 1.5cm;
 }
 
 @media print {
-    .no-print {
-        display: none !important;
-    }
-
-    #navall, #right, .no-print {
+    #navall, #right, #mobileAddButtonWrapper, .no-print {
         display: none !important;
     }
 
@@ -124,11 +231,11 @@ th {
         height: auto !important;
     }
 
-    #all, #left, #recordBorder, #record {
+    #serviceAll, #left, #recordBorder, #record {
         display: block !important;
         border: none !important;
         box-shadow: none !important;
-        background: white !important;
+        background: transparent !important;
         width: 100% !important;
         height: auto !important;
         overflow: visible !important;
@@ -140,7 +247,7 @@ th {
         border-collapse: separate !important;
         border-spacing: 0 !important;
         width: 100% !important;
-        border-top: 1px solid #000000 !important;
+        min-width: 0 !important;
         border-left: 1px solid #000000 !important;
     }
 

@@ -48,7 +48,7 @@ function AddCar() {
   return (
     <>
       <title>Add Car - Easy Maintenance Log</title>
-      <LoggedInNav showPrint={false}/>
+      <LoggedInNav showPrint={false} />
       <section id="addCarAll" className="pageTransition">
         <BrightHeader headerNumber={1}>Add a car</BrightHeader>
         <form id="addCarForm" onSubmit={handleSubmit}>
@@ -64,7 +64,7 @@ function AddCar() {
                 id={"name"}
                 value={undefined}
                 placeholder="Enter car name"
-                width="16vw"
+                width="min(85%, 380px)"
                 onChange={(e: { target: { value: SetStateAction<string> } }) =>
                   setName(e.target.value)
                 }
@@ -79,7 +79,7 @@ function AddCar() {
                 step={1}
                 value={undefined}
                 placeholder="Enter mileage"
-                width="16vw"
+                width="min(85%, 380px)"
                 onChange={(e: { target: { value: SetStateAction<string> } }) =>
                   setMileage(e.target.value)
                 }
@@ -91,7 +91,7 @@ function AddCar() {
                 type={"color"}
                 id={"color"}
                 value={undefined}
-                width="16vw"
+                width="min(85%, 380px)"
                 onChange={(e: { target: { value: SetStateAction<string> } }) =>
                   setColor(e.target.value)
                 }
@@ -102,8 +102,8 @@ function AddCar() {
               <BrightButton
                 type="submit"
                 borderRadius={"20px"}
-                width={"7vw"}
-                height={"5vh"}
+                width={"clamp(140px, 40%, 220px)"}
+                height={"max(42px, 5vh)"}
               >
                 Add car
               </BrightButton>
