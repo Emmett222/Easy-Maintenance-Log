@@ -67,6 +67,7 @@ function Service() {
 
     getAllServiceForCar(carID).then((result) => {
       setServices(result);
+      sortDate();
     });
 
     getUser().then((result) => {
