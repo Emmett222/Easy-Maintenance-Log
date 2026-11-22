@@ -287,54 +287,42 @@ function Service() {
                     <th>
                       <section onClick={sortAlphabetically}>
                         <THArrow>
-                          <h4>
-                            Title
-                          </h4>
+                          <h4>Title</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortDate}>
                         <THArrow>
-                          <h4>
-                            Date
-                          </h4>
+                          <h4>Date</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortMileage}>
                         <THArrow>
-                          <h4>
-                            Mileage
-                          </h4>
+                          <h4>Mileage</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortCost}>
                         <THArrow>
-                          <h4>
-                            Cost
-                          </h4>
+                          <h4>Cost</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortNextTime}>
                         <THArrow>
-                          <h4>
-                            Next Time
-                          </h4>
+                          <h4>Next Time</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortNextMileage}>
                         <THArrow>
-                          <h4>
-                            Next Mileage
-                          </h4>
+                          <h4>Next Mileage</h4>
                         </THArrow>
                       </section>
                     </th>
@@ -386,7 +374,9 @@ function Service() {
                 </tbody>
               </table>
             </MeterScreen>
-            Total spent on maintenance: ${totalMaintenanceCost.toFixed(2)} | Total spent on repairs: ${totalRepairCost.toFixed(2)} | Total times repaired: {totalRepairCount}
+            Total spent on maintenance: ${totalMaintenanceCost.toFixed(2)} |
+            Total spent on repairs: ${totalRepairCost.toFixed(2)} | Total times
+            repaired: {totalRepairCount}
           </MeterBorder>
         </section>
         <section id="right">
@@ -396,9 +386,7 @@ function Service() {
           <MeterBorder id="formBorder" radius={300} color={car?.color}>
             <MeterScreen>
               <form id="form" onSubmit={handleSubmit}>
-                <h3>
-                  Service name:
-                </h3>
+                <h3>Service name:</h3>
                 <BrightInput
                   type="text"
                   id="titleinput"
@@ -426,9 +414,7 @@ function Service() {
                   color={car?.color}
                   required={false}
                 />
-                <h3>
-                  Date of service:
-                </h3>
+                <h3>Date of service:</h3>
                 <BrightInput
                   type="text"
                   id="date"
@@ -441,9 +427,7 @@ function Service() {
                   color={car?.color}
                   required={true}
                 />
-                <h3>
-                  Cost:
-                </h3>
+                <h3>Cost:</h3>
                 <BrightInput
                   type="number"
                   id="cost"
@@ -458,9 +442,7 @@ function Service() {
                   color={car?.color}
                   required={true}
                 />
-                <h3>
-                  Current Mileage:
-                </h3>
+                <h3>Current Mileage:</h3>
                 <BrightInput
                   type="number"
                   id="mileage"
@@ -475,12 +457,8 @@ function Service() {
                   color={car?.color}
                   required={true}
                 />
-                <h3>
-                  Repeated with time, or with mileage?
-                </h3>
-                <h4>
-                  Select neither if this does not need to be repeated.
-                </h4>
+                <h3>Repeated with time, or with mileage?</h3>
+                <h4>Select neither if this does not need to be repeated.</h4>
                 <section id="checkboxes">
                   <p>Time:</p>
                   <input
@@ -499,9 +477,7 @@ function Service() {
                 </section>
                 {showTimeInput && (
                   <section>
-                    <h3>
-                      Time till repeat:
-                    </h3>
+                    <h3>Time till repeat:</h3>
                     <p id="timeP">
                       This will be used for time based maintenance reminders.
                     </p>
@@ -523,9 +499,7 @@ function Service() {
                 )}
                 {showMileageInput && (
                   <section>
-                    <h3>
-                      Miles till repeat:
-                    </h3>
+                    <h3>Miles till repeat:</h3>
                     <p id="mileP">
                       This will be used for mileage based maintenance reminders.
                     </p>
@@ -545,12 +519,8 @@ function Service() {
                     />
                   </section>
                 )}
-                <h3>
-                  Is this maintenance, or is it a repair?
-                </h3>
-                <h4>
-                  Select neither if it is neither.
-                </h4>
+                <h3>Is this maintenance, or is it a repair?</h3>
+                <h4>Select neither if it is neither.</h4>
                 <section id="checkboxes">
                   <p>Maintenance:</p>
                   <input
