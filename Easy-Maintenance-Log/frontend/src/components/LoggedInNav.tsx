@@ -5,7 +5,7 @@ import { getUser } from "../services/api";
 import darken from "../util/colorUtil";
 import { primaryColor } from "../util/constants";
 
-function LoggedInNav() {
+function LoggedInNav({ showPrint }: { showPrint: boolean}) {
   const navigate = useNavigate();
   const [username, setUsername] = useState(
     () => localStorage.getItem("username") || "Loading User",
@@ -40,6 +40,13 @@ function LoggedInNav() {
         >
           Dashboard
         </button>
+        {showPrint && (
+          <button
+            style={style}
+            className="clickDeepen navbutton"
+            onClick={() => window.print()}
+          >Print</button>
+        )}
         <button
           style={style}
           className="clickDeepen navbutton"

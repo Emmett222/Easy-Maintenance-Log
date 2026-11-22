@@ -48,7 +48,7 @@ function AddCar() {
   return (
     <>
       <title>Add Car - Easy Maintenance Log</title>
-      <LoggedInNav />
+      <LoggedInNav showPrint={false}/>
       <section id="addCarAll" className="pageTransition">
         <BrightHeader headerNumber={1}>Add a car</BrightHeader>
         <form id="addCarForm" onSubmit={handleSubmit}>

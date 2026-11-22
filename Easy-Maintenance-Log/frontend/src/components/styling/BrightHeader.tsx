@@ -1,3 +1,4 @@
+import "./BrightHeader.css";
 import type { ReactNode } from "react";
 import { primaryColor } from "../../util/constants";
 import darken from "../../util/colorUtil";

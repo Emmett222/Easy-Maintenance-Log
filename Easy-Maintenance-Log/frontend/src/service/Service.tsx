@@ -42,12 +42,19 @@ function Service() {
   const [nextMileageAscending, setNextMileageAscending] = useState(false);
   const [nextTimeAscending, setNextTimeAscending] = useState(false);
 
-  const [totalMaintenanceCost, setTotalMaintenanceCost] = useState(0);
-  const [totalRepairCost, setTotalRepairCost] = useState(0);
-  const [totalRepairCount, setTotalRepairCount] = useState(0);
-
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  const totalMaintenanceCost = services.reduce(
+    (sum, s) => (s.is_maintenance ? sum + Number(s.cost) : sum),
+    0,
+  );
+  const totalRepairCost = services.reduce(
+    (sum, s) => (s.is_repair ? sum + Number(s.cost) : sum),
+    0,
+  );
+  const totalRepairCount = services.filter((s) => s.is_repair).length;
+
   useEffect(() => {
     const carID = parseInt(searchParams.get("car_id") ?? "-1", 10);
     if (carID == -1) {
@@ -60,7 +67,6 @@ function Service() {
 
     getAllServiceForCar(carID).then((result) => {
       setServices(result);
-      totalsCount(result);
     });
 
     getUser().then((result) => {
@@ -243,28 +249,10 @@ function Service() {
     }
   }
 
-  function totalsCount(toCount: Service[]) {
-    let mTotal = 0;
-    let rTotal = 0;
-    let rCount = 0;
-    toCount.forEach((service) => {
-      if (service.is_maintenance) {
-        mTotal += service.cost;
-      }
-      if (service.is_repair) {
-        rTotal += service.cost;
-        rCount++;
-      }
-    });
-    setTotalMaintenanceCost(mTotal);
-    setTotalRepairCost(rTotal);
-    setTotalRepairCount(rCount);
-  }
-
   return (
     <section>
       <title>Service Record - Easy Maintenance Log</title>
-      <LoggedInNav />
+      <LoggedInNav showPrint={true}/>
       <section id="all" className="pageTransition">
         <section id="left">
           <BrightHeader headerNumber={2} color={car?.color}>
@@ -280,7 +268,7 @@ function Service() {
                   <col style={{ width: "10%" }} />
                   <col style={{ width: "12%" }} />
                   <col style={{ width: "13%" }} />
-                  <col style={{ width: "5%" }} />
+                  <col style={{ width: "5%" }} className="no-print" />
                 </colgroup>
                 <thead>
                   <tr>
@@ -326,7 +314,10 @@ function Service() {
                         </THArrow>
                       </section>
                     </th>
-                    <th style={{ border: "none", padding: "0" }}></th>
+                    <th
+                      className="no-print"
+                      style={{ border: "none", padding: "0" }}
+                    ></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -351,6 +342,7 @@ function Service() {
                         )}
                       </td>
                       <td
+                        className="no-print"
                         style={{
                           border: "none",
                           padding: "0",
@@ -465,6 +457,7 @@ function Service() {
                     type="checkbox"
                     id="isTime"
                     name="isTime"
+                    checked={showTimeInput}
                     onChange={(e) => setShowTimeInput(e.target.checked)}
                   ></input>
                   <p>Mileage:</p>
@@ -472,6 +465,7 @@ function Service() {
                     type="checkbox"
                     id="isMileage"
                     name="isMileage"
+                    checked={showMileageInput}
                     onChange={(e) => setShowMileageInput(e.target.checked)}
                   ></input>
                 </section>
@@ -527,6 +521,7 @@ function Service() {
                     type="checkbox"
                     id="isMaintenance"
                     name="isMaintenance"
+                    checked={isMaintenance}
                     onChange={(e) => setIsMaintenance(e.target.checked)}
                   ></input>
                   <p>Repair:</p>
@@ -534,6 +529,7 @@ function Service() {
                     type="checkbox"
                     id="isRepair"
                     name="isRepair"
+                    checked={isRepair}
                     onChange={(e) => setIsRepair(e.target.checked)}
                   ></input>
                 </section>

@@ -1,0 +1,6 @@
+@media print {
+    #outer {
+        border: none !important;
+        background-color: transparent !important;
+    }
+}

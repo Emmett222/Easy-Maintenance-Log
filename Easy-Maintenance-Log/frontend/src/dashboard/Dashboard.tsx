@@ -88,7 +88,7 @@ function Dashboard() {
   return (
     <section>
       <title>Dashboard - Easy Maintenance Log</title>
-      <LoggedInNav />
+      <LoggedInNav showPrint={false}/>
       <section id="all" className="pageTransition">
         <section id="columnmeter">
           <BrightHeader headerNumber={2}>YOUR CARS</BrightHeader>

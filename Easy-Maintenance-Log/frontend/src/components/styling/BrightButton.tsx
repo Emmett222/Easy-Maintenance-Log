@@ -1,3 +1,4 @@
+import "./BrightButton.css"
 import type { ReactNode } from "react";
 import darken from "../../util/colorUtil";
 import { primaryColor } from "../../util/constants";

@@ -7,7 +7,7 @@ function Home() {
   function navGetter() {
     const token = localStorage.getItem('access_token');
     if (token) {
-      return <LoggedInNav />
+      return <LoggedInNav showPrint={false}/>
     } else {
       return <HomeNav />
     }

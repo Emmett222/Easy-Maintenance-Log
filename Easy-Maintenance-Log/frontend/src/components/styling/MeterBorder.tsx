@@ -1,3 +1,4 @@
+import "./MeterBorder.css";
 import type { ReactNode } from "react";
 import { primaryColor } from "../../util/constants";
 import darken from "../../util/colorUtil";
@@ -20,6 +21,7 @@ function MeterBorder({
   return (
     // Keeping styling inline because it is small.
     <section
+      id="outer"
       style={{
         borderRadius: radius + "px",
         borderStyle: "inset",

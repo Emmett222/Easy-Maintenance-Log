@@ -62,7 +62,7 @@ function user() {
   return (
     <section>
       <title>User Settings - Easy Maintenance Log</title>
-      <LoggedInNav />
+      <LoggedInNav showPrint={false}/>
       <section id="userAll" className="pageTransition">
         <section id="userLeft">
           <BrightHeader headerNumber={2}>User Settings</BrightHeader>
