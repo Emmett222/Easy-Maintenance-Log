@@ -287,54 +287,54 @@ function Service() {
                     <th>
                       <section onClick={sortAlphabetically}>
                         <THArrow>
-                          <BrightHeader color={car?.color} headerNumber={4}>
+                          <h4>
                             Title
-                          </BrightHeader>
+                          </h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortDate}>
                         <THArrow>
-                          <BrightHeader color={car?.color} headerNumber={4}>
+                          <h4>
                             Date
-                          </BrightHeader>
+                          </h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortMileage}>
                         <THArrow>
-                          <BrightHeader color={car?.color} headerNumber={4}>
+                          <h4>
                             Mileage
-                          </BrightHeader>
+                          </h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortCost}>
                         <THArrow>
-                          <BrightHeader color={car?.color} headerNumber={4}>
+                          <h4>
                             Cost
-                          </BrightHeader>
+                          </h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortNextTime}>
                         <THArrow>
-                          <BrightHeader color={car?.color} headerNumber={4}>
+                          <h4>
                             Next Time
-                          </BrightHeader>
+                          </h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
                       <section onClick={sortNextMileage}>
                         <THArrow>
-                          <BrightHeader color={car?.color} headerNumber={4}>
+                          <h4>
                             Next Mileage
-                          </BrightHeader>
+                          </h4>
                         </THArrow>
                       </section>
                     </th>
@@ -396,9 +396,9 @@ function Service() {
           <MeterBorder id="formBorder" radius={300} color={car?.color}>
             <MeterScreen>
               <form id="form" onSubmit={handleSubmit}>
-                <BrightHeader headerNumber={3} color={car?.color}>
+                <h3>
                   Service name:
-                </BrightHeader>
+                </h3>
                 <BrightInput
                   type="text"
                   id="titleinput"
@@ -411,9 +411,9 @@ function Service() {
                   color={car?.color}
                   required={true}
                 />
-                <BrightHeader headerNumber={3} color={car?.color}>
+                <h3>
                   Describe the service <em>(Optional)</em>:
-                </BrightHeader>
+                </h3>
                 <BrightInput
                   type="text"
                   id="description"
@@ -426,9 +426,9 @@ function Service() {
                   color={car?.color}
                   required={false}
                 />
-                <BrightHeader headerNumber={3} color={car?.color}>
+                <h3>
                   Date of service:
-                </BrightHeader>
+                </h3>
                 <BrightInput
                   type="text"
                   id="date"
@@ -441,9 +441,9 @@ function Service() {
                   color={car?.color}
                   required={true}
                 />
-                <BrightHeader headerNumber={3} color={car?.color}>
+                <h3>
                   Cost:
-                </BrightHeader>
+                </h3>
                 <BrightInput
                   type="number"
                   id="cost"
@@ -458,9 +458,9 @@ function Service() {
                   color={car?.color}
                   required={true}
                 />
-                <BrightHeader headerNumber={3} color={car?.color}>
+                <h3>
                   Current Mileage:
-                </BrightHeader>
+                </h3>
                 <BrightInput
                   type="number"
                   id="mileage"
@@ -475,12 +475,12 @@ function Service() {
                   color={car?.color}
                   required={true}
                 />
-                <BrightHeader headerNumber={3} color={car?.color}>
+                <h3>
                   Repeated with time, or with mileage?
-                </BrightHeader>
-                <BrightHeader headerNumber={4} color={car?.color}>
+                </h3>
+                <h4>
                   Select neither if this does not need to be repeated.
-                </BrightHeader>
+                </h4>
                 <section id="checkboxes">
                   <p>Time:</p>
                   <input
@@ -499,9 +499,9 @@ function Service() {
                 </section>
                 {showTimeInput && (
                   <section>
-                    <BrightHeader headerNumber={3} color={car?.color}>
+                    <h3>
                       Time till repeat:
-                    </BrightHeader>
+                    </h3>
                     <p id="timeP">
                       This will be used for time based maintenance reminders.
                     </p>
@@ -523,9 +523,9 @@ function Service() {
                 )}
                 {showMileageInput && (
                   <section>
-                    <BrightHeader headerNumber={3} color={car?.color}>
+                    <h3>
                       Miles till repeat:
-                    </BrightHeader>
+                    </h3>
                     <p id="mileP">
                       This will be used for mileage based maintenance reminders.
                     </p>
@@ -545,12 +545,12 @@ function Service() {
                     />
                   </section>
                 )}
-                <BrightHeader headerNumber={3} color={car?.color}>
+                <h3>
                   Is this maintenance, or is it a repair?
-                </BrightHeader>
-                <BrightHeader headerNumber={4} color={car?.color}>
+                </h3>
+                <h4>
                   Select neither if it is neither.
-                </BrightHeader>
+                </h4>
                 <section id="checkboxes">
                   <p>Maintenance:</p>
                   <input
