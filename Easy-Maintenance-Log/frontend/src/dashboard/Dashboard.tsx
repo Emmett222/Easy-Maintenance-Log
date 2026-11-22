@@ -93,7 +93,7 @@ function Dashboard() {
         <section id="columnmeter">
           <BrightHeader headerNumber={2}>YOUR CARS</BrightHeader>
           <MeterBorder id="carBorder" radius={300}>
-            <MeterScreen>
+            <MeterScreen id="carsScreen">
               <ul id="carslist">
                 {cars.map((car) => (
                   <section
@@ -158,22 +158,49 @@ function Dashboard() {
           <BrightHeader headerNumber={2}>UPCOMING MAINTENANCE</BrightHeader>
           <MeterBorder id="upcomingBorder" radius={300}>
             <MeterScreen id="upcomingScreen">
-              <ul id="upcomingListMileage">
-                {allMileageServices.map((service) => (
-                  <p>
-                    {service.car_name} | {service.title} |{" "}
-                    {service.next_mileage + service.mileage}
-                  </p>
-                ))}
-              </ul>
-              <ul id="upcomingListTime">
-                {allTimeServices.map((service) => (
-                  <p>
-                    {service.car_name} | {service.title} |{" "}
-                    {formatDateString(service.date, service.next_time)}
-                  </p>
-                ))}
-              </ul>
+              <section id="upcomingListMileageContainer">
+                <BrightHeader headerNumber={3}>By Mileage</BrightHeader>
+                <ul id="upcomingListMileage">
+                  {allMileageServices.map((service) => (
+                    <section>
+                      <section id="serviceItem">
+                        <BrightHeader
+                          headerNumber={4}
+                          color={service.car_color}
+                        >
+                          {service.car_name}
+                        </BrightHeader>
+                        <p>{service.title}</p>
+                        <p>{service.next_mileage + service.mileage}</p>
+                      </section>
+                      <hr />
+                    </section>
+                  ))}
+                </ul>
+              </section>
+              <section id="upcomingListTimeContainer">
+                <BrightHeader headerNumber={3}>By Time</BrightHeader>
+                <ul id="upcomingListTime">
+                  {allTimeServices.map((service) => (
+                    <section>
+                      <section id="serviceItem">
+                        <BrightHeader
+                          headerNumber={4}
+                          color={service.car_color}
+                        >
+                          {service.car_name}
+                        </BrightHeader>
+
+                        <p>{service.title}</p>
+                        <p>
+                          {formatDateString(service.date, service.next_time)}
+                        </p>
+                      </section>
+                      <hr />
+                    </section>
+                  ))}
+                </ul>
+              </section>
             </MeterScreen>
           </MeterBorder>
         </section>

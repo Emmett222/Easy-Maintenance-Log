@@ -24,6 +24,10 @@
     height: 60vh;
 }
 
+#carsScreen {
+    margin-bottom: 1vh;
+}
+
 #carslist {
     display: flex;
     flex-wrap: wrap;
@@ -47,13 +51,26 @@
     justify-content: space-evenly;
 }
 
+#upcomingListMileageContainer, #upcomingListTimeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #upcomingListMileage, #upcomingListTime {
     overflow-y: scroll;
     list-style-type: none;
+    padding-left: 2vh;
+    padding-right: 2vh;
 }
 
 #upcomingListMileage > p, #upcomingListTime > p {
     text-align: left;
+}
+
+#serviceItem {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 #carcard {

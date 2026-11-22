@@ -11,6 +11,7 @@ class CarSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.ModelSerializer):
     car_name = serializers.ReadOnlyField(source='car.name')
     car_current_mileage = serializers.ReadOnlyField(source='car.mileage')
+    car_color = serializers.ReadOnlyField(source='car.color')
 
     class Meta:
         model = Service

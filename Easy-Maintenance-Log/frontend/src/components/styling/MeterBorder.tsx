@@ -23,7 +23,7 @@ function MeterBorder({
         borderStyle: "inset",
         borderColor: color,
         borderWidth: "10px",
-        boxShadow: "inset 0 0 40px rgba(241, 237, 237, 0.918)",
+        boxShadow: "inset 0 0 60px rgba(241, 237, 237, 0.918)",
       }}
     >
       <section

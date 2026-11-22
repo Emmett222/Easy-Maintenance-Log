@@ -10,9 +10,10 @@ function MeterScreen({ children, id }: MeterScreenProps) {
     <section
       id={id}
       style={{
-        borderTop: "5px groove rgb(180, 180, 180)",
-        borderBottom: "5px groove rgb(180, 180, 180)",
-        backgroundColor: "rgba(180, 180, 180, 0.1)",
+        borderTop: "10px double rgb(180, 180, 180)",
+        borderBottom: "10px double rgb(180, 180, 180)",
+        borderRadius: "10px",
+        backgroundColor: "rgba(60, 60, 60, 0.5)",
 
         height: "95%",
         width: "90%",

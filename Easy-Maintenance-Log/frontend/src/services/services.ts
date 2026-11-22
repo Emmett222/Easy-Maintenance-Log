@@ -6,6 +6,7 @@ export interface Service {
     car: Car;
     car_name: string;
     car_current_mileage: number;
+    car_color: string;
     title: string;
     mileage: number;
     date: Date;
