@@ -460,7 +460,7 @@ function Service() {
                     checked={showTimeInput}
                     onChange={(e) => setShowTimeInput(e.target.checked)}
                   ></input>
-                  <p>Mileage:</p>
+                  <p>| Mileage:</p>
                   <input
                     type="checkbox"
                     id="isMileage"
@@ -524,7 +524,7 @@ function Service() {
                     checked={isMaintenance}
                     onChange={(e) => setIsMaintenance(e.target.checked)}
                   ></input>
-                  <p>Repair:</p>
+                  <p>| Repair:</p>
                   <input
                     type="checkbox"
                     id="isRepair"
