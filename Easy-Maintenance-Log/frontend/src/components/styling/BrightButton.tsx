@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import darken from "../../util/colorUtil";
+import { primaryColor } from "../../util/constants";
 
 // This is needed for it to be properly rendered by React.
 interface BrightButtonProps {
@@ -17,7 +18,7 @@ function BrightButton({
   children,
   onClick,
   type = "button",
-  color = "rgb(70, 211, 199)",
+  color = primaryColor,
   borderRadius,
   width,
   height,

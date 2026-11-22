@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../services/api";
 import darken from "../util/colorUtil";
+import { primaryColor } from "../util/constants";
 
 function LoggedInNav() {
   const navigate = useNavigate();
@@ -18,8 +19,8 @@ function LoggedInNav() {
   }, []); // Empty array so it runs once on first render.
 
   const style = {
-    borderColor: "rgb(70, 211, 199)", // Redundant, but here to make react not complain.
-    "--clicked-in-color": darken("rgb(70, 211, 199)", 50),
+    borderColor: primaryColor, // Redundant, but here to make react not complain.
+    "--clicked-in-color": darken(primaryColor, 50),
   };
 
   return (

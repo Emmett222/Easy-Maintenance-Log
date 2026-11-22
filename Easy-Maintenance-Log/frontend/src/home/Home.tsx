@@ -1,6 +1,7 @@
 import "./Home.css";
 import HomeNav from "../components/HomeNav";
 import LoggedInNav from "../components/LoggedInNav";
+import { primaryColor } from "../util/constants";
 
 function Home() {
   function navGetter() {
@@ -17,7 +18,7 @@ function Home() {
       <title>Easy Maintenance Log</title>
       {navGetter()}
       <section id="homeAll" className="pageTransition">
-        <section id="titleBorder">
+        <section id="titleBorder" style={{borderColor: primaryColor}}>
           <h1 id="title">Easy Maintenance Log</h1>
         </section>
         <section id="about">

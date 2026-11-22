@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { primaryColor } from "../../util/constants";
+import darken from "../../util/colorUtil";
 
 // This is needed for it to be properly rendered by React.
 interface BrightHeaderProps {
@@ -11,7 +13,7 @@ interface BrightHeaderProps {
 function BrightHeader({
   children,
   headerNumber,
-  color = "rgb(70, 211, 199)",
+  color = darken(primaryColor, 70),
 }: BrightHeaderProps) {
 
   const style = {

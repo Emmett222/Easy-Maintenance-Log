@@ -1,3 +1,5 @@
+import { primaryColor } from "../../util/constants";
+
 // This is needed for it to be properly rendered by React.
 interface BrightInputProps {
   type: "text" | "number" | "color" | "password";
@@ -25,7 +27,7 @@ function BrightInput({
   value,
   onChange,
   required,
-  color = "rgb(70, 211, 199)",
+  color = primaryColor,
   width = "5vw",
 }: BrightInputProps) {
   const style = {

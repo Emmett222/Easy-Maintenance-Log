@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { primaryColor } from "../../util/constants";
+import darken from "../../util/colorUtil";
 
 // This is needed for it to be properly rendered by React.
 interface MeterBorderProps {
@@ -13,7 +15,7 @@ function MeterBorder({
   children,
   id,
   radius = 0,
-  color = "rgb(70, 211, 199)",
+  color = darken(primaryColor, 70),
 }: MeterBorderProps) {
   return (
     // Keeping styling inline because it is small.
@@ -24,6 +26,7 @@ function MeterBorder({
         borderColor: color,
         borderWidth: "10px",
         boxShadow: "inset 0 0 60px rgba(241, 237, 237, 0.918)",
+        backgroundColor: "rgba(15, 15, 15, 0.5)"
       }}
     >
       <section
