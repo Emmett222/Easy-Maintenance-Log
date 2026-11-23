@@ -40,6 +40,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://easymaintenancelog.com",
     "https://www.easymaintenancelog.com",
     "https://main.dvc55649uwkxw.amplifyapp.com",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
 REST_FRAMEWORK = {
@@ -56,7 +58,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_RATES': {
         'anon': '5/minute', 
-        'user': '100/hour', 
+        'user': '1000/hour', 
     }
 }
 

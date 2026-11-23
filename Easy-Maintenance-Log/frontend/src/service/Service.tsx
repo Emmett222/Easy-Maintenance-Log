@@ -1,6 +1,6 @@
 import "./Service.css";
 import LoggedInNav from "../components/LoggedInNav";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getCarByID, updateMileage } from "../services/cars";
 import { createService, getAllServiceForCar } from "../services/services";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -18,37 +18,59 @@ import formatDateString from "../util/stringUtil";
 import MeterScreen from "../components/styling/MeterScreen";
 import THArrow from "../components/styling/THArrow";
 
-// import { getCar } from "../services/api";
-
 function Service() {
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [car, setCar] = useState<Car>();
   const [userID, setUserID] = useState("");
   const [error, setError] = useState("");
-
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [formDate, setDate] = useState("");
-  const [cost, setCost] = useState(0.0);
-  const [newMileage, setMileage] = useState(0);
-  const [showTimeInput, setShowTimeInput] = useState(false);
-  const [showMileageInput, setShowMileageInput] = useState(false);
-  const [nextMileage, setNextMileage] = useState(0);
-  const [nextTime, setNextTime] = useState(0);
-  const [isMaintenance, setIsMaintenance] = useState(false);
-  const [isRepair, setIsRepair] = useState(false);
-
-  const [alphabeticalAscending, setAlphabeticalAscending] = useState(false);
-  const [dateAscending, setDateAscending] = useState(false);
-  const [mileageAscending, setMileageAscending] = useState(false);
-  const [costAscending, setCostAscending] = useState(false);
-  const [nextMileageAscending, setNextMileageAscending] = useState(false);
-  const [nextTimeAscending, setNextTimeAscending] = useState(false);
-
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  type SortKey =
+    | "title"
+    | "date"
+    | "mileage"
+    | "cost"
+    | "next_time"
+    | "next_mileage";
+  const [sortConfig, setSortConfig] = useState<{
+    key: SortKey;
+    ascending: boolean;
+  }>({ key: "date", ascending: false });
+
+  // UseMemo is a hook that caches result of calculation between renders.
+  const sortedServices = useMemo(() => {
+    const direction = sortConfig.ascending ? 1 : -1;
+
+    return [...services].sort((a, b) => {
+      switch (sortConfig.key) {
+        case "title":
+          return direction * a.title.localeCompare(b.title);
+        case "date":
+          return (
+            direction *
+            (new Date(a.date).getTime() - new Date(b.date).getTime())
+          );
+        case "mileage":
+          return direction * (a.mileage - b.mileage);
+        case "cost":
+          return direction * (a.cost - b.cost);
+        case "next_mileage":
+          return (
+            direction *
+            (a.mileage + a.next_mileage - (b.mileage + b.next_mileage))
+          );
+        case "next_time": {
+          const timeA = a.time_dependant
+            ? new Date(formatDateString(a.date, a.next_time)).getTime()
+            : Infinity;
+          const timeB = b.time_dependant
+            ? new Date(formatDateString(b.date, b.next_time)).getTime()
+            : Infinity;
+          return direction * (timeA - timeB);
+        }
+      }
+    });
+  }, [services, sortConfig]);
 
   const totalMaintenanceCost = services.reduce(
     (sum, s) => (s.is_maintenance ? sum + Number(s.cost) : sum),
@@ -59,6 +81,39 @@ function Service() {
     0,
   );
   const totalRepairCount = services.filter((s) => s.is_repair).length;
+
+  interface FormData {
+    title: string;
+    description: string;
+    date: string;
+    cost: number;
+    mileage: number;
+    isTime: boolean;
+    isMileage: boolean;
+    nextTime: number;
+    nextMileage: number;
+    isMaintenance: boolean;
+    isRepair: boolean;
+  }
+
+  const initialFormData: FormData = {
+    title: "",
+    description: "",
+    date: "",
+    cost: 0,
+    mileage: 0,
+    isTime: false,
+    isMileage: false,
+    nextTime: 0,
+    nextMileage: 0,
+    isMaintenance: false,
+    isRepair: false,
+  };
+
+  const [formData, setFormData] = useState<FormData>(initialFormData);
+
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const carID = parseInt(searchParams.get("car_id") ?? "-1", 10);
@@ -72,7 +127,6 @@ function Service() {
 
     getAllServiceForCar(carID).then((result) => {
       setServices(result);
-      sortDate();
     });
 
     getUser().then((result) => {
@@ -85,38 +139,26 @@ function Service() {
     try {
       const createResponse = await createService({
         car: car?.id ?? -1,
-        title: title,
-        description: description,
-        mileage: newMileage,
-        date: toISODate(formDate),
-        cost: cost,
+        title: formData.title,
+        description: formData.description,
+        mileage: formData.mileage,
+        date: formData.date,
+        cost: formData.cost,
         owner: userID,
-        next_mileage: nextMileage,
-        next_time: nextTime,
-        mileage_dependant: showMileageInput,
-        time_dependant: showTimeInput,
-        is_maintenance: isMaintenance,
-        is_repair: isRepair,
+        next_mileage: formData.nextMileage,
+        next_time: formData.nextTime,
+        mileage_dependant: formData.isMileage,
+        time_dependant: formData.isTime,
+        is_maintenance: formData.isMaintenance,
+        is_repair: formData.isRepair,
       });
 
       setServices((prev) => [createResponse, ...prev]);
 
-      setTitle("");
-      setDescription("");
-      setDate("");
-      setCost(0);
-      setMileage(0);
-      setNextMileage(0);
-      setNextTime(0);
-      setShowTimeInput(false);
-      setShowMileageInput(false);
-      setIsMaintenance(false);
-      setIsRepair(false);
-      setIsAddModalOpen(false);
-
       const updatedCar = await getCarByID(car?.id ?? -1);
-      if (updatedCar.mileage < newMileage) {
-        updateMileage(car?.id ?? -1, newMileage);
+      if (updatedCar.mileage < formData.mileage) {
+        await updateMileage(car?.id ?? -1, formData.mileage);
+        setCar(updatedCar);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -125,6 +167,14 @@ function Service() {
         setError("An unexpected error occured.");
       }
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleDelete = async (serviceID: number) => {
@@ -142,12 +192,6 @@ function Service() {
     }
   };
 
-  // Needed for the API payload.
-  function toISODate(dateStr: string): string {
-    const [month, day, year] = dateStr.split("-");
-    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-  }
-
   function isTime(timeBool: boolean, date: Date, next: number): string {
     if (timeBool) {
       return formatDateString(date, next);
@@ -164,98 +208,12 @@ function Service() {
     }
   }
 
-  function sortAlphabetically() {
-    if (alphabeticalAscending) {
-      setServices((prevServices) =>
-        [...prevServices].sort((a, b) => a.title.localeCompare(b.title)),
-      );
-      setAlphabeticalAscending(false);
-    } else {
-      setServices((prevServices) =>
-        [...prevServices].sort((a, b) => b.title.localeCompare(a.title)),
-      );
-      setAlphabeticalAscending(true);
-    }
-  }
-
-  function sortDate() {
-    if (dateAscending) {
-      setServices((prevServices) =>
-        [...prevServices].sort(
-          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-        ),
-      );
-      setDateAscending(false);
-    } else {
-      setServices((prevServices) =>
-        [...prevServices].sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-        ),
-      );
-      setDateAscending(true);
-    }
-  }
-
-  function sortMileage() {
-    if (mileageAscending) {
-      setServices((prevServices) =>
-        [...prevServices].sort((a, b) => a.mileage - b.mileage),
-      );
-      setMileageAscending(false);
-    } else {
-      setServices((prevServices) =>
-        [...prevServices].sort((a, b) => b.mileage - a.mileage),
-      );
-      setMileageAscending(true);
-    }
-  }
-
-  function sortCost() {
-    if (costAscending) {
-      setServices((prevServices) =>
-        [...prevServices].sort((a, b) => a.cost - b.cost),
-      );
-      setCostAscending(false);
-    } else {
-      setServices((prevServices) =>
-        [...prevServices].sort((a, b) => b.cost - a.cost),
-      );
-      setCostAscending(true);
-    }
-  }
-
-  function sortNextTime() {
-    if (nextTimeAscending) {
-      setServices((prevServices) =>
-        [...prevServices].sort(
-          (a, b) =>
-            new Date(a.next_time).getTime() - new Date(b.next_time).getTime(),
-        ),
-      );
-      setNextTimeAscending(false);
-    } else {
-      setServices((prevServices) =>
-        [...prevServices].sort(
-          (a, b) =>
-            new Date(b.next_time).getTime() - new Date(a.next_time).getTime(),
-        ),
-      );
-      setNextTimeAscending(true);
-    }
-  }
-
-  function sortNextMileage() {
-    if (nextMileageAscending) {
-      setServices((prevServices) =>
-        [...prevServices].sort((a, b) => a.next_mileage - b.next_mileage),
-      );
-      setNextMileageAscending(false);
-    } else {
-      setServices((prevServices) =>
-        [...prevServices].sort((a, b) => b.next_mileage - a.next_mileage),
-      );
-      setNextMileageAscending(true);
-    }
+  function handleSort(key: SortKey) {
+    setSortConfig((prev) => ({
+      key,
+      // If clicking the same column, flip direction; if clicking a new column, start ascending
+      ascending: prev.key === key ? !prev.ascending : true,
+    }));
   }
 
   return (
@@ -282,42 +240,42 @@ function Service() {
                 <thead>
                   <tr>
                     <th>
-                      <section onClick={sortAlphabetically}>
+                      <section onClick={() => handleSort("title")}>
                         <THArrow>
                           <h4>Title</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
-                      <section onClick={sortDate}>
+                      <section onClick={() => handleSort("date")}>
                         <THArrow>
                           <h4>Date</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
-                      <section onClick={sortMileage}>
+                      <section onClick={() => handleSort("mileage")}>
                         <THArrow>
                           <h4>Mileage</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
-                      <section onClick={sortCost}>
+                      <section onClick={() => handleSort("cost")}>
                         <THArrow>
                           <h4>Cost</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
-                      <section onClick={sortNextTime}>
+                      <section onClick={() => handleSort("next_time")}>
                         <THArrow>
                           <h4>Next Time</h4>
                         </THArrow>
                       </section>
                     </th>
                     <th>
-                      <section onClick={sortNextMileage}>
+                      <section onClick={() => handleSort("next_mileage")}>
                         <THArrow>
                           <h4>Next Mileage</h4>
                         </THArrow>
@@ -330,9 +288,9 @@ function Service() {
                   </tr>
                 </thead>
                 <tbody>
-                  {services?.map((service) => (
+                  {sortedServices?.map((service) => (
                     <tr key={service.id}>
-                      <td id="tableDataTitle">{service.title}</td>
+                      <td>{service.title}</td>
                       <td>{formatDateString(service.date)}</td>
                       <td>{service.mileage}</td>
                       <td>${service.cost.toFixed(2)}</td>
@@ -421,13 +379,11 @@ function Service() {
                   <h3>Service name:</h3>
                   <BrightInput
                     type="text"
-                    id="titleinput"
-                    name="titleinput"
+                    id="titleInput"
+                    name="title"
                     placeholder="Enter the service done to the car."
-                    value={title}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setTitle(e.target.value)
-                    }
+                    value={formData.title}
+                    onChange={handleChange}
                     color={car?.color}
                     required={true}
                   />
@@ -439,23 +395,18 @@ function Service() {
                     id="description"
                     name="description"
                     placeholder="Describe the service."
-                    value={description}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setDescription(e.target.value)
-                    }
+                    value={formData.description}
+                    onChange={handleChange}
                     color={car?.color}
                     required={false}
                   />
                   <h3>Date of service:</h3>
                   <BrightInput
-                    type="text"
+                    type="date"
                     id="date"
                     name="date"
-                    placeholder="Date format: MM-DD-YYYY"
-                    value={formDate}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setDate(e.target.value)
-                    }
+                    value={formData.date}
+                    onChange={handleChange}
                     color={car?.color}
                     required={true}
                   />
@@ -467,10 +418,8 @@ function Service() {
                     placeholder="Enter the cost of the service."
                     min={0}
                     step={0.01}
-                    value={cost}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setCost(parseFloat(e.target.value))
-                    }
+                    value={formData.cost}
+                    onChange={handleChange}
                     color={car?.color}
                     required={true}
                   />
@@ -482,34 +431,32 @@ function Service() {
                     placeholder="Enter the current mileage of the car."
                     min={0}
                     step={1}
-                    value={newMileage}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setMileage(parseInt(e.target.value))
-                    }
+                    value={formData.mileage}
+                    onChange={handleChange}
                     color={car?.color}
                     required={true}
                   />
                   <h3>Repeated with time, or with mileage?</h3>
                   <h4>Select neither if this does not need to be repeated.</h4>
-                  <section id="checkboxes">
+                  <section className="checkboxes">
                     <p>Time:</p>
                     <input
                       type="checkbox"
                       id="isTime"
                       name="isTime"
-                      checked={showTimeInput}
-                      onChange={(e) => setShowTimeInput(e.target.checked)}
+                      checked={formData.isTime}
+                      onChange={handleChange}
                     ></input>
                     <p>| Mileage:</p>
                     <input
                       type="checkbox"
                       id="isMileage"
                       name="isMileage"
-                      checked={showMileageInput}
-                      onChange={(e) => setShowMileageInput(e.target.checked)}
+                      checked={formData.isMileage}
+                      onChange={handleChange}
                     ></input>
                   </section>
-                  {showTimeInput && (
+                  {formData.isTime && (
                     <section>
                       <h3>Time till repeat:</h3>
                       <p id="timeP">
@@ -517,21 +464,19 @@ function Service() {
                       </p>
                       <BrightInput
                         type="number"
-                        id="nexttime"
-                        name="nexttime"
+                        id="nextTime"
+                        name="nextTime"
                         min={0}
                         step={1}
                         placeholder="Enter how many months until service repeats. (ex: 3)"
-                        value={nextTime}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setNextTime(parseInt(e.target.value))
-                        }
+                        value={formData.nextTime}
+                        onChange={handleChange}
                         color={car?.color}
                         required={false}
                       />
                     </section>
                   )}
-                  {showMileageInput && (
+                  {formData.isMileage && (
                     <section>
                       <h3>Miles till repeat:</h3>
                       <p id="mileP">
@@ -540,15 +485,13 @@ function Service() {
                       </p>
                       <BrightInput
                         type="number"
-                        id="nextmileage"
-                        name="nextmileage"
+                        id="nextMileage"
+                        name="nextMileage"
                         min={0}
                         step={1}
                         placeholder="Enter how many miles until service repeats."
-                        value={nextMileage}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setNextMileage(parseInt(e.target.value))
-                        }
+                        value={formData.nextMileage}
+                        onChange={handleChange}
                         color={car?.color}
                         required={false}
                       />
@@ -556,22 +499,22 @@ function Service() {
                   )}
                   <h3>Is this maintenance, or is it a repair?</h3>
                   <h4>Select neither if it is neither.</h4>
-                  <section id="checkboxes">
+                  <section className="checkboxes">
                     <p>Maintenance:</p>
                     <input
                       type="checkbox"
                       id="isMaintenance"
                       name="isMaintenance"
-                      checked={isMaintenance}
-                      onChange={(e) => setIsMaintenance(e.target.checked)}
+                      checked={formData.isMaintenance}
+                      onChange={handleChange}
                     ></input>
                     <p>| Repair:</p>
                     <input
                       type="checkbox"
                       id="isRepair"
                       name="isRepair"
-                      checked={isRepair}
-                      onChange={(e) => setIsRepair(e.target.checked)}
+                      checked={formData.isRepair}
+                      onChange={handleChange}
                     ></input>
                   </section>
                   {error && <p style={{ color: "red" }}>{error}</p>}

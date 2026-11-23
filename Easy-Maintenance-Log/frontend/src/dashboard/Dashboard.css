@@ -1,5 +1,4 @@
 #dashboardAll {
-    background-color: rgba(0, 0, 0, 0) !important;
     min-height: 90vh;
     display: flex;
     flex-direction: row;
@@ -119,18 +118,10 @@
     100% { opacity: 0; }
 }
 
-#carcard > button,
-#cars > button {
-    border-color: rgb(70, 211, 199);
+#carcard > button {
     box-shadow: inset 0 0 5px rgba(241, 237, 237, 0.918);
-    border-width: 5px;
-    border-style: double;
-    border-radius: 10px;
-
     background-color: black;
-
     color: white;
-    width: min(80%, 200px);
 }
 
 #carcard > p {

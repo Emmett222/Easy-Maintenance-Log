@@ -2,7 +2,7 @@ import { primaryColor } from "../../util/constants";
 
 // This is needed for it to be properly rendered by React.
 interface BrightInputProps {
-  type: "text" | "number" | "color" | "password";
+  type: "text" | "number" | "color" | "password" | "date";
   id: string;
   name?: string; // Optional.
   min?: number; // Optional.
@@ -45,6 +45,8 @@ function BrightInput({
 
   switch (type) {
     case "text":
+    case "password":
+    case "date":
       return (
         <input
           type={type}
@@ -57,8 +59,7 @@ function BrightInput({
           style={style}
           className="hoverGlow"
           width={width}
-        >
-        </input>
+        ></input>
       );
     case "number":
       return (
@@ -75,8 +76,7 @@ function BrightInput({
           style={style}
           className="hoverGlow"
           width={width}
-        >
-        </input>
+        ></input>
       );
     case "color":
       return (
@@ -89,24 +89,7 @@ function BrightInput({
           style={style}
           className="hoverGlow"
           width={width}
-        >
-        </input>
-      );
-    case "password":
-      return (
-        <input
-          type={type}
-          id={id}
-          name={name}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          required={required}
-          style={style}
-          className="hoverGlow"
-          width={width}
-        >
-        </input>
+        ></input>
       );
   }
 }

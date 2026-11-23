@@ -9,8 +9,10 @@ import BrightHeader from "../components/styling/BrightHeader";
 import BrightInput from "../components/styling/BrightInput";
 import BrightButton from "../components/styling/BrightButton";
 import MeterScreen from "../components/styling/MeterScreen";
-import { getAllServiceForCar, type Service } from "../services/services";
+import type { Service } from "../services/services";
 import formatDateString from "../util/stringUtil";
+import { fetchAllServices } from "./DashboardFetcher";
+import { sortMileage, sortTime } from "./DashboardSorter";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -21,63 +23,28 @@ function Dashboard() {
   const [allTimeServices, setAllTimeServices] = useState<Service[]>([]);
 
   useEffect(() => {
-    fillCars();
+    fillData();
   }, []); // Empty array so it runs once on first render.
 
-  function fillCars() {
-    getCars().then((result) => {
+  async function fillData() {
+    try {
+      const result = await getCars();
       setCars(result);
-      fillService(result);
-    });
-  }
 
-  async function fillService(cars: Car[]) {
-    let returnAllMileage: Service[] = [];
-    let returnAllTime: Service[] = [];
-    const today: Date = new Date();
-
-    await Promise.all(
-      cars.map(async (car) => {
-        const currServices = await getAllServiceForCar(car.id);
-
-        returnAllMileage.push(
-          ...currServices.filter(
-            (curr) =>
-              curr.mileage_dependant &&
-              curr.mileage + curr.next_mileage > car.mileage,
-          ),
-        );
-
-        returnAllTime.push(
-          ...currServices.filter(
-            (curr) =>
-              curr.time_dependant &&
-              new Date(formatDateString(curr.date, curr.next_time)) >= today,
-          ),
-        );
-      }),
-    );
-
-    setAllMileageServices(
-      returnAllMileage.sort(
-        (a, b) =>
-          a.mileage +
-          a.next_mileage -
-          a.car_current_mileage -
-          (b.mileage + b.next_mileage - b.car_current_mileage),
-      ),
-    );
-    setAllTimeServices(
-      returnAllTime.sort(
-        (a, b) =>
-          new Date(a.next_time).getTime() - new Date(b.next_time).getTime(),
-      ),
-    );
+      const allServices = await fetchAllServices(result);
+      setAllMileageServices(sortMileage(allServices));
+      setAllTimeServices(sortTime(allServices));
+    } catch (error) {
+      console.error("Failed to load dashboard data:", error);
+    }
   }
 
   function mileageUpdate(carID: number) {
+    const mileage = newMileage[carID];
+    if (!Number.isFinite(mileage) || mileage <= 0) return;
+
     updateMileage(carID, newMileage[carID]).then(() => {
-      fillCars();
+      fillData();
     });
   }
   return (
@@ -89,7 +56,7 @@ function Dashboard() {
           <BrightHeader headerNumber={2}>YOUR CARS</BrightHeader>
           <MeterBorder id="carBorder" radius={300}>
             <MeterScreen id="carsScreen">
-              <ul id="carslist">
+              <section id="carslist">
                 {cars.map((car) => (
                   <section
                     key={car.id}
@@ -137,7 +104,7 @@ function Dashboard() {
                     </BrightButton>
                   </section>
                 ))}
-              </ul>
+              </section>
             </MeterScreen>
             <BrightButton
               onClick={() => navigate("/addcar")}
@@ -157,7 +124,7 @@ function Dashboard() {
                 <BrightHeader headerNumber={3}>By Mileage</BrightHeader>
                 <ul id="upcomingListMileage">
                   {allMileageServices.map((service) => (
-                    <section>
+                    <section key={service.id}>
                       <section id="serviceItem">
                         <BrightHeader
                           headerNumber={4}
@@ -177,7 +144,7 @@ function Dashboard() {
                 <BrightHeader headerNumber={3}>By Time</BrightHeader>
                 <ul id="upcomingListTime">
                   {allTimeServices.map((service) => (
-                    <section>
+                    <section key={service.id}>
                       <section id="serviceItem">
                         <BrightHeader
                           headerNumber={4}

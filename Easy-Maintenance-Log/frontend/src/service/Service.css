@@ -129,7 +129,7 @@ th {
     width: 88% !important;
 }
 
-#checkboxes {
+.checkboxes {
     display: flex;
     flex-direction: row;
     align-items: center;
