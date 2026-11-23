@@ -34,7 +34,7 @@ export const getCarByID = async (carID: number): Promise<Car> => {
  * @param carID The ID of the car wanted.
  */
 export const deleteCarByID = async (carID: number) => {
-    await api.delete<Car>('/cars/' + carID + '/');
+    await api.delete<Car>('/api/cars/' + carID + '/');
 }
 
 /**
@@ -43,7 +43,7 @@ export const deleteCarByID = async (carID: number) => {
  * @returns Promise of the new car data.
  */
 export const createCar = async (carData: Record<string, any>) => {
-    const response = await api.post('/cars/', carData);
+    const response = await api.post('/api/cars/', carData);
     return response.data
 }
 
@@ -54,7 +54,7 @@ export const createCar = async (carData: Record<string, any>) => {
  * @param mileage The new mileage of the car.
  */
 export const updateMileage = async (carID: number, mileage: number) => {
-    const response = await api.patch('/cars/' + carID +'/update_mileage/', {mileage: mileage});
+    const response = await api.patch('/api/cars/' + carID +'/update_mileage/', {mileage: mileage});
     return response.data
 }
 
@@ -65,7 +65,7 @@ export const updateMileage = async (carID: number, mileage: number) => {
  * @param name The new name of the car.
  */
 export const updateName = async (carID: number, name: string) => {
-    const response = await api.patch('/cars/' + carID +'/update_name/', {name: name});
+    const response = await api.patch('/api/cars/' + carID +'/update_name/', {name: name});
     return response.data
 }
 
@@ -76,6 +76,6 @@ export const updateName = async (carID: number, name: string) => {
  * @param color The new color of the car.
  */
 export const updateColor = async (carID: number, color: string) => {
-    const response = await api.patch('/cars/' + carID +'/update_color/', {color: color});
+    const response = await api.patch('/api/cars/' + carID +'/update_color/', {color: color});
     return response.data
 }

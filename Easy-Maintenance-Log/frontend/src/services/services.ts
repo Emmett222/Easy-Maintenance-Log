@@ -28,7 +28,7 @@ export interface Service {
  * @returns Promise of the array of all the cars.
  */
 export const getAllServiceForCar = async (carID: number): Promise<Service[]> => {
-    const response = await api.get<Service[]>('/services/?car_id=' + carID);
+    const response = await api.get<Service[]>('/api/services/?car_id=' + carID);
     return response.data;
 }
 
@@ -39,7 +39,7 @@ export const getAllServiceForCar = async (carID: number): Promise<Service[]> => 
  * @returns Promise of the new car data.
  */
 export const createService = async (serviceData: Record<string, any>) => {
-    const response = await api.post('/services/', serviceData);
+    const response = await api.post('/api/services/', serviceData);
     return response.data;
 }
 
@@ -49,6 +49,6 @@ export const createService = async (serviceData: Record<string, any>) => {
  * @param ID The ID of the service.
  */
 export const deleteServiceByID = async (serviceID: number) => {
-    const response = await api.delete('/services/' + serviceID + '/');
+    const response = await api.delete('/api/services/' + serviceID + '/');
     return response.data;
 }

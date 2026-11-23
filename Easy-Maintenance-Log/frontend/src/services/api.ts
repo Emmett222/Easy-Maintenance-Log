@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Axios.
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000/api",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000",
   headers: {
     'Content-Type': 'application/json',
   },
@@ -23,12 +23,12 @@ api.interceptors.request.use(
 );
 
 export const registerUser = async (userData: Record<string, string>) => {
-    const response = await api.post('/register/', userData);
+    const response = await api.post('/api/register/', userData);
     return response.data;
 }
 
 export const loginUser = async (credentials: Record<string, string>) => {
-  const response = await api.post('/token/', credentials);
+  const response = await api.post('/api/token/', credentials);
   
   const { access, refresh } = response.data;
   
@@ -43,7 +43,7 @@ export const logout = async (navigate: any) => {
     const accessToken = localStorage.getItem('access_token');
     const refreshToken = localStorage.getItem('refresh_token');
     await api.post(
-      '/logout/', 
+      '/api/logout/', 
         {refreshToken},
         {
           headers: {
@@ -61,7 +61,7 @@ export const logout = async (navigate: any) => {
 }
 
 export const getUser = async () => {
-  const user = await api.get('/user/me/');
+  const user = await api.get('/api/user/me/');
   return user.data;
 }
 
