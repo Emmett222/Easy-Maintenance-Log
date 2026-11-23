@@ -5,7 +5,7 @@ import { getCarByID, updateMileage } from "../services/cars";
 import { createService, getAllServiceForCar } from "../services/services";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { Car } from "../services/cars";
-import { deleteServiceByID, type Service } from "../services/services";
+import { deleteServiceByID, type Service as ServiceItem } from "../services/services";
 import { getUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
@@ -18,7 +18,7 @@ import THArrow from "../components/styling/THArrow";
 // import { getCar } from "../services/api";
 
 function Service() {
-  const [services, setServices] = useState<Service[]>([]);
+  const [services, setServices] = useState<ServiceItem[]>([]);
   const [car, setCar] = useState<Car>();
   const [userID, setUserID] = useState("");
   const [error, setError] = useState("");

@@ -11,7 +11,6 @@ import BrightButton from "../components/styling/BrightButton";
 
 function AddCar() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("Loading user...");
   const [userID, setUserID] = useState("");
   const [name, setName] = useState("");
   const [mileage, setMileage] = useState("");
@@ -20,7 +19,6 @@ function AddCar() {
 
   useEffect(() => {
     getUser().then((result) => {
-      setUsername(result.username);
       setUserID(result.id);
     });
   }, []); // Empty array so it runs once on first render.
@@ -28,7 +26,7 @@ function AddCar() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const createResponse = await createCar({
+      await createCar({
         name: name,
         mileage: parseInt(mileage, 10),
         color: color,

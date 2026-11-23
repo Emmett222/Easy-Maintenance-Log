@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LoggedInNav from "../components/LoggedInNav";
 import BrightHeader from "../components/styling/BrightHeader";
 import { useEffect, useState } from "react";
-import { getUser, logout } from "../services/api";
+import { logout } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
 import MeterScreen from "../components/styling/MeterScreen";
 import {
@@ -18,15 +18,11 @@ import BrightButton from "../components/styling/BrightButton";
 
 function user() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("Loading user");
   const [cars, setCars] = useState<Car[]>([]);
   const [newName, setNewName] = useState<Record<number, string>>({});
   const [newColor, setNewColor] = useState<Record<number, string>>({});
 
   useEffect(() => {
-    getUser().then((result) => {
-      setUsername(result.username);
-    });
     fillCars();
   }, []); // Empty array so it runs once on first render.
 

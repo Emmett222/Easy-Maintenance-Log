@@ -56,6 +56,7 @@ function BrightInput({
           required={required}
           style={style}
           className="hoverGlow"
+          width={width}
         >
         </input>
       );
@@ -73,6 +74,7 @@ function BrightInput({
           required={required}
           style={style}
           className="hoverGlow"
+          width={width}
         >
         </input>
       );
@@ -86,6 +88,7 @@ function BrightInput({
           required={required}
           style={style}
           className="hoverGlow"
+          width={width}
         >
         </input>
       );
@@ -101,6 +104,7 @@ function BrightInput({
           required={required}
           style={style}
           className="hoverGlow"
+          width={width}
         >
         </input>
       );

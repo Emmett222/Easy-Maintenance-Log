@@ -2,7 +2,6 @@ import "./Dashboard.css";
 import LoggedInNav from "../components/LoggedInNav";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getUser } from "../services/api";
 import { getCars, updateMileage } from "../services/cars";
 import type { Car } from "../services/cars";
 import MeterBorder from "../components/styling/MeterBorder";
@@ -15,7 +14,6 @@ import formatDateString from "../util/stringUtil";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("Loading user...");
   const [cars, setCars] = useState<Car[]>([]);
   const [newMileage, setNewMileage] = useState<Record<number, number>>({});
 
@@ -23,9 +21,6 @@ function Dashboard() {
   const [allTimeServices, setAllTimeServices] = useState<Service[]>([]);
 
   useEffect(() => {
-    getUser().then((result) => {
-      setUsername(result.username);
-    });
     fillCars();
   }, []); // Empty array so it runs once on first render.
 

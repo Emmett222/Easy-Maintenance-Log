@@ -28,13 +28,11 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # Changed password and hid it.
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["api.easymaintenancelog.com"]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173", # Default Vite port
-]
+CORS_ALLOWED_ORIGINS = ["[https://easymaintenancelog.com](https://easymaintenancelog.com)", "[https://www.easymaintenancelog.com](https://www.easymaintenancelog.com)", "https://main.YOUR_AMPLIFY_ID.amplifyapp.com"]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -115,11 +113,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'car_service_db',
-        'USER': 'admin',
-        'PASSWORD': '*O^T&(^GUO*&T(&^R&IT',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('DB_NAME', 'car_service_db'),
+        'USER': os.getenv('DB_USER', 'admin'),
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '3306'),
     }
 }
 

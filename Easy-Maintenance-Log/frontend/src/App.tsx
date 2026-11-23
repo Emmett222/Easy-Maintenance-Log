@@ -6,7 +6,7 @@ import Login from './login/Login.tsx';
 import { ProtectedRoute } from './components/ProtectedRoute.tsx';
 import Register from './register/Register.tsx';
 import './App.css'
-import Service from './service/Service.tsx'; // Works despite error.
+import Service from './service/Service.tsx';
 import User from './user/User.tsx'; // This is correct but is showing an error.
 
 function App() {
