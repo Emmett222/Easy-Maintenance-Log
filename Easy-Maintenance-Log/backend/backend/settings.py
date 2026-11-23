@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = os.environ["SECRET_KEY"]
 # Changed password and hid it.
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -56,7 +56,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_RATES': {
         'anon': '5/minute', 
-        'user': '100000/hour', 
+        'user': '100/hour', 
     }
 }
 
