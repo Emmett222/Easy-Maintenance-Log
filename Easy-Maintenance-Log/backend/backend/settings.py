@@ -30,9 +30,17 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["api.easymaintenancelog.com"]
+ALLOWED_HOSTS = [
+    "api.easymaintenancelog.com",
+    "localhost",
+    "127.0.0.1",
+]
 
-CORS_ALLOWED_ORIGINS = ["[https://easymaintenancelog.com](https://easymaintenancelog.com)", "[https://www.easymaintenancelog.com](https://www.easymaintenancelog.com)", "https://main.YOUR_AMPLIFY_ID.amplifyapp.com"]
+CORS_ALLOWED_ORIGINS = [
+    "https://easymaintenancelog.com",
+    "https://easymaintenancelog.com",
+    "https://main.dvc55649uwkxw.amplifyapp.com",
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
