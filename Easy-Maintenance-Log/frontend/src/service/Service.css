@@ -28,18 +28,20 @@
 }
 
 #record {
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
-    align-items: center;
+    display: block;
+    width: 94%;
+    max-width: 100%;
+    box-sizing: border-box;
 
-    padding-top: 1vh;
+    padding: 1vh 0.5rem;
     margin-top: 1vh;
     border-top: 5px groove rgb(180, 180, 180);
     border-bottom: 5px groove rgb(180, 180, 180);
     background-color: rgba(180, 180, 180, 0.1);
 
     overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 #totalsText {
@@ -50,9 +52,10 @@
 
 #recordTable {
     border-collapse: collapse;
-    width: 96%;
-    min-width: 560px;
+    width: 100%;
+    min-width: 640px;
     table-layout: fixed;
+    margin: 0 auto;
 }
 
 td {

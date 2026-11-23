@@ -5,7 +5,10 @@ import { getCarByID, updateMileage } from "../services/cars";
 import { createService, getAllServiceForCar } from "../services/services";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import type { Car } from "../services/cars";
-import { deleteServiceByID, type Service as ServiceItem } from "../services/services";
+import {
+  deleteServiceByID,
+  type Service as ServiceItem,
+} from "../services/services";
 import { getUser } from "../services/api";
 import MeterBorder from "../components/styling/MeterBorder";
 import BrightHeader from "../components/styling/BrightHeader";
@@ -268,13 +271,13 @@ function Service() {
             <MeterScreen id="record">
               <table id="recordTable">
                 <colgroup>
+                  <col style={{ width: "18%" }} />
+                  <col style={{ width: "15%" }} />
                   <col style={{ width: "13%" }} />
-                  <col style={{ width: "13%" }} />
-                  <col style={{ width: "10%" }} />
-                  <col style={{ width: "10%" }} />
                   <col style={{ width: "12%" }} />
-                  <col style={{ width: "13%" }} />
-                  <col style={{ width: "5%" }} className="no-print" />
+                  <col style={{ width: "16%" }} />
+                  <col style={{ width: "18%" }} />
+                  <col style={{ width: "8%" }} className="no-print" />
                 </colgroup>
                 <thead>
                   <tr>
