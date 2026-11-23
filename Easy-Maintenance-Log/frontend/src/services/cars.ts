@@ -13,7 +13,7 @@ export interface Car {
  * @returns Promise of the array of all the cars.
  */
 export const getCars = async (): Promise<Car[]> => {
-    const response = await api.get<Car[]>('/cars/');
+    const response = await api.get<Car[]>('/api/cars/');
     return response.data;
 }
 
@@ -24,7 +24,7 @@ export const getCars = async (): Promise<Car[]> => {
  * @returns Promise of the car wanted.
  */
 export const getCarByID = async (carID: number): Promise<Car> => {
-    const response = await api.get<Car>('/cars/' + carID);
+    const response = await api.get<Car>('/api/cars/' + carID);
     return response.data;
 }
 
