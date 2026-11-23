@@ -19,9 +19,6 @@ function HomeNav() {
         >
           Home
         </button>
-        <button style={style} className="clickDeepen navbutton">
-          Example
-        </button>
         <button
           style={style}
           className="clickDeepen navbutton"
