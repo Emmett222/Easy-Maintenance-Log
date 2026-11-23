@@ -38,7 +38,7 @@ ALLOWED_HOSTS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://easymaintenancelog.com",
-    "https://easymaintenancelog.com",
+    "https://www.easymaintenancelog.com",
     "https://main.dvc55649uwkxw.amplifyapp.com",
 ]
 
